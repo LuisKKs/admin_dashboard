@@ -26,6 +26,6 @@ class MyApp extends StatelessWidget {
                   MaterialStateProperty.all(Colors.grey.withOpacity(0.5)))),
     );
 
-    //el zurdo es gaisirijillo
+    //el zurdo es novia del nestor
   }
 }
