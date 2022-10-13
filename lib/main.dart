@@ -25,5 +25,7 @@ class MyApp extends StatelessWidget {
               thumbColor:
                   MaterialStateProperty.all(Colors.grey.withOpacity(0.5)))),
     );
+
+    //el zurdo es gaisirijillo
   }
 }
