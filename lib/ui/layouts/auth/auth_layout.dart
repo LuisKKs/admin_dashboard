@@ -51,7 +51,7 @@ class _MobileBody extends StatelessWidget {
           ),
           Container(
             width: double.infinity,
-            height: 420,
+            height: 480,
             child: child,
           )
         ],

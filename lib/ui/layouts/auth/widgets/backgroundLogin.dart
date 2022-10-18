@@ -32,19 +32,17 @@ class BackgroundDesktop extends StatelessWidget {
 class BackgroundMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Container(
+      color: Color.fromARGB(255, 241, 238, 237),
+      //decoration: buildBoxDecoration(),
       child: Container(
-        color: Color.fromARGB(255, 241, 238, 237),
-        //decoration: buildBoxDecoration(),
-        child: Container(
-          constraints: BoxConstraints(maxWidth: 400),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Image(
-                image: AssetImage('logoChido2.png'),
-                width: 400,
-              ),
+        constraints: BoxConstraints(maxWidth: 400),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Image(
+              image: AssetImage('logoChido2.png'),
+              width: 400,
             ),
           ),
         ),
