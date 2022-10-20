@@ -18,4 +18,7 @@ class CustomInputs {
       hintStyle: TextStyle(color: Colors.black),
     );
   }
+
+  static searchInputDecoration(
+      {required String hint, required IconData icon}) {}
 }
