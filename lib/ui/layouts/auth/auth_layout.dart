@@ -81,7 +81,7 @@ class _DesktopBody extends StatelessWidget {
           height: double.infinity,
           color: Color.fromARGB(255, 241, 238, 237),
           child: Column(children: [
-            CustomTitle(),
+            //CustomTitle(),
             SizedBox(height: 50),
             Expanded(child: child),
           ]),

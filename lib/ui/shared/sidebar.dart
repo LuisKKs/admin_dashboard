@@ -1,28 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import 'package:admin_dashboard/providers/sidemenu_provider.dart';
-
-import 'package:admin_dashboard/router/router.dart';
-
-import 'package:admin_dashboard/services/navigation_service.dart';
-
-import 'package:admin_dashboard/ui/shared/widgets/menu_item.dart';
+import 'package:admin_dashboard/ui/shared/widgets/CustomMenuItem.dart';
 import 'package:admin_dashboard/ui/shared/widgets/logo.dart';
 import 'package:admin_dashboard/ui/shared/widgets/text_separator.dart';
+import 'package:flutter/material.dart';
 
 class Sidebar extends StatelessWidget {
-  void navigateTo(String routeName) {
-    NavigationService.navigateTo(routeName);
-    SideMenuProvider.closeMenu();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final sideMenuProvider = Provider.of<SideMenuProvider>(context);
-
     return Container(
-      width: 200,
+      width: 295,
       height: double.infinity,
       decoration: buildBoxDecoration(),
       child: ListView(
@@ -32,63 +18,46 @@ class Sidebar extends StatelessWidget {
           SizedBox(height: 50),
           TextSeparator(text: 'main'),
           CustomMenuItem(
-            text: 'Dashboard',
-            icon: Icons.compass_calibration_outlined,
-            onPressed: () => navigateTo(Flurorouter.dashboardRoute),
-            isActive:
-                sideMenuProvider.currentPage == Flurorouter.dashboardRoute,
-          ),
+              text: 'Bienvenida',
+              icon: Icons.compass_calibration_outlined,
+              isActive: false,
+              onPressed: () => SidemenuProvider.closeMenu()),
+          SizedBox(height: 10),
           CustomMenuItem(
-              text: 'Orders',
-              icon: Icons.shopping_cart_outlined,
+              text: 'Menu De Eventos',
+              icon: Icons.compass_calibration_outlined,
+              isActive: false,
               onPressed: () {}),
+          SizedBox(height: 10),
           CustomMenuItem(
-              text: 'Analytic',
-              icon: Icons.show_chart_outlined,
+              text: 'Menu De Carreras',
+              icon: Icons.compass_calibration_outlined,
+              isActive: false,
               onPressed: () {}),
+          SizedBox(height: 10),
           CustomMenuItem(
-              text: 'Categories',
-              icon: Icons.layers_outlined,
+              text: 'Tipos De Carreras',
+              icon: Icons.compass_calibration_outlined,
+              isActive: false,
               onPressed: () {}),
+          SizedBox(height: 10),
           CustomMenuItem(
-              text: 'Products',
-              icon: Icons.dashboard_outlined,
+              text: 'Menu De Corredores',
+              icon: Icons.compass_calibration_outlined,
+              isActive: false,
               onPressed: () {}),
+          SizedBox(height: 10),
           CustomMenuItem(
-              text: 'Discount',
-              icon: Icons.attach_money_outlined,
-              onPressed: () {}),
-          CustomMenuItem(
-              text: 'Customers',
-              icon: Icons.people_alt_outlined,
+              text: 'Administracion De Usuarios',
+              icon: Icons.compass_calibration_outlined,
+              isActive: false,
               onPressed: () {}),
           SizedBox(height: 30),
-          TextSeparator(text: 'UI Elements'),
+          TextSeparator(text: 'pruebas'),
           CustomMenuItem(
-            text: 'Icons',
-            icon: Icons.list_alt_outlined,
-            onPressed: () => navigateTo(Flurorouter.iconsRoute),
-            isActive: sideMenuProvider.currentPage == Flurorouter.iconsRoute,
-          ),
-          CustomMenuItem(
-              text: 'Marketing',
-              icon: Icons.mark_email_read_outlined,
-              onPressed: () {}),
-          CustomMenuItem(
-              text: 'Campaign',
-              icon: Icons.note_add_outlined,
-              onPressed: () {}),
-          CustomMenuItem(
-            text: 'Black',
-            icon: Icons.post_add_outlined,
-            onPressed: () => navigateTo(Flurorouter.blankRoute),
-            isActive: sideMenuProvider.currentPage == Flurorouter.blankRoute,
-          ),
-          SizedBox(height: 50),
-          TextSeparator(text: 'Exit'),
-          CustomMenuItem(
-              text: 'Logout',
-              icon: Icons.exit_to_app_outlined,
+              text: 'Black',
+              icon: Icons.post_add_outlined,
+              isActive: false,
               onPressed: () {}),
         ],
       ),

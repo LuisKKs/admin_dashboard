@@ -1,9 +1,9 @@
 import 'package:admin_dashboard/providers/sidemenu_provider.dart';
-import 'package:flutter/material.dart';
-
 import 'package:admin_dashboard/ui/shared/widgets/navbar_avatar.dart';
 import 'package:admin_dashboard/ui/shared/widgets/notifications_indicator.dart';
 import 'package:admin_dashboard/ui/shared/widgets/search_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class Navbar extends StatelessWidget {
   @override
@@ -19,23 +19,20 @@ class Navbar extends StatelessWidget {
           if (size.width <= 700)
             IconButton(
                 icon: Icon(Icons.menu_outlined),
-                onPressed: () => SideMenuProvider.openMenu()),
-
+                onPressed: () => SidemenuProvider.openMenu()),
           SizedBox(width: 5),
 
-          // Search input
+          //search input
           if (size.width > 390)
             ConstrainedBox(
               constraints: BoxConstraints(maxWidth: 250),
               child: SearchText(),
             ),
-
           Spacer(),
-
           NotificationsIndicator(),
           SizedBox(width: 10),
           NavbarAvatar(),
-          SizedBox(width: 10)
+          SizedBox(width: 10),
         ],
       ),
     );

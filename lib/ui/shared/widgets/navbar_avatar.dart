@@ -6,7 +6,7 @@ class NavbarAvatar extends StatelessWidget {
     return ClipOval(
       child: Container(
         child: Image.network(
-            'https://dl.airtable.com/DH4ROlhgSVG6TpXY0xrI_large_Joel-Monegro-pic-458x458.jpg'),
+            'https://thumbs.dreamstime.com/b/hombre-gris-del-placeholder-de-la-foto-persona-136701248.jpg'),
         width: 30,
         height: 30,
       ),
