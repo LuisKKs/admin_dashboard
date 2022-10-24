@@ -12,11 +12,11 @@ class Logo extends StatelessWidget {
           //Icon(Icon.bubble_chart_outlined, color:Color (0xff7A6BF5))
           Icon(emoji_events_outlined),
           SizedBox(width: 10),
-          Text('INICIO',
+          Text('BIENVENIDO',
               style: GoogleFonts.montserratAlternates(
                   fontSize: 20,
-                  fontWeight: FontWeight.w200,
-                  color: Colors.white)),
+                  //fontWeight: FontWeight.w200,
+                  color: Colors.black)),
         ],
       ),
     );

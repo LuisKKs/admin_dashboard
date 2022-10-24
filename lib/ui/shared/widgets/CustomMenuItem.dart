@@ -43,12 +43,12 @@ class _CustomMenuItemState extends State<CustomMenuItem> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(widget.icon, color: Colors.white.withOpacity(0.3)),
+                  Icon(widget.icon, color: Colors.black),
                   SizedBox(width: 10),
                   Text(
                     widget.text,
-                    style: GoogleFonts.roboto(
-                        fontSize: 16, color: Colors.white.withOpacity(0.8)),
+                    style:
+                        GoogleFonts.roboto(fontSize: 16, color: Colors.black),
                   )
                 ],
               ),

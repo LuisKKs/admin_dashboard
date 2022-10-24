@@ -3,7 +3,6 @@ import 'package:admin_dashboard/ui/shared/widgets/navbar_avatar.dart';
 import 'package:admin_dashboard/ui/shared/widgets/notifications_indicator.dart';
 import 'package:admin_dashboard/ui/shared/widgets/search_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class Navbar extends StatelessWidget {
   @override
