@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/api/CarrerasApi.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
@@ -23,6 +24,24 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
 
     NavigationService.replaceTo(Flurorouter.dashboardRoute);
+  }
+
+  register(String email, String password, String name) {
+    //todo: peticion http
+    final data = {"nombre": name, "correo": email, "password": password};
+
+    CarrerasApi.post('/usuarios', data).then((json) {
+      print(json);
+    }).catchError((e) {
+      print('error en :$e');
+    });
+
+    //todo : navegar a la siguiente vista
+    /* authStatus = AuthStatus.authenticated;
+    LocalStorage.prefs.setString('token', this._token!);
+    NavigationService.replaceTo(Flurorouter.dashboardRoute);
+    notifyListeners();
+    */
   }
 
   Future<bool> isAuthenticated() async {

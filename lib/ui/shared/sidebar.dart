@@ -52,35 +52,26 @@ class Sidebar extends StatelessWidget {
           ),
           SizedBox(height: 10),
           CustomMenuItem(
-              text: 'Tipos De Carreras',
+              text: 'Tipo De Carreras',
               icon: Icons.type_specimen_outlined,
-              isActive: false,
-              onPressed: () {}),
+              onPressed: () => navigateTo(Flurorouter.Tipos_CarrerasRoute),
+              isActive: sideMenuProvider.currentPage ==
+                  Flurorouter.Tipos_CarrerasRoute),
           SizedBox(height: 10),
           CustomMenuItem(
+              isActive: sideMenuProvider.currentPage ==
+                  Flurorouter.Menu_CorredoresRoute,
               text: 'Menu De Corredores',
               icon: Icons.run_circle_outlined,
-              isActive: false,
-              onPressed: () {}),
+              onPressed: () => navigateTo(Flurorouter.Menu_CorredoresRoute)),
           SizedBox(height: 10),
           CustomMenuItem(
               text: 'Administracion De Usuarios',
               icon: Icons.supervised_user_circle_outlined,
-              isActive: false,
-              onPressed: () {}),
-          SizedBox(height: 30),
-          TextSeparator(text: 'pruebas'),
-          CustomMenuItem(
-              text: 'Black',
-              icon: Icons.post_add_outlined,
-              onPressed: () => navigateTo(Flurorouter.blankRoute),
-              isActive: sideMenuProvider.currentPage == Flurorouter.blankRoute),
-          CustomMenuItem(
-              isActive: sideMenuProvider.currentPage == Flurorouter.iconsRoute,
-              text: 'Icons',
-              icon: Icons.post_add_outlined,
-              onPressed: () => navigateTo(Flurorouter.iconsRoute)),
-          SizedBox(height: 50),
+              onPressed: () => navigateTo(Flurorouter.Admin_UsuariosRoute),
+              isActive: sideMenuProvider.currentPage ==
+                  Flurorouter.Admin_UsuariosRoute),
+          SizedBox(height: 100),
           TextSeparator(text: 'Salir'),
           CustomMenuItem(
               text: 'Cerrar Sesion',
