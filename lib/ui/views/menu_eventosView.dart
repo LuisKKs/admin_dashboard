@@ -1,8 +1,17 @@
+import 'package:admin_dashboard/datatables/eventos_datasource.dart';
+import 'package:admin_dashboard/ui/buttons/custom_icon_button.dart';
 import 'package:admin_dashboard/ui/cards/white_card.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:flutter/material.dart';
 
-class Menu_EventosView extends StatelessWidget {
+class Menu_EventosView extends StatefulWidget {
+  @override
+  State<Menu_EventosView> createState() => _Menu_EventosViewState();
+}
+
+class _Menu_EventosViewState extends State<Menu_EventosView> {
+  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,7 +20,39 @@ class Menu_EventosView extends StatelessWidget {
         children: [
           Text('Menu De Eventos view', style: CustomLabels.h1),
           SizedBox(height: 10),
-          WhiteCard(title: 'sales statics', child: Text('hola mundo'))
+          PaginatedDataTable(
+            columns: [
+              DataColumn(label: Text('Nombre')),
+              DataColumn(label: Text('Nombre Del Evento')),
+              DataColumn(label: Text('Fecha Inicio')),
+              DataColumn(label: Text('Fehca Final')),
+              DataColumn(label: Text('Hora Del Evento')),
+              DataColumn(label: Text('Logotipo')),
+              DataColumn(label: Text('Organizadores')),
+              DataColumn(label: Text('Correo')),
+              DataColumn(label: Text('Telefono')),
+              DataColumn(label: Text('Pagina')),
+              DataColumn(label: Text('Pais')),
+              DataColumn(label: Text('Estado')),
+              DataColumn(label: Text('Status')),
+              DataColumn(label: Text('Acciones')),
+            ],
+            source: EventosDatasource(),
+            header: Text('Eventos Disponibles', maxLines: 2),
+            onRowsPerPageChanged: (value) {
+              setState(() {
+                _rowsPerPage = value ?? 10;
+              });
+            },
+            rowsPerPage: _rowsPerPage,
+            actions: [
+              CustomIconButton(
+                onPressed: () {},
+                text: 'Crear',
+                icon: Icons.add_outlined,
+              )
+            ],
+          )
         ],
       ),
     );

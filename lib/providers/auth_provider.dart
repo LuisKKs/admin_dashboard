@@ -1,7 +1,9 @@
 import 'package:admin_dashboard/api/CarrerasApi.dart';
+import 'package:admin_dashboard/models/http/auth_reponse.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
+import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:flutter/material.dart';
 
 enum AuthStatus { checking, authenticated, notAuthenticated }
@@ -9,21 +11,31 @@ enum AuthStatus { checking, authenticated, notAuthenticated }
 class AuthProvider extends ChangeNotifier {
   String? _token;
   AuthStatus authStatus = AuthStatus.checking;
+  Usuario? user;
 
   AuthProvider() {
     this.isAuthenticated();
   }
 
   login(String email, String password) {
-    //todo: peticion http
-    this._token = 'dqwedwdewdewded.dewddwe.dewdwe';
-    LocalStorage.prefs.setString('token', this._token!);
+    final data = {"correo": email, "password": password};
 
-    //todo : navegar a la siguiente vista
-    authStatus = AuthStatus.authenticated;
-    notifyListeners();
+    CarrerasApi.post('/auth/login', data).then((json) {
+      print(json);
+      final authResponse = AuthResponse.fromMap(json);
+      this.user = authResponse.usuario;
 
-    NavigationService.replaceTo(Flurorouter.dashboardRoute);
+      authStatus = AuthStatus.authenticated;
+      LocalStorage.prefs.setString('token', authResponse.token);
+      NavigationService.replaceTo(Flurorouter.dashboardRoute);
+
+      CarrerasApi.configureDio();
+
+      notifyListeners();
+    }).catchError((e) {
+      print('error en :$e');
+      NotificationsService.showSnackbarError('Usuario / Password no validos');
+    });
   }
 
   register(String email, String password, String name) {
@@ -32,16 +44,20 @@ class AuthProvider extends ChangeNotifier {
 
     CarrerasApi.post('/usuarios', data).then((json) {
       print(json);
+      final authResponse = AuthResponse.fromMap(json);
+      this.user = authResponse.usuario;
+
+      authStatus = AuthStatus.authenticated;
+      LocalStorage.prefs.setString('token', authResponse.token);
+      NavigationService.replaceTo(Flurorouter.dashboardRoute);
+
+      CarrerasApi.configureDio();
+
+      notifyListeners();
     }).catchError((e) {
       print('error en :$e');
+      NotificationsService.showSnackbarError('Usuario / Password no validos');
     });
-
-    //todo : navegar a la siguiente vista
-    /* authStatus = AuthStatus.authenticated;
-    LocalStorage.prefs.setString('token', this._token!);
-    NavigationService.replaceTo(Flurorouter.dashboardRoute);
-    notifyListeners();
-    */
   }
 
   Future<bool> isAuthenticated() async {
@@ -55,9 +71,25 @@ class AuthProvider extends ChangeNotifier {
 
     //todo ir al backend y comprobar si eljwt es valido
 
-    await Future.delayed(Duration(microseconds: 1000));
-    authStatus = AuthStatus.authenticated;
+    try {
+      final resp = await CarrerasApi.httpGet('/auth');
+      final authResponse = AuthResponse.fromMap(resp);
+
+      this.user = authResponse.usuario;
+      authStatus = AuthStatus.authenticated;
+      notifyListeners();
+      return true;
+    } catch (e) {
+      print(e);
+      authStatus = AuthStatus.authenticated;
+      notifyListeners();
+      return false;
+    }
+  }
+
+  logout() {
+    LocalStorage.prefs.remove('token');
+    authStatus = AuthStatus.notAuthenticated;
     notifyListeners();
-    return true;
   }
 }

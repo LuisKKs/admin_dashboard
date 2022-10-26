@@ -2,8 +2,8 @@ import 'dart:convert';
 
 class AuthResponse {
   AuthResponse({
-    this.usuario,
-    this.token,
+    required this.usuario,
+    required this.token,
   });
 
   Usuario usuario;
@@ -27,12 +27,12 @@ class AuthResponse {
 
 class Usuario {
   Usuario({
-    this.rol,
-    this.estado,
-    this.google,
-    this.nombre,
-    this.correo,
-    this.uid,
+    required this.rol,
+    required this.estado,
+    required this.google,
+    required this.nombre,
+    required this.correo,
+    required this.uid,
   });
 
   String rol;

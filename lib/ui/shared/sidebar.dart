@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/providers/sidemenu_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
@@ -77,7 +78,9 @@ class Sidebar extends StatelessWidget {
               text: 'Cerrar Sesion',
               icon: Icons.exit_to_app_outlined,
               isActive: false,
-              onPressed: () {}),
+              onPressed: () {
+                Provider.of<AuthProvider>(context, listen: false).logout();
+              }),
         ],
       ),
     );

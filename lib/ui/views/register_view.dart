@@ -10,8 +10,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class RegisterView extends StatelessWidget {
+  //final cont = context;
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return ChangeNotifierProvider(
       create: (_) => RegisterFormProvider(),
       child: Builder(builder: (context) {
@@ -37,8 +40,14 @@ class RegisterView extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
 
+                      SizedBox(
+                        height: 10,
+                      ),
+
                       //email
                       TextFormField(
+                        onFieldSubmitted: (_) =>
+                            onFormSubmit(registerFormProvider, authProvider),
                         onChanged: (value) => registerFormProvider.name = value,
                         validator: (value) {
                           if (value == null || value.isEmpty)
@@ -57,6 +66,8 @@ class RegisterView extends StatelessWidget {
                       ),
 
                       TextFormField(
+                        onFieldSubmitted: (_) =>
+                            onFormSubmit(registerFormProvider, authProvider),
                         onChanged: (value) =>
                             registerFormProvider.email = value,
                         validator: (value) {
@@ -77,6 +88,8 @@ class RegisterView extends StatelessWidget {
 
                       //contraseña
                       TextFormField(
+                        onFieldSubmitted: (_) =>
+                            onFormSubmit(registerFormProvider, authProvider),
                         onChanged: (value) =>
                             registerFormProvider.password = value,
                         validator: (value) {
@@ -97,18 +110,8 @@ class RegisterView extends StatelessWidget {
 
                       SizedBox(height: 20),
                       CustomOutlinedButton(
-                        onPressed: () {
-                          final validForm = registerFormProvider.validateForm();
-                          if (!validForm) return;
-
-                          //todo autprovider register
-                          final authProvider =
-                              Provider.of<AuthProvider>(context, listen: false);
-                          authProvider.register(
-                              registerFormProvider.email,
-                              registerFormProvider.password,
-                              registerFormProvider.name);
-                        },
+                        onPressed: () =>
+                            onFormSubmit(registerFormProvider, authProvider),
                         text: 'Crear Cuenta ',
                       ),
 
@@ -126,5 +129,14 @@ class RegisterView extends StatelessWidget {
         );
       }),
     );
+  }
+
+  void onFormSubmit(
+      RegisterFormProvider registerFormProvider, AuthProvider authProvider) {
+    final validForm = registerFormProvider.validateForm();
+    if (!validForm) return;
+    //final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    authProvider.register(registerFormProvider.email,
+        registerFormProvider.password, registerFormProvider.name);
   }
 }
