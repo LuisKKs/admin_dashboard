@@ -1,8 +1,10 @@
 import 'package:admin_dashboard/datatables/eventos_datasource.dart';
+import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/ui/buttons/custom_icon_button.dart';
 import 'package:admin_dashboard/ui/cards/white_card.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Menu_EventosView extends StatefulWidget {
   @override
@@ -11,6 +13,13 @@ class Menu_EventosView extends StatefulWidget {
 
 class _Menu_EventosViewState extends State<Menu_EventosView> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Provider.of<EventosProvider>(context, listen: false).getEventos();
+  }
 
   @override
   Widget build(BuildContext context) {

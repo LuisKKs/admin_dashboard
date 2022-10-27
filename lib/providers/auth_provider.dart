@@ -1,4 +1,4 @@
-import 'package:admin_dashboard/api/CarrerasApi.dart';
+import 'package:admin_dashboard/api/EventosApi.dart';
 import 'package:admin_dashboard/models/http/auth_reponse.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
@@ -20,7 +20,7 @@ class AuthProvider extends ChangeNotifier {
   login(String email, String password) {
     final data = {"correo": email, "password": password};
 
-    CarrerasApi.post('/auth/login', data).then((json) {
+    EventosApi.post('/auth/login', data).then((json) {
       print(json);
       final authResponse = AuthResponse.fromMap(json);
       this.user = authResponse.usuario;
@@ -29,7 +29,7 @@ class AuthProvider extends ChangeNotifier {
       LocalStorage.prefs.setString('token', authResponse.token);
       NavigationService.replaceTo(Flurorouter.dashboardRoute);
 
-      CarrerasApi.configureDio();
+      EventosApi.configureDio();
 
       notifyListeners();
     }).catchError((e) {
@@ -42,7 +42,7 @@ class AuthProvider extends ChangeNotifier {
     //todo: peticion http
     final data = {"nombre": name, "correo": email, "password": password};
 
-    CarrerasApi.post('/usuarios', data).then((json) {
+    EventosApi.post('/usuarios', data).then((json) {
       print(json);
       final authResponse = AuthResponse.fromMap(json);
       this.user = authResponse.usuario;
@@ -51,7 +51,7 @@ class AuthProvider extends ChangeNotifier {
       LocalStorage.prefs.setString('token', authResponse.token);
       NavigationService.replaceTo(Flurorouter.dashboardRoute);
 
-      CarrerasApi.configureDio();
+      EventosApi.configureDio();
 
       notifyListeners();
     }).catchError((e) {
@@ -72,7 +72,7 @@ class AuthProvider extends ChangeNotifier {
     //todo ir al backend y comprobar si eljwt es valido
 
     try {
-      final resp = await CarrerasApi.httpGet('/auth');
+      final resp = await EventosApi.httpGet('/auth');
       final authResponse = AuthResponse.fromMap(resp);
 
       this.user = authResponse.usuario;

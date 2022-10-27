@@ -1,7 +1,7 @@
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:dio/dio.dart';
 
-class CarrerasApi {
+class EventosApi {
   static Dio _dio = new Dio();
 
   static void configureDio() {
