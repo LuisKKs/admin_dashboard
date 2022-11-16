@@ -15,7 +15,7 @@ class DashboardView extends StatelessWidget {
         children: [
           Text('Inicio view', style: CustomLabels.h1),
           SizedBox(height: 10),
-          WhiteCard(title: user.nombre, child: Text(user.correo))
+          WhiteCard(title: user.name, child: Text(user.email))
         ],
       ),
     );

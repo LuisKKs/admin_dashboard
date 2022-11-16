@@ -38,9 +38,16 @@ class AuthProvider extends ChangeNotifier {
     });
   }
 
-  register(String email, String password, String name) {
+  register(String email, String password, String name, String lastname,
+      String phonenumber) {
     //todo: peticion http
-    final data = {"nombre": name, "correo": email, "password": password};
+    final data = {
+      "nombre": name,
+      "correo": email,
+      "password": password,
+      "lastname": lastname,
+      "phonenumber": phonenumber
+    };
 
     EventosApi.post('/usuarios', data).then((json) {
       print(json);

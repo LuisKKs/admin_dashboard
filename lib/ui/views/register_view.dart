@@ -58,7 +58,51 @@ class RegisterView extends StatelessWidget {
                         decoration: CustomInputs.loginInputDecoration(
                             hint: 'Ingrese su nombre',
                             label: 'Nombre',
+                            icon: Icons.account_circle),
+                      ),
+
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      //lastname
+                      TextFormField(
+                        onFieldSubmitted: (_) =>
+                            onFormSubmit(registerFormProvider, authProvider),
+                        onChanged: (value) =>
+                            registerFormProvider.lastname = value,
+                        validator: (value) {
+                          if (value == null || value.isEmpty)
+                            return 'El Apellido es obligatorio';
+                          return null;
+                        },
+                        style: TextStyle(color: Colors.black),
+                        decoration: CustomInputs.loginInputDecoration(
+                            hint: 'Ingrese su apellido',
+                            label: 'Apellido',
                             icon: Icons.supervised_user_circle_sharp),
+                      ),
+
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      //numero
+                      TextFormField(
+                        onFieldSubmitted: (_) =>
+                            onFormSubmit(registerFormProvider, authProvider),
+                        onChanged: (value) =>
+                            registerFormProvider.phonenumber = value,
+                        validator: (value) {
+                          if (value == null || value.isEmpty)
+                            return 'El Numero es obligatorio';
+                          return null;
+                        },
+                        style: TextStyle(color: Colors.black),
+                        decoration: CustomInputs.loginInputDecoration(
+                            hint: 'Ingrese su Numero',
+                            label: 'Numero',
+                            icon: Icons.phone_android_outlined),
                       ),
 
                       SizedBox(
@@ -108,14 +152,14 @@ class RegisterView extends StatelessWidget {
                             icon: Icons.lock_outline_rounded),
                       ),
 
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       CustomOutlinedButton(
                         onPressed: () =>
                             onFormSubmit(registerFormProvider, authProvider),
                         text: 'Crear Cuenta ',
                       ),
 
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       LinkText(
                         text: 'Ir al login',
                         onPressed: () {
@@ -136,7 +180,11 @@ class RegisterView extends StatelessWidget {
     final validForm = registerFormProvider.validateForm();
     if (!validForm) return;
     //final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    authProvider.register(registerFormProvider.email,
-        registerFormProvider.password, registerFormProvider.name);
+    authProvider.register(
+        registerFormProvider.email,
+        registerFormProvider.password,
+        registerFormProvider.name,
+        registerFormProvider.lastname,
+        registerFormProvider.phonenumber);
   }
 }

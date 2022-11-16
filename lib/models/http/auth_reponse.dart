@@ -27,19 +27,23 @@ class AuthResponse {
 
 class Usuario {
   Usuario({
-    required this.rol,
-    required this.estado,
+    required this.name,
+    required this.lastname,
+    required this.email,
+    required this.phonenumber,
+    required this.role,
+    required this.status,
     required this.google,
-    required this.nombre,
-    required this.correo,
     required this.uid,
   });
 
-  String rol;
-  bool estado;
+  String name;
+  String lastname;
+  String email;
+  String phonenumber;
+  String role;
+  bool status;
   bool google;
-  String nombre;
-  String correo;
   String uid;
 
   factory Usuario.fromJson(String str) => Usuario.fromMap(json.decode(str));
@@ -47,20 +51,24 @@ class Usuario {
   String toJson() => json.encode(toMap());
 
   factory Usuario.fromMap(Map<String, dynamic> json) => Usuario(
-        rol: json["rol"],
-        estado: json["estado"],
+        name: json["name"],
+        lastname: json["lastname"],
+        email: json["email"],
+        phonenumber: json["phonenumber"],
+        role: json["role"],
+        status: json["status"],
         google: json["google"],
-        nombre: json["nombre"],
-        correo: json["correo"],
         uid: json["uid"],
       );
 
   Map<String, dynamic> toMap() => {
-        "rol": rol,
-        "estado": estado,
+        "name": name,
+        "lastname": lastname,
+        "email": email,
+        "phonenumber": phonenumber,
+        "role": role,
+        "status": status,
         "google": google,
-        "nombre": nombre,
-        "correo": correo,
         "uid": uid,
       };
 }

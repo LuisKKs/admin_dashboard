@@ -34,7 +34,7 @@ class EventosApi {
       return resp.data;
     } catch (e) {
       print(e);
-      throw ('Error en el get ');
+      throw ('Error en el post ');
     }
   }
 }
