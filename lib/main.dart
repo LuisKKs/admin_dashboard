@@ -1,4 +1,4 @@
-import 'package:admin_dashboard/api/EventosApi.dart';
+import 'package:admin_dashboard/api/eventos_api.dart';
 import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/providers/sidemenu_provider.dart';

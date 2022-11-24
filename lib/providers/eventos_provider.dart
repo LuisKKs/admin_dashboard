@@ -1,4 +1,4 @@
-import 'package:admin_dashboard/api/EventosApi.dart';
+import 'package:admin_dashboard/api/eventos_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
