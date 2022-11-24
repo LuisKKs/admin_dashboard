@@ -30,20 +30,20 @@ class Usuario {
     required this.name,
     required this.lastname,
     required this.email,
-    required this.phonenumber,
-    required this.role,
-    required this.status,
-    required this.google,
+    this.phonenumber,
+    this.role,
+    this.status,
+    this.google,
     required this.uid,
   });
 
   String name;
   String lastname;
   String email;
-  String phonenumber;
-  String role;
-  bool status;
-  bool google;
+  String? phonenumber;
+  String? role;
+  bool? status;
+  bool? google;
   String uid;
 
   factory Usuario.fromJson(String str) => Usuario.fromMap(json.decode(str));

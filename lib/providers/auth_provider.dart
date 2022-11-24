@@ -22,7 +22,6 @@ class AuthProvider extends ChangeNotifier {
 
     EventosApi.post('/auth/login', data).then((json) {
       final authResponse = AuthResponse.fromMap(json);
-      print(authResponse);
       this.user = authResponse.usuario;
       authStatus = AuthStatus.authenticated;
       LocalStorage.prefs.setString('token', authResponse.token);
