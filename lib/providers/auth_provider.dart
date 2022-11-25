@@ -51,7 +51,7 @@ class AuthProvider extends ChangeNotifier {
       EventosApi.configureDio();
       notifyListeners();
     }).catchError((e) {
-      NotificationsService.showSnackbarError('Usuario / Password no validos');
+      NotificationsService.showSnackbarError('Error al Registrar');
     });
   }
 
