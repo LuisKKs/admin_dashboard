@@ -1,7 +1,6 @@
 import 'package:admin_dashboard/datatables/eventos_datasource.dart';
 import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/ui/buttons/custom_icon_button.dart';
-import 'package:admin_dashboard/ui/cards/white_card.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +22,8 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
 
   @override
   Widget build(BuildContext context) {
+    final eventos = Provider.of<EventosProvider>(context).eventos;
+
     return Container(
       child: ListView(
         physics: ClampingScrollPhysics(),
@@ -46,7 +47,7 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
               DataColumn(label: Text('Status')),
               DataColumn(label: Text('Acciones')),
             ],
-            source: EventosDatasource(),
+            source: EventosDatasource(eventos),
             header: Text('Eventos Disponibles', maxLines: 2),
             onRowsPerPageChanged: (value) {
               setState(() {

@@ -25,10 +25,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(lazy: false, create: (_) => AuthProvider()),
-        ChangeNotifierProvider(
-          lazy: false,
-          create: (_) => SidemenuProvider(),
-        ),
+        ChangeNotifierProvider(lazy: false, create: (_) => SidemenuProvider()),
         ChangeNotifierProvider(create: (_) => EventosProvider()),
       ],
       child: MyApp(),
