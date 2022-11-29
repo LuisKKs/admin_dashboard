@@ -8,12 +8,13 @@ class EventosDatasource extends DataTableSource {
   @override
   DataRow getRow(int index) {
     final evento = this.eventos[index];
-
+    String start = evento.dateStart.toString();
+    String end = evento.dateFinish.toString();
     return DataRow.byIndex(index: index, cells: [
       DataCell(Text(evento.shortName)),
       DataCell(Text(evento.eventName)),
-      DataCell(Text('Cell #3 index:$index')),
-      DataCell(Text('Cell #4 index:$index')),
+      DataCell(Text(start)),
+      DataCell(Text(end)),
       //DataCell(Text(evento.dateStart)),
       //DataCell(Text(evento.dateFinish)),
       DataCell(Text(evento.eventHour)),
@@ -24,7 +25,7 @@ class EventosDatasource extends DataTableSource {
       DataCell(Text(evento.website)),
       DataCell(Text(evento.country)),
       DataCell(Text(evento.stateCountry)),
-      DataCell(Text('Cell #13 index:$index')),
+      DataCell(Text(evento.raceType.typeName)),
       DataCell(Text('Cell #14 index:$index')),
     ]);
   }
