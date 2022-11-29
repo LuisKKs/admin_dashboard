@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class EventosDatasource extends DataTableSource {
   final List<Evento> eventos;
-  EventosDatasource(this.eventos);
+  final BuildContext context;
+  EventosDatasource(this.eventos, this.context);
 
   @override
   DataRow getRow(int index) {
@@ -15,8 +16,6 @@ class EventosDatasource extends DataTableSource {
       DataCell(Text(evento.eventName)),
       DataCell(Text(start)),
       DataCell(Text(end)),
-      //DataCell(Text(evento.dateStart)),
-      //DataCell(Text(evento.dateFinish)),
       DataCell(Text(evento.eventHour)),
       DataCell(Text(evento.logo)),
       DataCell(Text(evento.organizer)),
@@ -26,7 +25,43 @@ class EventosDatasource extends DataTableSource {
       DataCell(Text(evento.country)),
       DataCell(Text(evento.stateCountry)),
       DataCell(Text(evento.raceType.typeName)),
-      DataCell(Text('Cell #14 index:$index')),
+      DataCell(Row(
+        verticalDirection: VerticalDirection.up,
+        children: [
+          IconButton(
+              icon: Icon(Icons.edit_outlined),
+              onPressed: () {
+                print('editando: $evento');
+              }),
+          IconButton(
+              icon: Icon(
+                Icons.delete_outlined,
+                color: Colors.red.withOpacity(0.8),
+              ),
+              onPressed: () {
+                final dialog = AlertDialog(
+                  title: Text('¿Esta seguro de borrarlo?'),
+                  content: Text('Borrar definitivamente ${evento.eventName}?'),
+                  actions: [
+                    TextButton(
+                      child: Text('No'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    TextButton(
+                      child: Text('Si, borrar'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+
+                showDialog(context: context, builder: (_) => dialog);
+              }),
+        ],
+      )),
     ]);
   }
 

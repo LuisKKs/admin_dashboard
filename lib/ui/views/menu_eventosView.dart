@@ -2,6 +2,7 @@ import 'package:admin_dashboard/datatables/eventos_datasource.dart';
 import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/ui/buttons/custom_icon_button.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
+import 'package:admin_dashboard/ui/modals/evento_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +26,7 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
     final eventos = Provider.of<EventosProvider>(context).eventos;
 
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: ListView(
         physics: ClampingScrollPhysics(),
         children: [
@@ -44,10 +46,10 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
               DataColumn(label: Text('Pagina')),
               DataColumn(label: Text('Pais')),
               DataColumn(label: Text('Estado')),
-              DataColumn(label: Text('Status')),
+              DataColumn(label: Text('Tipo de Carrera')),
               DataColumn(label: Text('Acciones')),
             ],
-            source: EventosDatasource(eventos),
+            source: EventosDatasource(eventos, context),
             header: Text('Eventos Disponibles', maxLines: 2),
             onRowsPerPageChanged: (value) {
               setState(() {
@@ -57,7 +59,12 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
             rowsPerPage: _rowsPerPage,
             actions: [
               CustomIconButton(
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (_) => EventoModal());
+                },
                 text: 'Crear',
                 icon: Icons.add_outlined,
               )
