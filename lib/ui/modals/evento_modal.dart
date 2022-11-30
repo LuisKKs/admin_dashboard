@@ -50,57 +50,182 @@ class _EventoModalState extends State<EventoModal> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      height: 2500,
-      width: 1500,
-      decoration: buildBoxDecoration(),
-      child: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(widget.evento?.shortName ?? 'Nuevo Evento',
-                style: CustomLabels.h1.copyWith(color: Colors.white)),
-            IconButton(
-                icon: Icon(
-                  Icons.close,
-                  color: Colors.white,
+    return Scaffold(
+      body: Container(
+        decoration: buildBoxDecoration(),
+        child: Scrollbar(
+          child: ListView(
+              physics: ClampingScrollPhysics(),
+              padding: EdgeInsets.all(10),
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(widget.evento?.shortName ?? 'Nuevo Evento',
+                        style: CustomLabels.h1.copyWith(color: Colors.white)),
+                    IconButton(
+                        icon: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => Navigator.of(context).pop())
+                  ],
                 ),
-                onPressed: () => Navigator.of(context).pop())
-          ],
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                TextFormField(
+                  initialValue: widget.evento?.eventName ?? '',
+                  onChanged: (value) => eventName = value,
+                  decoration: CustomInputs.loginInputDecoration(
+                    hint: 'Nombre del evento',
+                    label: 'Evento',
+                    icon: Icons.new_releases_outlined,
+                  ),
+                ),
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                TextFormField(
+                  initialValue: widget.evento?.shortName ?? '',
+                  onChanged: (value) => shortName = value,
+                  decoration: CustomInputs.loginInputDecoration(
+                    hint: 'Nombre Corto del Evento',
+                    label: 'Siglas',
+                    icon: Icons.new_releases_outlined,
+                  ),
+                ),
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                TextFormField(
+                  initialValue: widget.evento?.eventName ?? '',
+                  onChanged: (value) => eventName = value,
+                  decoration: CustomInputs.loginInputDecoration(
+                    hint: 'Nombre del evento',
+                    label: 'Evento',
+                    icon: Icons.new_releases_outlined,
+                  ),
+                ),
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                TextFormField(
+                  initialValue: widget.evento?.eventName ?? '',
+                  onChanged: (value) => eventName = value,
+                  decoration: CustomInputs.loginInputDecoration(
+                    hint: 'Nombre del evento',
+                    label: 'Evento',
+                    icon: Icons.new_releases_outlined,
+                  ),
+                ),
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                TextFormField(
+                  initialValue: widget.evento?.eventName ?? '',
+                  onChanged: (value) => eventName = value,
+                  decoration: CustomInputs.loginInputDecoration(
+                    hint: 'Nombre del evento',
+                    label: 'Evento',
+                    icon: Icons.new_releases_outlined,
+                  ),
+                ),
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                TextFormField(
+                  initialValue: widget.evento?.eventName ?? '',
+                  onChanged: (value) => eventName = value,
+                  decoration: CustomInputs.loginInputDecoration(
+                    hint: 'Nombre del evento',
+                    label: 'Evento',
+                    icon: Icons.new_releases_outlined,
+                  ),
+                ),
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                TextFormField(
+                  initialValue: widget.evento?.eventName ?? '',
+                  onChanged: (value) => eventName = value,
+                  decoration: CustomInputs.loginInputDecoration(
+                    hint: 'Nombre del evento',
+                    label: 'Evento',
+                    icon: Icons.new_releases_outlined,
+                  ),
+                ),
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                TextFormField(
+                  initialValue: widget.evento?.eventName ?? '',
+                  onChanged: (value) => eventName = value,
+                  decoration: CustomInputs.loginInputDecoration(
+                    hint: 'Nombre del evento',
+                    label: 'Evento',
+                    icon: Icons.new_releases_outlined,
+                  ),
+                ),
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                TextFormField(
+                  initialValue: widget.evento?.eventName ?? '',
+                  onChanged: (value) => eventName = value,
+                  decoration: CustomInputs.loginInputDecoration(
+                    hint: 'Nombre del evento',
+                    label: 'Evento',
+                    icon: Icons.new_releases_outlined,
+                  ),
+                ),
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                TextFormField(
+                  initialValue: widget.evento?.eventName ?? '',
+                  onChanged: (value) => eventName = value,
+                  decoration: CustomInputs.loginInputDecoration(
+                    hint: 'Nombre del evento',
+                    label: 'Evento',
+                    icon: Icons.new_releases_outlined,
+                  ),
+                ),
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                TextFormField(
+                  initialValue: widget.evento?.eventName ?? '',
+                  onChanged: (value) => eventName = value,
+                  decoration: CustomInputs.loginInputDecoration(
+                    hint: 'Nombre del evento',
+                    label: 'Evento',
+                    icon: Icons.new_releases_outlined,
+                  ),
+                ),
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                TextFormField(
+                  initialValue: widget.evento?.eventName ?? '',
+                  onChanged: (value) => eventName = value,
+                  decoration: CustomInputs.loginInputDecoration(
+                    hint: 'Nombre del evento',
+                    label: 'Evento',
+                    icon: Icons.new_releases_outlined,
+                  ),
+                ),
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                TextFormField(
+                  initialValue: widget.evento?.eventName ?? '',
+                  onChanged: (value) => eventName = value,
+                  decoration: CustomInputs.loginInputDecoration(
+                    hint: 'Nombre del evento',
+                    label: 'Evento',
+                    icon: Icons.new_releases_outlined,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 30),
+                  alignment: Alignment.center,
+                  child: CustomOutlinedButton(
+                    onPressed: () async {},
+                    text: 'Guardar',
+                    color: Colors.black,
+                  ),
+                )
+              ]),
         ),
-        Divider(color: Colors.white.withOpacity(0.3)),
-        SizedBox(height: 10),
-        TextFormField(
-          initialValue: widget.evento?.eventName ?? '',
-          onChanged: (value) => eventName = value,
-          decoration: CustomInputs.loginInputDecoration(
-            hint: 'Nombre del evento',
-            label: 'Evento',
-            icon: Icons.new_releases_outlined,
-          ),
-        ),
-        Divider(color: Colors.white.withOpacity(0.3)),
-        SizedBox(height: 10),
-        TextFormField(
-          initialValue: widget.evento?.shortName ?? '',
-          onChanged: (value) => shortName = value,
-          decoration: CustomInputs.loginInputDecoration(
-            hint: 'Nombre Corto del Evento',
-            label: 'Siglas',
-            icon: Icons.new_releases_outlined,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 30),
-          alignment: Alignment.center,
-          child: CustomOutlinedButton(
-            onPressed: () async {},
-            text: 'Guardar',
-            color: Colors.black,
-          ),
-        )
-      ]),
+      ),
     );
   }
 
