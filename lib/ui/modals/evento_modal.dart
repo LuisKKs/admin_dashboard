@@ -1,6 +1,5 @@
 import 'package:admin_dashboard/models/evento.dart';
 import 'package:admin_dashboard/ui/buttons/custom_outlined_button.dart';
-import 'package:admin_dashboard/ui/cards/white_card.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +50,7 @@ class _EventoModalState extends State<EventoModal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Container(
         decoration: buildBoxDecoration(),
         child: Scrollbar(
@@ -95,7 +95,19 @@ class _EventoModalState extends State<EventoModal> {
                 ),
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
-                TextFormField(
+                /*TextFormField(
+                  initialValue: widget.evento?.dateStart ?? '',
+                  keyboardType: TextInputType.datetime,
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.calendar_month_outlined),
+                    labelText: 'Fecha inicio',
+                    helperText: 'DD / MM / AAAA',
+                    isDense: false,
+                    contentPadding: EdgeInsets.all(10),
+                  ),
+                ), */
+
+                /*TextFormField(
                   initialValue: widget.evento?.eventName ?? '',
                   onChanged: (value) => eventName = value,
                   decoration: CustomInputs.loginInputDecoration(
@@ -103,7 +115,7 @@ class _EventoModalState extends State<EventoModal> {
                     label: 'Evento',
                     icon: Icons.new_releases_outlined,
                   ),
-                ),
+                ), */
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
                 TextFormField(
@@ -118,99 +130,77 @@ class _EventoModalState extends State<EventoModal> {
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
                 TextFormField(
-                  initialValue: widget.evento?.eventName ?? '',
-                  onChanged: (value) => eventName = value,
+                  initialValue: widget.evento?.eventHour ?? '',
+                  onChanged: (value) => eventHour = value,
                   decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Nombre del evento',
-                    label: 'Evento',
+                    hint: 'Hora del evento',
+                    label: 'Hora',
                     icon: Icons.new_releases_outlined,
                   ),
                 ),
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
                 TextFormField(
-                  initialValue: widget.evento?.eventName ?? '',
-                  onChanged: (value) => eventName = value,
+                  initialValue: widget.evento?.organizer ?? '',
+                  onChanged: (value) => organizer = value,
                   decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Nombre del evento',
-                    label: 'Evento',
+                    hint: 'Organizador',
+                    label: 'Organizadores',
                     icon: Icons.new_releases_outlined,
                   ),
                 ),
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
                 TextFormField(
-                  initialValue: widget.evento?.eventName ?? '',
-                  onChanged: (value) => eventName = value,
+                  initialValue: widget.evento?.email ?? '',
+                  onChanged: (value) => email = value,
                   decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Nombre del evento',
-                    label: 'Evento',
+                    hint: 'Correo Electronico',
+                    label: 'Ingrese su correo electronico',
                     icon: Icons.new_releases_outlined,
                   ),
                 ),
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
                 TextFormField(
-                  initialValue: widget.evento?.eventName ?? '',
-                  onChanged: (value) => eventName = value,
+                  initialValue: widget.evento?.phone ?? '',
+                  onChanged: (value) => phone = value,
                   decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Nombre del evento',
-                    label: 'Evento',
+                    hint: 'Numero de Telefono',
+                    label: 'Ingrese su numero de telefono',
                     icon: Icons.new_releases_outlined,
                   ),
                 ),
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
                 TextFormField(
-                  initialValue: widget.evento?.eventName ?? '',
-                  onChanged: (value) => eventName = value,
+                  initialValue: widget.evento?.website ?? '',
+                  onChanged: (value) => website = value,
                   decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Nombre del evento',
-                    label: 'Evento',
+                    hint: 'Sitio Web',
+                    label: 'Ingrese si tiene sitio web',
                     icon: Icons.new_releases_outlined,
                   ),
                 ),
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
                 TextFormField(
-                  initialValue: widget.evento?.eventName ?? '',
-                  onChanged: (value) => eventName = value,
+                  initialValue: widget.evento?.country ?? '',
+                  onChanged: (value) => country = value,
                   decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Nombre del evento',
-                    label: 'Evento',
+                    hint: 'Pais',
+                    label: 'Ingrese su Pais',
                     icon: Icons.new_releases_outlined,
                   ),
                 ),
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
                 TextFormField(
-                  initialValue: widget.evento?.eventName ?? '',
-                  onChanged: (value) => eventName = value,
+                  initialValue: widget.evento?.stateCountry ?? '',
+                  onChanged: (value) => stateCountry = value,
                   decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Nombre del evento',
-                    label: 'Evento',
-                    icon: Icons.new_releases_outlined,
-                  ),
-                ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                TextFormField(
-                  initialValue: widget.evento?.eventName ?? '',
-                  onChanged: (value) => eventName = value,
-                  decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Nombre del evento',
-                    label: 'Evento',
-                    icon: Icons.new_releases_outlined,
-                  ),
-                ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                TextFormField(
-                  initialValue: widget.evento?.eventName ?? '',
-                  onChanged: (value) => eventName = value,
-                  decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Nombre del evento',
-                    label: 'Evento',
+                    hint: 'Estado',
+                    label: 'Ingrese su estado',
                     icon: Icons.new_releases_outlined,
                   ),
                 ),
