@@ -119,18 +119,24 @@ class _EventoModalState extends State<EventoModal> {
                 ), */
                 DateTimeFormField(
                   decoration: const InputDecoration(
+                    ///
+                    //  *Decoracion del datetime input
+                    ///
                     hintStyle: TextStyle(color: Colors.black45),
                     errorStyle: TextStyle(color: Colors.redAccent),
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.event_note),
-                    labelText: 'Only time',
+                    labelText: 'Fecha de inicio',
                   ),
-                  mode: DateTimeFieldPickerMode.dateAndTime,
+                  mode: DateTimeFieldPickerMode
+                      .dateAndTime, // Selector de tipo de datetime .dateAndTime = fecha y hora, date = fecha, time = hora.
                   autovalidateMode: AutovalidateMode.always,
                   validator: (e) =>
                       (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
+                  initialValue: widget.evento?.dateStart ?? dateStart,
                   onDateSelected: (DateTime value) {
-                    print(value);
+                    dateStart =
+                        value; //al momento de acabar de seleccionar la fecha se guarda en la variable local correspondiente
                   },
                 ),
                 Divider(color: Colors.white.withOpacity(0.3)),
