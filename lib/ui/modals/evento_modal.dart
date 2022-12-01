@@ -2,6 +2,7 @@ import 'package:admin_dashboard/models/evento.dart';
 import 'package:admin_dashboard/ui/buttons/custom_outlined_button.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
+import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 
 class EventoModal extends StatefulWidget {
@@ -116,6 +117,22 @@ class _EventoModalState extends State<EventoModal> {
                     icon: Icons.new_releases_outlined,
                   ),
                 ), */
+                DateTimeFormField(
+                  decoration: const InputDecoration(
+                    hintStyle: TextStyle(color: Colors.black45),
+                    errorStyle: TextStyle(color: Colors.redAccent),
+                    border: OutlineInputBorder(),
+                    suffixIcon: Icon(Icons.event_note),
+                    labelText: 'Only time',
+                  ),
+                  mode: DateTimeFieldPickerMode.dateAndTime,
+                  autovalidateMode: AutovalidateMode.always,
+                  validator: (e) =>
+                      (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
+                  onDateSelected: (DateTime value) {
+                    print(value);
+                  },
+                ),
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
                 TextFormField(
