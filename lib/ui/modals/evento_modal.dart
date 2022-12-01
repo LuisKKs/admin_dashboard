@@ -1,9 +1,11 @@
 import 'package:admin_dashboard/models/evento.dart';
+import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/ui/buttons/custom_outlined_button.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EventoModal extends StatefulWidget {
   final Evento? evento;
@@ -50,6 +52,13 @@ class _EventoModalState extends State<EventoModal> {
 
   @override
   Widget build(BuildContext context) {
+    final eventoProvider = Provider.of<EventosProvider>(context, listen: false);
+    List<String?> lista2 = <String?>[
+      widget.evento?.raceType.typeName
+    ]; //intente jalar los datos para mapear
+    List<String> listaprueba = <String>["BMX", "RUTA"]; //los cree estaticos
+
+    var items;
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -96,33 +105,12 @@ class _EventoModalState extends State<EventoModal> {
                 ),
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
-                /*TextFormField(
-                  initialValue: widget.evento?.dateStart ?? '',
-                  keyboardType: TextInputType.datetime,
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.calendar_month_outlined),
-                    labelText: 'Fecha inicio',
-                    helperText: 'DD / MM / AAAA',
-                    isDense: false,
-                    contentPadding: EdgeInsets.all(10),
-                  ),
-                ), */
-
-                /*TextFormField(
-                  initialValue: widget.evento?.eventName ?? '',
-                  onChanged: (value) => eventName = value,
-                  decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Nombre del evento',
-                    label: 'Evento',
-                    icon: Icons.new_releases_outlined,
-                  ),
-                ), */
                 DateTimeFormField(
                   decoration: const InputDecoration(
                     ///
                     //  *Decoracion del datetime input
                     ///
-                    hintStyle: TextStyle(color: Colors.black45),
+                    hintStyle: TextStyle(color: Colors.black),
                     errorStyle: TextStyle(color: Colors.redAccent),
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.event_note),
@@ -141,14 +129,48 @@ class _EventoModalState extends State<EventoModal> {
                 ),
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
-                TextFormField(
-                  initialValue: widget.evento?.eventName ?? '',
-                  onChanged: (value) => eventName = value,
-                  decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Nombre del evento',
-                    label: 'Evento',
-                    icon: Icons.new_releases_outlined,
+                DateTimeFormField(
+                  decoration: const InputDecoration(
+                    ///
+                    //  *Decoracion del datetime input
+                    ///
+                    hintStyle: TextStyle(color: Colors.black),
+                    errorStyle: TextStyle(color: Colors.redAccent),
+                    border: OutlineInputBorder(),
+                    suffixIcon: Icon(Icons.event_note),
+                    labelText: 'Fecha Final',
                   ),
+
+                  mode: DateTimeFieldPickerMode
+                      .dateAndTime, // Selector de tipo de datetime .dateAndTime = fecha y hora, date = fecha, time = hora.
+                  autovalidateMode: AutovalidateMode.always,
+                  validator: (e) =>
+                      (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
+                  initialValue: widget.evento?.dateFinish ?? dateFinish,
+                  onDateSelected: (DateTime value) {
+                    dateFinish =
+                        value; //al momento de acabar de seleccionar la fecha se guarda en la variable local correspondiente
+                  },
+                ),
+                Divider(color: Colors.white.withOpacity(0.3)),
+                SizedBox(height: 10),
+                DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                          width: 1, color: Colors.black.withOpacity(0.6)),
+                    ),
+                  ),
+                  items: lista2.map((String? a) {
+                    //mando a llamar la lista que cree para mapearla
+                    return DropdownMenuItem(
+                        value: a,
+                        child: Text(a ??
+                            '')); //aqui se despliega el menu con campo vacio
+                  }).toList(),
+                  onChanged: (value) {},
+                  hint: Text("Seleccione El Tipo De Carrera"),
                 ),
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
@@ -157,7 +179,7 @@ class _EventoModalState extends State<EventoModal> {
                   onChanged: (value) => eventHour = value,
                   decoration: CustomInputs.loginInputDecoration(
                     hint: 'Hora del evento',
-                    label: 'Hora',
+                    label: 'Hora "13:00"',
                     icon: Icons.new_releases_outlined,
                   ),
                 ),
@@ -231,7 +253,33 @@ class _EventoModalState extends State<EventoModal> {
                   margin: EdgeInsets.only(top: 30),
                   alignment: Alignment.center,
                   child: CustomOutlinedButton(
-                    onPressed: () async {},
+                    onPressed: () async {
+                      print(phone);
+                      print(shortName);
+                      print(dateStart);
+                      print(dateFinish);
+
+                      if (eventName != null) {
+                        await eventoProvider.newEvento(
+                            phone,
+                            shortName,
+                            eventName,
+                            dateStart ?? DateTime.now(),
+                            dateFinish ?? DateTime.now(),
+                            eventHour,
+                            logo,
+                            organizer,
+                            email,
+                            website,
+                            country ?? '',
+                            stateCountry ?? '',
+                            raceType ?? '');
+                        print("si entra");
+                      } else {
+                        //actualizar
+                      }
+                      Navigator.of(context).pop();
+                    },
                     text: 'Guardar',
                     color: Colors.black,
                   ),
