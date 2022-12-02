@@ -1,11 +1,14 @@
+import 'package:admin_dashboard/models/carrera.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:date_field/date_field.dart';
 import 'package:admin_dashboard/models/evento.dart';
 import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/ui/buttons/custom_outlined_button.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
-import 'package:date_field/date_field.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+import '../../providers/tipo_carrera_provider.dart';
 
 class EventoModal extends StatefulWidget {
   final Evento? evento;
@@ -53,9 +56,11 @@ class _EventoModalState extends State<EventoModal> {
   @override
   Widget build(BuildContext context) {
     final eventoProvider = Provider.of<EventosProvider>(context, listen: false);
-    List<String?> lista2 = <String?>[
-      widget.evento?.raceType.typeName
-    ]; //intente jalar los datos para mapear
+    final List<CatCarrera> catsProv =
+        Provider.of<CatCarreraProvider>(context).categorias;
+    List<String?> lista2 = [];
+    //intente jalar los datos para mapear
+    print(catsProv);
     List<String> listaprueba = <String>["BMX", "RUTA"]; //los cree estaticos
 
     var items;
