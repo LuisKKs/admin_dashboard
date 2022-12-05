@@ -8,13 +8,19 @@ import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import '../../providers/tipo_carrera_provider.dart';
 
+List<RaceType>? racexd;
+
 class EventoModal extends StatefulWidget {
   final Evento? evento;
-
   const EventoModal({Key? key, this.evento}) : super(key: key);
-
   @override
   State<EventoModal> createState() => _EventoModalState();
+}
+
+class ReisTayp {
+  void setRacetypes(raistaips) {
+    racexd = raistaips;
+  }
 }
 
 class _EventoModalState extends State<EventoModal> {
@@ -54,17 +60,10 @@ class _EventoModalState extends State<EventoModal> {
   @override
   Widget build(BuildContext context) {
     final eventoProvider = Provider.of<EventosProvider>(context, listen: false);
+    //List<RaceType> lista2 = racexd;
     final categoriaProvider =
-        Provider.of<CatCarreraProvider>(context, listen: false).getCatCarrera();
-    final categoriaPrueba = CatCarreraProvider().racetypes;
-
-    print(categoriaPrueba);
-
-    List<String> lista2 = [categoriaPrueba.toString()];
-
+        Provider.of<CatCarreraProvider>(context).getCatCarrera();
     List<String> listaprueba = <String>["BMX", "RUTA"];
-
-    var items;
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -168,12 +167,12 @@ class _EventoModalState extends State<EventoModal> {
                           width: 1, color: Colors.black.withOpacity(0.6)),
                     ),
                   ),
-                  items: categoriaPrueba.map((acon) {
+                  items: listaprueba.map((acon) {
                     //mando a llamar la lista que cree para mapearla
                     return DropdownMenuItem(
                         value: acon,
-                        child: Text(acon
-                            .typeName)); //aqui se despliega el menu con campo vacio
+                        child: Text(
+                            acon)); //aqui se despliega el menu con campo vacio
                   }).toList(),
                   onChanged: (value) {},
                   hint: Text("Seleccione El Tipo De Carrera"),
