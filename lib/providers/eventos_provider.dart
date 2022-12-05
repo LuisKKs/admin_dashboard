@@ -13,7 +13,7 @@ class EventosProvider extends ChangeNotifier {
 
     this.eventos = [...eventosResp.eventos];
 
-    print(this.eventos);
+    print(eventosResp);
 
     notifyListeners();
   }

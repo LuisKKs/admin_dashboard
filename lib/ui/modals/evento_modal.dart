@@ -1,4 +1,3 @@
-import 'package:admin_dashboard/models/carrera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:date_field/date_field.dart';
@@ -56,11 +55,14 @@ class _EventoModalState extends State<EventoModal> {
   Widget build(BuildContext context) {
     final eventoProvider = Provider.of<EventosProvider>(context, listen: false);
     final categoriaProvider =
-        Provider.of<CatCarreraProvider>(context).getCatCarrera();
-    List<String> lista2 = [...categoriaProvider];
-    //intente jalar los datos para mapear
-    print(categoriaProvider);
-    List<String> listaprueba = <String>["BMX", "RUTA"]; //los cree estaticos
+        Provider.of<CatCarreraProvider>(context, listen: false).getCatCarrera();
+    final categoriaPrueba = CatCarreraProvider().racetypes;
+
+    print(categoriaPrueba);
+
+    List<String> lista2 = [categoriaPrueba.toString()];
+
+    List<String> listaprueba = <String>["BMX", "RUTA"];
 
     var items;
     return Scaffold(
@@ -166,12 +168,12 @@ class _EventoModalState extends State<EventoModal> {
                           width: 1, color: Colors.black.withOpacity(0.6)),
                     ),
                   ),
-                  items: lista2.map((String? a) {
+                  items: categoriaPrueba.map((acon) {
                     //mando a llamar la lista que cree para mapearla
                     return DropdownMenuItem(
-                        value: a,
-                        child: Text(a ??
-                            '')); //aqui se despliega el menu con campo vacio
+                        value: acon,
+                        child: Text(acon
+                            .typeName)); //aqui se despliega el menu con campo vacio
                   }).toList(),
                   onChanged: (value) {},
                   hint: Text("Seleccione El Tipo De Carrera"),

@@ -1,46 +1,53 @@
 import 'dart:convert';
 
-class CatCarrera {
-  CatCarrera({
-    required this.id,
+class Racetype {
+  Racetype({
     required this.typeName,
     required this.description,
+    required this.user,
   });
 
-  Id id;
   String typeName;
   String description;
+  User user;
 
-  factory CatCarrera.fromJson(String str) =>
-      CatCarrera.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory CatCarrera.fromMap(Map<String, dynamic> json) => CatCarrera(
-      id: Id.fromMap(json["_id"]),
-      typeName: json["typeName"],
-      description: json["description"]);
-
-  Map<String, dynamic> toMap() =>
-      {"_id": id.toMap(), "typeName": typeName, "description": description};
-}
-
-class Id {
-  Id({
-    required this.oid,
-  });
-
-  String oid;
-
-  factory Id.fromJson(String str) => Id.fromMap(json.decode(str));
+  factory Racetype.fromJson(String str) => Racetype.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Id.fromMap(Map<String, dynamic> json) => Id(
-        oid: json["\u0024oid"],
+  factory Racetype.fromMap(Map<String, dynamic> json) => Racetype(
+        typeName: json["typeName"],
+        description: json["description"],
+        user: User.fromMap(json["user"]),
       );
 
   Map<String, dynamic> toMap() => {
-        "\u0024oid": oid,
+        "typeName": typeName,
+        "description": description,
+        "user": user.toMap(),
+      };
+}
+
+class User {
+  User({
+    required this.id,
+    required this.name,
+  });
+
+  String id;
+  String name;
+
+  factory User.fromJson(String str) => User.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory User.fromMap(Map<String, dynamic> json) => User(
+        id: json["_id"],
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "_id": id,
+        "name": name,
       };
 }
