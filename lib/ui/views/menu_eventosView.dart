@@ -1,5 +1,7 @@
 import 'package:admin_dashboard/datatables/eventos_datasource.dart';
+import 'package:admin_dashboard/models/carrera.dart';
 import 'package:admin_dashboard/providers/eventos_provider.dart';
+import 'package:admin_dashboard/providers/tipo_carrera_provider.dart';
 import 'package:admin_dashboard/ui/buttons/custom_icon_button.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:admin_dashboard/ui/modals/evento_modal.dart';

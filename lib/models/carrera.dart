@@ -5,17 +5,11 @@ class CatCarrera {
     required this.id,
     required this.typeName,
     required this.description,
-    required this.user,
-    required this.status,
-    required this.v,
   });
 
   Id id;
   String typeName;
   String description;
-  Id user;
-  bool status;
-  int v;
 
   factory CatCarrera.fromJson(String str) =>
       CatCarrera.fromMap(json.decode(str));
@@ -23,22 +17,12 @@ class CatCarrera {
   String toJson() => json.encode(toMap());
 
   factory CatCarrera.fromMap(Map<String, dynamic> json) => CatCarrera(
-        id: Id.fromMap(json["_id"]),
-        typeName: json["typeName"],
-        description: json["description"],
-        user: Id.fromMap(json["user"]),
-        status: json["status"],
-        v: json["__v"],
-      );
+      id: Id.fromMap(json["_id"]),
+      typeName: json["typeName"],
+      description: json["description"]);
 
-  Map<String, dynamic> toMap() => {
-        "_id": id.toMap(),
-        "typeName": typeName,
-        "description": description,
-        "user": user.toMap(),
-        "status": status,
-        "__v": v,
-      };
+  Map<String, dynamic> toMap() =>
+      {"_id": id.toMap(), "typeName": typeName, "description": description};
 }
 
 class Id {

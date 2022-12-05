@@ -7,7 +7,6 @@ import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/ui/buttons/custom_outlined_button.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
-
 import '../../providers/tipo_carrera_provider.dart';
 
 class EventoModal extends StatefulWidget {
@@ -56,11 +55,11 @@ class _EventoModalState extends State<EventoModal> {
   @override
   Widget build(BuildContext context) {
     final eventoProvider = Provider.of<EventosProvider>(context, listen: false);
-    final List<CatCarrera> catsProv =
-        Provider.of<CatCarreraProvider>(context).categorias;
-    List<String?> lista2 = [];
+    final categoriaProvider =
+        Provider.of<CatCarreraProvider>(context).getCatCarrera();
+    List<String> lista2 = [...categoriaProvider];
     //intente jalar los datos para mapear
-    print(catsProv);
+    print(categoriaProvider);
     List<String> listaprueba = <String>["BMX", "RUTA"]; //los cree estaticos
 
     var items;
