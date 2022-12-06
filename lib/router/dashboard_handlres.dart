@@ -3,7 +3,7 @@ import 'package:admin_dashboard/providers/sidemenu_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/ui/views/Menu_EventosView.dart';
 import 'package:admin_dashboard/ui/views/admin_usuarios_view.dart';
-import 'package:admin_dashboard/ui/views/tipos_carreras.dart';
+import 'package:admin_dashboard/ui/views/tipos_carreras_view.dart';
 import 'package:admin_dashboard/ui/views/dashboard_view.dart';
 import 'package:admin_dashboard/ui/views/menu_corredores_view.dart';
 import 'package:admin_dashboard/ui/views/login_view.dart';
@@ -40,7 +40,7 @@ class DashboardHandlers {
     if (authProvider.authStatus == AuthStatus.notAuthenticated)
       return LoginView();
     else
-      return Tipos_CarrerasView();
+      return tipo;
   });
 
   static Handler Menu_Eventos = Handler(handlerFunc: (context, params) {

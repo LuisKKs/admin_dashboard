@@ -62,8 +62,15 @@ class _EventoModalState extends State<EventoModal> {
     final eventoProvider = Provider.of<EventosProvider>(context, listen: false);
     //List<RaceType> lista2 = racexd;
     final categoriaProvider =
-        Provider.of<CatCarreraProvider>(context).getCatCarrera();
+        Provider.of<CatCarreraProvider>(context, listen: false).getCatCarrera();
     List<String> listaprueba = <String>["BMX", "RUTA"];
+
+    /* Map? dora;
+    while (categoriaProvider.moveNext()) {
+      dora!.addEntries(categoriaProvider.current.typeName);
+    } 
+    ;*/
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(

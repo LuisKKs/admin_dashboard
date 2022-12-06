@@ -8,17 +8,20 @@ import '../models/http/tipo_carrera_response.dart';
 
 class CatCarreraProvider extends ChangeNotifier {
   List<Racetype> racetypes = [];
+
   getCatCarrera() async {
     final resp = await EventosApi.httpGet('/catcarrera');
     final catcarr = TipoCarreraResponse.fromMap(resp);
     racetypes = [...catcarr.racetypes];
     //ReisTayp reis = ReisTayp();
     //reis.setRacetypes(racetypes);
-    var racetypeI = racetypes.iterator;
-    while (racetypeI.moveNext()) {
+    //var racetypeI = racetypes.iterator;
+    /*while (racetypeI.moveNext()) {
       print(racetypeI.current.typeName);
     }
+    */
     notifyListeners();
+    //return racetypeI;
   }
 
   Future newEvento(String typeName, String description) async {
