@@ -40,7 +40,7 @@ class DashboardHandlers {
     if (authProvider.authStatus == AuthStatus.notAuthenticated)
       return LoginView();
     else
-      return tipo;
+      return Tipos_Carreras_View();
   });
 
   static Handler Menu_Eventos = Handler(handlerFunc: (context, params) {

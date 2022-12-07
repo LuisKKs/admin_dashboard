@@ -7,12 +7,12 @@ import 'package:provider/provider.dart';
 
 import '../../datatables/tipCar_datasource.dart';
 
-class Tipos_Carreras extends StatefulWidget {
+class Tipos_Carreras_View extends StatefulWidget {
   @override
-  State<Tipos_Carreras> createState() => _Tipos_CarrerasState();
+  State<Tipos_Carreras_View> createState() => _Tipos_CarrerasState();
 }
 
-class _Tipos_CarrerasState extends State<Tipos_Carreras> {
+class _Tipos_CarrerasState extends State<Tipos_Carreras_View> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
 
   @override
@@ -36,8 +36,9 @@ class _Tipos_CarrerasState extends State<Tipos_Carreras> {
           PaginatedDataTable(
             columns: [
               DataColumn(label: Text('Nombre')),
-              DataColumn(label: Text('Usuario')),
+              DataColumn(label: Text('Registró')),
               DataColumn(label: Text('Descripcion')),
+              DataColumn(label: Text('Acciones')),
             ],
             source: TipCarDatasource(tipos, context),
             header: Text('Eventos Disponibles', maxLines: 2),
