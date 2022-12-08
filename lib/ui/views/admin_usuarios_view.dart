@@ -10,9 +10,34 @@ class Admin_UsuariosView extends StatelessWidget {
       child: ListView(
         physics: ClampingScrollPhysics(),
         children: [
-          Text('Administracion de Usuarios View', style: CustomLabels.h1),
+          Text('Menu De Corredores', style: CustomLabels.h1),
           SizedBox(height: 10),
-          WhiteCard(title: 'sales statics', child: Text('hola mundo'))
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.start,
+            direction: Axis.horizontal,
+            children: [
+              WhiteCard(
+                title: 'ac_unit_outlined',
+                child: Center(child: Icon(Icons.ac_unit_outlined)),
+                widht: 170,
+              ),
+              WhiteCard(
+                title: 'ac_unit_outlined',
+                child: Center(child: Icon(Icons.abc_outlined)),
+                widht: 170,
+              ),
+              WhiteCard(
+                title: 'ac_unit_outlined',
+                child: Center(child: Icon(Icons.access_alarm_outlined)),
+                widht: 170,
+              ),
+              WhiteCard(
+                title: 'ac_unit_outlined',
+                child: Center(child: Icon(Icons.dark_mode)),
+                widht: 170,
+              ),
+            ],
+          )
         ],
       ),
     );

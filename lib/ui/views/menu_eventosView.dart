@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 class Menu_EventosView extends StatefulWidget {
   @override
   State<Menu_EventosView> createState() => _Menu_EventosViewState();
+  
 }
 
 class _Menu_EventosViewState extends State<Menu_EventosView> {
