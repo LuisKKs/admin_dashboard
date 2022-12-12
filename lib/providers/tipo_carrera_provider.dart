@@ -13,11 +13,8 @@ class CatCarreraProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future newEvento(String typeName, String description) async {
-    final data = {
-      "typeName": typeName,
-      "description": description,
-    };
+  Future newEvento(String typeName, String description, String id) async {
+    final data = {"typeName": typeName, "description": description, "id": id};
 
     try {
       final json = await EventosApi.post('/catcarrera', data);

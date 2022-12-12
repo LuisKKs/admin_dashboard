@@ -11,6 +11,7 @@ import '../../providers/tipo_carrera_provider.dart';
 
 class EventoModal extends StatefulWidget {
   final Evento? evento;
+  //const EventoModal({Key? key, this.evento}) : super(key: key);
   final Racetype? tipo;
   const EventoModal({Key? key, this.evento, this.tipo}) : super(key: key);
 
@@ -31,7 +32,7 @@ class _EventoModalState extends State<EventoModal> {
   String? website = '';
   String? country = '';
   String? stateCountry = '';
-  String? raceType;
+  String? raceType = '';
 
   @override
   void initState() {
@@ -49,8 +50,8 @@ class _EventoModalState extends State<EventoModal> {
     website = widget.evento?.website;
     country = widget.evento?.country;
     stateCountry = widget.evento?.stateCountry;
-    //raceType = widget.evento?.raceType.typeName;
-    raceType = widget.tipo?.uid;
+    //raceType = widget.evento?.raceType.id;
+    raceType = widget.tipo?.id;
   }
 
   @override
@@ -163,7 +164,7 @@ class _EventoModalState extends State<EventoModal> {
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
                 DropdownButtonFormField(
-                  value: widget.tipo?.uid,
+                  //value: widget.tipo?.uid,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -174,7 +175,7 @@ class _EventoModalState extends State<EventoModal> {
                   items: listona.map((acon) {
                     //mando a llamar la lista que cree para mapearla
                     return DropdownMenuItem(
-                        value: acon.typeName, child: Text(acon.typeName));
+                        value: acon.id, child: Text(acon.typeName));
                     //aqui se despliega el menu con campo vacio
                   }).toList(),
                   onChanged: (value) => raceType = value,
