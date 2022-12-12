@@ -11,7 +11,8 @@ import '../../providers/tipo_carrera_provider.dart';
 
 class EventoModal extends StatefulWidget {
   final Evento? evento;
-  const EventoModal({Key? key, this.evento}) : super(key: key);
+  final Racetype? tipo;
+  const EventoModal({Key? key, this.evento, this.tipo}) : super(key: key);
 
   @override
   State<EventoModal> createState() => _EventoModalState();
@@ -30,7 +31,7 @@ class _EventoModalState extends State<EventoModal> {
   String? website = '';
   String? country = '';
   String? stateCountry = '';
-  String? raceType = '';
+  String? raceType;
 
   @override
   void initState() {
@@ -48,7 +49,8 @@ class _EventoModalState extends State<EventoModal> {
     website = widget.evento?.website;
     country = widget.evento?.country;
     stateCountry = widget.evento?.stateCountry;
-    raceType = widget.evento?.raceType.typeName;
+    //raceType = widget.evento?.raceType.typeName;
+    raceType = widget.tipo?.uid;
   }
 
   @override
@@ -161,6 +163,7 @@ class _EventoModalState extends State<EventoModal> {
                 Divider(color: Colors.white.withOpacity(0.3)),
                 SizedBox(height: 10),
                 DropdownButtonFormField(
+                  value: widget.tipo?.uid,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -174,7 +177,7 @@ class _EventoModalState extends State<EventoModal> {
                         value: acon.typeName, child: Text(acon.typeName));
                     //aqui se despliega el menu con campo vacio
                   }).toList(),
-                  onChanged: (value) {},
+                  onChanged: (value) => raceType = value,
                   hint: Text("Seleccione El Tipo De Carrera"),
                 ),
                 Divider(color: Colors.white.withOpacity(0.3)),
@@ -263,6 +266,7 @@ class _EventoModalState extends State<EventoModal> {
                       print(shortName);
                       print(dateStart);
                       print(dateFinish);
+                      print(raceType);
 
                       if (eventName != null) {
                         await eventoProvider.newEvento(
@@ -285,7 +289,7 @@ class _EventoModalState extends State<EventoModal> {
                       }
                       Navigator.of(context).pop();
                     },
-                    text: 'Guardar',
+                    text: 'Crear',
                     color: Colors.black,
                   ),
                 )
