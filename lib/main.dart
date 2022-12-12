@@ -31,8 +31,7 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(lazy: false, create: (_) => AuthProvider()),
         ChangeNotifierProvider(lazy: false, create: (_) => SidemenuProvider()),
         ChangeNotifierProvider(create: (_) => EventosProvider()),
-        ChangeNotifierProvider(
-            lazy: false, create: (_) => CatCarreraProvider()),
+        ChangeNotifierProvider(create: (_) => CatCarreraProvider()),
         ChangeNotifierProvider(create: (_) => CorredoresProvider()),
         ChangeNotifierProvider(create: (_) => CarrerasProvider()),
         ChangeNotifierProvider(create: (_) => UsuariosProvider())
