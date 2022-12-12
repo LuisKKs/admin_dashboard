@@ -303,6 +303,8 @@ class _EventoModalState extends State<EventoModal> {
   BoxDecoration buildBoxDecoration() => BoxDecoration(
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-      image:
-          DecorationImage(image: AssetImage('fondo1.png'), fit: BoxFit.cover));
+      color: Colors.white
+      /* image:
+          DecorationImage(image: AssetImage('fondo1.png'), fit: BoxFit.cover)*/
+      );
 }

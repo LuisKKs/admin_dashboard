@@ -13,7 +13,7 @@ class CatCarreraProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future newEvento(String typeName, String description, String id) async {
+  Future newTipCerrera(String typeName, String description, String id) async {
     final data = {"typeName": typeName, "description": description, "id": id};
 
     try {
