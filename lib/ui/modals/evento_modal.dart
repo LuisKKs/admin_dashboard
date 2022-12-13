@@ -247,7 +247,7 @@ class _EventoModalState extends State<EventoModal> {
                     print(raceType);
 
                     if (eventName != null) {
-                      await eventoProvider.newEvento(
+                      eventoProvider.newEvento(
                           phone,
                           shortName,
                           eventName,

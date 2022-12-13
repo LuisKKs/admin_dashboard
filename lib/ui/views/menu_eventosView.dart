@@ -1,15 +1,14 @@
-import 'package:admin_dashboard/datatables/eventos_datasource.dart';
 import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/ui/buttons/custom_icon_button.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:admin_dashboard/ui/modals/evento_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:admin_dashboard/datatables/eventos_datasource.dart';
 
 class Menu_EventosView extends StatefulWidget {
   @override
   State<Menu_EventosView> createState() => _Menu_EventosViewState();
-  
 }
 
 class _Menu_EventosViewState extends State<Menu_EventosView> {
@@ -25,11 +24,13 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
   @override
   Widget build(BuildContext context) {
     final eventos = Provider.of<EventosProvider>(context).eventos;
+    //final ScrollController? controller;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: ListView(
-        physics: ClampingScrollPhysics(),
+        //physics: ClampingScrollPhysics(),
+        //scrollDirection: Axis.horizontal,
         children: [
           Text('Menu De Eventos view', style: CustomLabels.h1),
           SizedBox(height: 10),
@@ -54,7 +55,7 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
             header: Text('Eventos Disponibles', maxLines: 2),
             onRowsPerPageChanged: (value) {
               setState(() {
-                _rowsPerPage = value ?? 10;
+                _rowsPerPage = value ?? 12;
               });
             },
             rowsPerPage: _rowsPerPage,

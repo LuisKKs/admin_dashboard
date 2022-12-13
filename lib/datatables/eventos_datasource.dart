@@ -26,7 +26,6 @@ class EventosDatasource extends DataTableSource {
       DataCell(Text(evento.stateCountry)),
       DataCell(Text(evento.raceType.typeName)),
       DataCell(Row(
-        verticalDirection: VerticalDirection.up,
         children: [
           IconButton(
               icon: Icon(Icons.edit_outlined),
