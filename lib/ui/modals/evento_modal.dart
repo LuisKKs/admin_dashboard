@@ -1,8 +1,8 @@
-import 'package:admin_dashboard/models/carrera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:date_field/date_field.dart';
 import 'package:admin_dashboard/models/evento.dart';
+import 'package:admin_dashboard/models/carrera.dart';
 import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/ui/buttons/custom_outlined_button.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
@@ -66,235 +66,213 @@ class _EventoModalState extends State<EventoModal> {
     List<Racetype> listona = categoriaPrueba.racetypes;
 
     List<String> listaprueba = <String>["BMX", "RUTA"];
-
     var items;
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
         decoration: buildBoxDecoration(),
         child: Scrollbar(
+          controller: ScrollController(initialScrollOffset: 0.0),
           child: ListView(
-              physics: ClampingScrollPhysics(),
-              padding: EdgeInsets.all(10),
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(widget.evento?.shortName ?? 'Nuevo Evento',
-                        style: CustomLabels.h1.copyWith(color: Colors.white)),
-                    IconButton(
-                        icon: Icon(
-                          Icons.close,
-                          color: Colors.white,
-                        ),
-                        onPressed: () => Navigator.of(context).pop())
-                  ],
-                ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                TextFormField(
-                  initialValue: widget.evento?.eventName ?? '',
-                  onChanged: (value) => eventName = value,
-                  decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Nombre del evento',
-                    label: 'Evento',
-                    icon: Icons.new_releases_outlined,
-                  ),
-                ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                TextFormField(
-                  initialValue: widget.evento?.shortName ?? '',
-                  onChanged: (value) => shortName = value,
-                  decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Nombre Corto del Evento',
-                    label: 'Siglas',
-                    icon: Icons.new_releases_outlined,
-                  ),
-                ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                DateTimeFormField(
-                  decoration: const InputDecoration(
-                    ///
-                    //  *Decoracion del datetime input
-                    ///
-                    hintStyle: TextStyle(color: Colors.black),
-                    errorStyle: TextStyle(color: Colors.redAccent),
-                    border: OutlineInputBorder(),
-                    suffixIcon: Icon(Icons.event_note),
-                    labelText: 'Fecha de inicio',
-                  ),
-                  mode: DateTimeFieldPickerMode
-                      .dateAndTime, // Selector de tipo de datetime .dateAndTime = fecha y hora, date = fecha, time = hora.
-                  autovalidateMode: AutovalidateMode.always,
-                  validator: (e) =>
-                      (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
-                  initialValue: widget.evento?.dateStart ?? dateStart,
-                  onDateSelected: (DateTime value) {
-                    dateStart =
-                        value; //al momento de acabar de seleccionar la fecha se guarda en la variable local correspondiente
-                  },
-                ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                DateTimeFormField(
-                  decoration: const InputDecoration(
-                    ///
-                    //  *Decoracion del datetime input
-                    ///
-                    hintStyle: TextStyle(color: Colors.black),
-                    errorStyle: TextStyle(color: Colors.redAccent),
-                    border: OutlineInputBorder(),
-                    suffixIcon: Icon(Icons.event_note),
-                    labelText: 'Fecha Final',
-                  ),
+            itemExtent: 70,
 
-                  mode: DateTimeFieldPickerMode
-                      .dateAndTime, // Selector de tipo de datetime .dateAndTime = fecha y hora, date = fecha, time = hora.
-                  autovalidateMode: AutovalidateMode.always,
-                  validator: (e) =>
-                      (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
-                  initialValue: widget.evento?.dateFinish ?? dateFinish,
-                  onDateSelected: (DateTime value) {
-                    dateFinish =
-                        value; //al momento de acabar de seleccionar la fecha se guarda en la variable local correspondiente
-                  },
+            ///sta madre sirve para separar los items sin necesidad
+            // de los pendejos dividers ni Fitboxes XD
+            controller: ScrollController(initialScrollOffset: 0.0),
+            physics: ClampingScrollPhysics(),
+            padding: EdgeInsets.all(10),
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Nuevo Evento',
+                      style: CustomLabels.h1
+                          .copyWith(color: Color.fromARGB(255, 58, 55, 55))),
+                  IconButton(
+                      icon: Icon(
+                        Icons.close,
+                        color: Colors.white,
+                      ),
+                      onPressed: () => Navigator.of(context).pop())
+                ],
+              ),
+              TextFormField(
+                initialValue: widget.evento?.eventName ?? '',
+                onChanged: (value) => eventName = value,
+                decoration: CustomInputs.loginInputDecoration(
+                  hint: 'Nombre del evento',
+                  label: 'Evento',
+                  icon: Icons.new_releases_outlined,
                 ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                DropdownButtonFormField(
-                  //value: widget.tipo?.uid,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                          width: 1, color: Colors.black.withOpacity(0.6)),
-                    ),
-                  ),
-                  items: listona.map((acon) {
-                    //mando a llamar la lista que cree para mapearla
-                    return DropdownMenuItem(
-                        value: acon.id, child: Text(acon.typeName));
-                    //aqui se despliega el menu con campo vacio
-                  }).toList(),
-                  onChanged: (value) => raceType = value,
-                  hint: Text("Seleccione El Tipo De Carrera"),
+              ),
+              TextFormField(
+                initialValue: widget.evento?.shortName ?? '',
+                onChanged: (value) => shortName = value,
+                decoration: CustomInputs.loginInputDecoration(
+                  hint: 'Nombre Corto del Evento',
+                  label: 'Siglas',
+                  icon: Icons.new_releases_outlined,
                 ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                TextFormField(
-                  initialValue: widget.evento?.eventHour ?? '',
-                  onChanged: (value) => eventHour = value,
-                  decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Hora del evento',
-                    label: 'Hora "13:00"',
-                    icon: Icons.new_releases_outlined,
-                  ),
+              ),
+              DateTimeFormField(
+                decoration: const InputDecoration(
+                  hintStyle: TextStyle(color: Colors.black),
+                  errorStyle: TextStyle(color: Colors.redAccent),
+                  border: OutlineInputBorder(),
+                  suffixIcon: Icon(Icons.event_note),
+                  labelText: 'Fecha de inicio',
                 ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                TextFormField(
-                  initialValue: widget.evento?.organizer ?? '',
-                  onChanged: (value) => organizer = value,
-                  decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Organizador',
-                    label: 'Organizadores',
-                    icon: Icons.new_releases_outlined,
-                  ),
+                mode: DateTimeFieldPickerMode.dateAndTime,
+                autovalidateMode: AutovalidateMode.always,
+                validator: (e) =>
+                    (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
+                initialValue: widget.evento?.dateStart ?? dateStart,
+                onDateSelected: (DateTime value) {
+                  dateStart = value;
+                },
+              ),
+              DateTimeFormField(
+                decoration: const InputDecoration(
+                  hintStyle: TextStyle(color: Colors.black),
+                  errorStyle: TextStyle(color: Colors.redAccent),
+                  border: OutlineInputBorder(),
+                  suffixIcon: Icon(Icons.event_note),
+                  labelText: 'Fecha Final',
                 ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                TextFormField(
-                  initialValue: widget.evento?.email ?? '',
-                  onChanged: (value) => email = value,
-                  decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Correo Electronico',
-                    label: 'Ingrese su correo electronico',
-                    icon: Icons.new_releases_outlined,
-                  ),
-                ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                TextFormField(
-                  initialValue: widget.evento?.phone ?? '',
-                  onChanged: (value) => phone = value,
-                  decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Numero de Telefono',
-                    label: 'Ingrese su numero de telefono',
-                    icon: Icons.new_releases_outlined,
-                  ),
-                ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                TextFormField(
-                  initialValue: widget.evento?.website ?? '',
-                  onChanged: (value) => website = value,
-                  decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Sitio Web',
-                    label: 'Ingrese si tiene sitio web',
-                    icon: Icons.new_releases_outlined,
+                mode: DateTimeFieldPickerMode.dateAndTime,
+                autovalidateMode: AutovalidateMode.always,
+                validator: (e) =>
+                    (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
+                initialValue: widget.evento?.dateFinish ?? dateFinish,
+                onDateSelected: (DateTime value) {
+                  dateFinish = value;
+                },
+              ),
+              DropdownButtonFormField(
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(
+                        width: 1, color: Colors.black.withOpacity(0.6)),
                   ),
                 ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                TextFormField(
-                  initialValue: widget.evento?.country ?? '',
-                  onChanged: (value) => country = value,
-                  decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Pais',
-                    label: 'Ingrese su Pais',
-                    icon: Icons.new_releases_outlined,
-                  ),
+                items: listona.map((acon) {
+                  return DropdownMenuItem(
+                      value: acon.id, child: Text(acon.typeName));
+                }).toList(),
+                onChanged: (value) => raceType = value,
+                hint: Text("Seleccione El Tipo De Carrera"),
+              ),
+              TextFormField(
+                initialValue: widget.evento?.eventHour ?? '',
+                onChanged: (value) => eventHour = value,
+                decoration: CustomInputs.loginInputDecoration(
+                  hint: 'Hora del evento',
+                  label: 'Hora "13:00"',
+                  icon: Icons.new_releases_outlined,
                 ),
-                Divider(color: Colors.white.withOpacity(0.3)),
-                SizedBox(height: 10),
-                TextFormField(
-                  initialValue: widget.evento?.stateCountry ?? '',
-                  onChanged: (value) => stateCountry = value,
-                  decoration: CustomInputs.loginInputDecoration(
-                    hint: 'Estado',
-                    label: 'Ingrese su estado',
-                    icon: Icons.new_releases_outlined,
-                  ),
+              ),
+              TextFormField(
+                initialValue: widget.evento?.organizer ?? '',
+                onChanged: (value) => organizer = value,
+                decoration: CustomInputs.loginInputDecoration(
+                  hint: 'Organizador',
+                  label: 'Organizadores',
+                  icon: Icons.new_releases_outlined,
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 30),
-                  alignment: Alignment.center,
-                  child: CustomOutlinedButton(
-                    onPressed: () async {
-                      print(phone);
-                      print(shortName);
-                      print(dateStart);
-                      print(dateFinish);
-                      print(raceType);
+              ),
+              TextFormField(
+                initialValue: widget.evento?.email ?? '',
+                onChanged: (value) => email = value,
+                decoration: CustomInputs.loginInputDecoration(
+                  hint: 'Correo Electronico',
+                  label: 'Ingrese su correo electronico',
+                  icon: Icons.new_releases_outlined,
+                ),
+              ),
+              TextFormField(
+                initialValue: widget.evento?.phone ?? '',
+                onChanged: (value) => phone = value,
+                decoration: CustomInputs.loginInputDecoration(
+                  hint: 'Numero de Telefono',
+                  label: 'Ingrese su numero de telefono',
+                  icon: Icons.new_releases_outlined,
+                ),
+              ),
+              TextFormField(
+                initialValue: widget.evento?.website ?? '',
+                onChanged: (value) => website = value,
+                decoration: CustomInputs.loginInputDecoration(
+                  hint: 'Sitio Web',
+                  label: 'Ingrese si tiene sitio web',
+                  icon: Icons.new_releases_outlined,
+                ),
+              ),
+              TextFormField(
+                initialValue: widget.evento?.country ?? '',
+                onChanged: (value) => country = value,
+                decoration: CustomInputs.loginInputDecoration(
+                  hint: 'Pais',
+                  label: 'Ingrese su Pais',
+                  icon: Icons.new_releases_outlined,
+                ),
+              ),
+              TextFormField(
+                initialValue: widget.evento?.stateCountry ?? '',
+                onChanged: (value) => stateCountry = value,
+                decoration: CustomInputs.loginInputDecoration(
+                  hint: 'Estado',
+                  label: 'Ingrese su estado',
+                  icon: Icons.new_releases_outlined,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 30),
+                alignment: Alignment.center,
+                child: CustomOutlinedButton(
+                  onPressed: () async {
+                    print(phone);
+                    print(shortName);
+                    print(dateStart);
+                    print(dateFinish);
+                    print(raceType);
+                    print(eventHour);
+                    print(logo);
+                    print(organizer);
+                    print(email);
+                    print(website);
+                    print(country);
+                    print(stateCountry);
+                    print(raceType);
 
-                      if (eventName != null) {
-                        await eventoProvider.newEvento(
-                            phone,
-                            shortName,
-                            eventName,
-                            dateStart ?? DateTime.now(),
-                            dateFinish ?? DateTime.now(),
-                            eventHour,
-                            logo,
-                            organizer,
-                            email,
-                            website,
-                            country ?? '',
-                            stateCountry ?? '',
-                            raceType ?? '');
-                        print("si entra");
-                      } else {
-                        //actualizar
-                      }
-                      Navigator.of(context).pop();
-                    },
-                    text: 'Crear',
-                    color: Colors.black,
-                  ),
-                )
-              ]),
+                    if (eventName != null) {
+                      await eventoProvider.newEvento(
+                          phone,
+                          shortName,
+                          eventName,
+                          dateStart ?? DateTime.now(),
+                          dateFinish ?? DateTime.now(),
+                          eventHour,
+                          logo,
+                          organizer,
+                          email,
+                          website,
+                          country ?? '',
+                          stateCountry ?? '',
+                          raceType ?? '');
+                      print("si entra");
+                    } else {
+                      //actualizar
+                    }
+                    Navigator.of(context).pop();
+                  },
+                  text: 'Crear',
+                  color: Colors.black,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -303,8 +281,5 @@ class _EventoModalState extends State<EventoModal> {
   BoxDecoration buildBoxDecoration() => BoxDecoration(
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-      color: Colors.white
-      /* image:
-          DecorationImage(image: AssetImage('fondo1.png'), fit: BoxFit.cover)*/
-      );
+      color: Color.fromARGB(179, 250, 241, 228));
 }

@@ -42,7 +42,9 @@ class EventosProvider extends ChangeNotifier {
       'eventHour': eventHour,
       'organizer': organizer,
       'email': email,
-      'country': country
+      'country': country,
+      'website': website,
+      'stateCountry': stateCountry
     };
 
     try {

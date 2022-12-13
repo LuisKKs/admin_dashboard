@@ -13,7 +13,7 @@ class CatCarreraProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future newTipCerrera(String typeName, String description, String id) async {
+  Future newTipoCerrera(String typeName, String description, String id) async {
     final data = {"typeName": typeName, "description": description, "id": id};
 
     try {
