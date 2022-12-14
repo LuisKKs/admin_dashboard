@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/datatables/eventos_datasource.dart';
+import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/ui/buttons/custom_icon_button.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:admin_dashboard/ui/modals/evento_modal.dart';
@@ -27,7 +27,7 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
     final size = MediaQuery.of(context).size;
     final ScrollController controller =
         ScrollController(keepScrollOffset: true, initialScrollOffset: 0.0);
-    controller.createScrollPosition;
+
     return Container(
       width: size.width,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -35,8 +35,12 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
         children: [
           Text('Menu De Eventos view', style: CustomLabels.h1),
           SizedBox(height: 10),
-          SingleChildScrollView(
+          Scrollbar(
+            scrollbarOrientation: ScrollbarOrientation.top,
             controller: controller,
+            thumbVisibility: true,
+            trackVisibility: true,
+            interactive: true,
             child: PaginatedDataTable(
               columns: [
                 DataColumn(label: Text('Nombre')),

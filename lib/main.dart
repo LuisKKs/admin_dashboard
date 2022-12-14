@@ -1,7 +1,3 @@
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/api/eventos_api.dart';
 import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/providers/carreras_provider.dart';
@@ -10,12 +6,16 @@ import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/providers/sidemenu_provider.dart';
 import 'package:admin_dashboard/providers/tipo_carrera_provider.dart';
 import 'package:admin_dashboard/providers/usuarios_provider.dart';
+import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:admin_dashboard/ui/layouts/auth/auth_layout.dart';
 import 'package:admin_dashboard/ui/layouts/dasboard/dashboard_layouth.dart';
 import 'package:admin_dashboard/ui/layouts/splash/splash_layout.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   await LocalStorage.configurePrefs();
