@@ -59,7 +59,7 @@ class _EventoModalState extends State<EventoModal> {
   Widget build(BuildContext context) {
     final eventoProvider = Provider.of<EventosProvider>(context, listen: false);
     var categoriaPrueba =
-        Provider.of<CatCarreraProvider>(context, listen: false);
+        Provider.of<CatCarreraProvider>(context, listen: true);
     categoriaPrueba.getCatCarrera();
     List<Racetype> listona = categoriaPrueba.racetypes;
     List<String> listaprueba = <String>["BMX", "RUTA"];
