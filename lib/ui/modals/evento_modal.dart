@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:date_field/date_field.dart';
+import '../../providers/tipo_carrera_provider.dart';
+import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/models/evento.dart';
 import 'package:admin_dashboard/models/carrera.dart';
-import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:admin_dashboard/ui/buttons/custom_outlined_button.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
-import '../../providers/tipo_carrera_provider.dart';
 
 class EventoModal extends StatefulWidget {
   final Evento? evento;
@@ -59,17 +59,20 @@ class _EventoModalState extends State<EventoModal> {
   Widget build(BuildContext context) {
     final eventoProvider = Provider.of<EventosProvider>(context, listen: false);
     var categoriaPrueba =
-        Provider.of<CatCarreraProvider>(context, listen: true);
+        Provider.of<CatCarreraProvider>(context, listen: false);
     categoriaPrueba.getCatCarrera();
     List<Racetype> listona = categoriaPrueba.racetypes;
     List<String> listaprueba = <String>["BMX", "RUTA"];
+    ScrollController controller =
+        ScrollController(keepScrollOffset: true, initialScrollOffset: 0.0);
+    controller.createScrollPosition;
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
         decoration: buildBoxDecoration(),
         child: ListView(
           itemExtent: 70,
-          controller: widget.controller,
+          controller: controller,
           padding: EdgeInsets.all(10),
           children: [
             Row(
