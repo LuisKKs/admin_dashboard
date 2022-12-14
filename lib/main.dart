@@ -13,6 +13,7 @@ import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:admin_dashboard/ui/layouts/auth/auth_layout.dart';
 import 'package:admin_dashboard/ui/layouts/dasboard/dashboard_layouth.dart';
 import 'package:admin_dashboard/ui/layouts/splash/splash_layout.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      scrollBehavior: _CustomScrollBehavior(),
       title: 'Admin Dashboard',
       initialRoute: '/',
       onGenerateRoute: Flurorouter.router.generator,
@@ -65,10 +67,18 @@ class MyApp extends StatelessWidget {
       },
       theme: ThemeData.light().copyWith(
           scrollbarTheme: ScrollbarThemeData().copyWith(
-              thumbColor:
-                  MaterialStateProperty.all(Colors.grey.withOpacity(0.5)))),
+              thumbColor: MaterialStateProperty.all(
+                  Color.fromARGB(255, 63, 61, 61).withOpacity(0.5)))),
     );
 
     //el nestor es la puta del zurdo
   }
+}
+
+class _CustomScrollBehavior extends MaterialScrollBehavior {
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.touch,
+        PointerDeviceKind.trackpad
+      };
 }
