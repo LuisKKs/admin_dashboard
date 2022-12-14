@@ -90,19 +90,19 @@ class _EventoModalState extends State<EventoModal> {
               ],
             ),
             TextFormField(
-              initialValue: widget.evento?.eventName ?? '',
+              initialValue: widget.evento?.eventName ?? eventName,
               onChanged: (value) => eventName = value,
               decoration: CustomInputs.loginInputDecoration(
-                hint: 'Nombre del evento',
+                hint: eventName ?? 'Nombre del evento',
                 label: 'Evento',
                 icon: Icons.new_releases_outlined,
               ),
             ),
             TextFormField(
-              initialValue: widget.evento?.shortName ?? '',
+              initialValue: widget.evento?.shortName ?? shortName,
               onChanged: (value) => shortName = value,
               decoration: CustomInputs.loginInputDecoration(
-                hint: 'Nombre Corto del Evento',
+                hint: shortName ?? 'Nombre Corto del Evento',
                 label: 'Siglas',
                 icon: Icons.new_releases_outlined,
               ),
@@ -157,64 +157,64 @@ class _EventoModalState extends State<EventoModal> {
               hint: Text("Seleccione El Tipo De Carrera"),
             ),
             TextFormField(
-              initialValue: widget.evento?.eventHour ?? '',
+              initialValue: widget.evento?.eventHour ?? eventHour,
               onChanged: (value) => eventHour = value,
               decoration: CustomInputs.loginInputDecoration(
-                hint: 'Hora del evento',
+                hint: eventHour ?? 'Hora del evento',
                 label: 'Hora "13:00"',
                 icon: Icons.new_releases_outlined,
               ),
             ),
             TextFormField(
-              initialValue: widget.evento?.organizer ?? '',
+              initialValue: widget.evento?.organizer ?? organizer,
               onChanged: (value) => organizer = value,
               decoration: CustomInputs.loginInputDecoration(
-                hint: 'Organizador',
+                hint: organizer ?? 'Organizador',
                 label: 'Organizadores',
                 icon: Icons.new_releases_outlined,
               ),
             ),
             TextFormField(
-              initialValue: widget.evento?.email ?? '',
+              initialValue: widget.evento?.email ?? email,
               onChanged: (value) => email = value,
               decoration: CustomInputs.loginInputDecoration(
-                hint: 'Correo Electronico',
+                hint: email ?? 'Correo Electronico',
                 label: 'Ingrese su correo electronico',
                 icon: Icons.new_releases_outlined,
               ),
             ),
             TextFormField(
-              initialValue: widget.evento?.phone ?? '',
+              initialValue: widget.evento?.phone ?? phone,
               onChanged: (value) => phone = value,
               decoration: CustomInputs.loginInputDecoration(
-                hint: 'Numero de Telefono',
+                hint: phone ?? 'Numero de Telefono',
                 label: 'Ingrese su numero de telefono',
                 icon: Icons.new_releases_outlined,
               ),
             ),
             TextFormField(
-              initialValue: widget.evento?.website ?? '',
+              initialValue: widget.evento?.website ?? website,
               onChanged: (value) => website = value,
               decoration: CustomInputs.loginInputDecoration(
-                hint: 'Sitio Web',
+                hint: website ?? 'Sitio Web',
                 label: 'Ingrese si tiene sitio web',
                 icon: Icons.new_releases_outlined,
               ),
             ),
             TextFormField(
-              initialValue: widget.evento?.country ?? '',
+              initialValue: widget.evento?.country ?? country,
               onChanged: (value) => country = value,
               decoration: CustomInputs.loginInputDecoration(
-                hint: 'Pais',
+                hint: country ?? 'Pais',
                 label: 'Ingrese su Pais',
                 icon: Icons.new_releases_outlined,
               ),
             ),
             TextFormField(
-              initialValue: widget.evento?.stateCountry ?? '',
+              initialValue: widget.evento?.stateCountry ?? stateCountry,
               onChanged: (value) => stateCountry = value,
               decoration: CustomInputs.loginInputDecoration(
-                hint: 'Estado',
+                hint: stateCountry ?? 'Estado',
                 label: 'Ingrese su estado',
                 icon: Icons.new_releases_outlined,
               ),
