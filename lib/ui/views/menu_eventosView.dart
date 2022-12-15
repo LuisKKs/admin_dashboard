@@ -69,7 +69,8 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
                         elevation: size.height / 2,
                         isScrollControlled: false,
                         context: context,
-                        builder: (context) => EventoModal());
+                        builder: (context) =>
+                            EventoModal(evento: null)); //evento: null
                   },
                   text: 'Crear',
                   icon: Icons.add_outlined,

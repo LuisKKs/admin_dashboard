@@ -27,3 +27,27 @@ class EventosResponse {
         "eventos": List<dynamic>.from(eventos.map((x) => x.toMap())),
       };
 }
+
+class RaceType {
+  RaceType({
+    required this.id,
+    required this.typeName,
+  });
+
+  String id;
+  String typeName;
+
+  factory RaceType.fromJson(String str) => RaceType.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory RaceType.fromMap(Map<String, dynamic> json) => RaceType(
+        id: json["_id"],
+        typeName: json["typeName"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "_id": id,
+        "typeName": typeName,
+      };
+}

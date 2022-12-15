@@ -31,4 +31,14 @@ class EventosApi {
       throw ('Error en el post ');
     }
   }
+
+  static Future put(String path, Map<String, dynamic> data) async {
+    final formData = FormData.fromMap(data);
+    try {
+      final resp = await _dio.put(path, data: formData);
+      return resp.data;
+    } catch (e) {
+      throw ('Error en el put ');
+    }
+  }
 }

@@ -58,4 +58,51 @@ class EventosProvider extends ChangeNotifier {
       print('Error al crear evento');
     }
   }
+
+  Future updateEvento(
+      String id,
+      String phone,
+      String shortName,
+      String eventName,
+      DateTime dateStart,
+      DateTime dateFinish,
+      String eventHour,
+      String? logo,
+      String organizer,
+      String email,
+      String? website,
+      String country,
+      String stateCountry,
+      String raceType) async {
+    final data = {
+      'id': id,
+      'raceType': raceType,
+      'phone': phone,
+      'shortName': shortName,
+      'eventName': eventName,
+      'dateStart': dateStart,
+      'dateFinish': dateFinish,
+      'eventHour': eventHour,
+      'organizer': organizer,
+      'email': email,
+      'country': country,
+      'website': website,
+      'stateCountry': stateCountry
+    };
+
+    try {
+      await EventosApi.put('/evento/$id', data);
+
+      this.eventos = this.eventos.map((evento) {
+        if (evento.id != id) return evento;
+        evento.eventName = eventName;
+        return evento;
+      }).toList();
+
+      notifyListeners();
+    } catch (e) {
+      print(e);
+      print('Error al crear evento');
+    }
+  }
 }

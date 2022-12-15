@@ -1,6 +1,8 @@
 import 'package:admin_dashboard/models/evento.dart';
 import 'package:flutter/material.dart';
 
+import '../ui/modals/evento_modal.dart';
+
 class EventosDatasource extends DataTableSource {
   final List<Evento> eventos;
   final BuildContext context;
@@ -30,7 +32,11 @@ class EventosDatasource extends DataTableSource {
           IconButton(
               icon: Icon(Icons.edit_outlined),
               onPressed: () {
-                print('editando: $evento');
+                showModalBottomSheet(
+                    //elevation: size.height / 2,
+                    //isScrollControlled: false,
+                    context: context,
+                    builder: (context) => EventoModal(evento: evento));
               }),
           IconButton(
               icon: Icon(

@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/ui/views/menu_eventosView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:date_field/date_field.dart';
@@ -21,6 +22,7 @@ class EventoModal extends StatefulWidget {
 }
 
 class _EventoModalState extends State<EventoModal> {
+  String id = '';
   String shortName = '';
   String eventName = '';
   DateTime? dateStart;
@@ -39,6 +41,7 @@ class _EventoModalState extends State<EventoModal> {
   void initState() {
     super.initState();
 
+    id = widget.evento?.id ?? '';
     shortName = widget.evento?.shortName ?? '';
     eventName = widget.evento?.eventName ?? '';
     dateStart = widget.evento?.dateStart;
@@ -238,8 +241,8 @@ class _EventoModalState extends State<EventoModal> {
                   print(stateCountry);
                   print(raceType);
 
-                  if (eventName != null) {
-                    eventoProvider.newEvento(
+                  if (id == null) {
+                    await eventoProvider.newEvento(
                         phone,
                         shortName,
                         eventName,
@@ -255,9 +258,28 @@ class _EventoModalState extends State<EventoModal> {
                         raceType ?? '');
                     print("si entra");
                   } else {
-                    //actualizar
+                    await eventoProvider.updateEvento(
+                        id,
+                        phone,
+                        shortName,
+                        eventName,
+                        dateStart ?? DateTime.now(),
+                        dateFinish ?? DateTime.now(),
+                        eventHour,
+                        logo,
+                        organizer,
+                        email,
+                        website,
+                        country ?? '',
+                        stateCountry ?? '',
+                        raceType ?? '');
+                    print("si entra actualizar");
                   }
-                  Navigator.of(context).pop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Menu_EventosView()),
+                  );
+                  //Navigator.pop(context);
                 },
                 text: 'Crear',
                 color: Colors.black,
