@@ -6,15 +6,11 @@ import 'package:flutter/material.dart';
 
 class EventosProvider extends ChangeNotifier {
   List<Evento> eventos = [];
-
   getEventos() async {
     final resp = await EventosApi.httpGet('/evento');
     final eventosResp = EventosResponse.fromMap(resp);
-
     this.eventos = [...eventosResp.eventos];
-
     print(eventosResp);
-
     notifyListeners();
   }
 
@@ -72,7 +68,7 @@ class EventosProvider extends ChangeNotifier {
       String email,
       String? website,
       String country,
-      String stateCountry,
+      String? stateCountry,
       String raceType) async {
     final data = {
       'id': id,
@@ -92,17 +88,15 @@ class EventosProvider extends ChangeNotifier {
 
     try {
       await EventosApi.put('/evento/$id', data);
-
       this.eventos = this.eventos.map((evento) {
         if (evento.id != id) return evento;
         evento.eventName = eventName;
         return evento;
       }).toList();
-
       notifyListeners();
     } catch (e) {
-      print(e);
-      print('Error al crear evento');
+      print('Error al actualizar evento');
+      throw (e);
     }
   }
 }

@@ -1,10 +1,9 @@
 import 'dart:convert';
-
 import 'http/eventos_response.dart';
 
 class Evento {
   Evento({
-    required this.id,
+    this.id,
     required this.raceType,
     required this.shortName,
     required this.eventName,
@@ -20,7 +19,7 @@ class Evento {
     required this.stateCountry,
   });
 
-  String id;
+  String? id;
   RaceType raceType;
   String shortName;
   String eventName;

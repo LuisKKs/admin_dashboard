@@ -12,9 +12,17 @@ import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 
 class EventoModal extends StatefulWidget {
   final Evento? evento;
+  final String? idEvento;
   final ScrollController? controller;
   final Racetype? tipo;
-  const EventoModal({Key? key, this.evento, this.controller, this.tipo})
+  final bool edit;
+  const EventoModal(
+      {Key? key,
+      this.evento,
+      this.controller,
+      this.tipo,
+      required this.edit,
+      this.idEvento})
       : super(key: key);
 
   @override
@@ -40,7 +48,6 @@ class _EventoModalState extends State<EventoModal> {
   @override
   void initState() {
     super.initState();
-
     id = widget.evento?.id ?? '';
     shortName = widget.evento?.shortName ?? '';
     eventName = widget.evento?.eventName ?? '';
@@ -59,12 +66,16 @@ class _EventoModalState extends State<EventoModal> {
   }
 
   @override
+  void didChangeDependencies() {
+    Provider.of<CatCarreraProvider>(context, listen: false).getCatCarrera();
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final eventoProvider = Provider.of<EventosProvider>(context, listen: false);
-    var categoriaPrueba =
-        Provider.of<CatCarreraProvider>(context, listen: true);
-    categoriaPrueba.getCatCarrera();
-    List<Racetype> listona = categoriaPrueba.racetypes;
+    var categoriaPrueba = Provider.of<CatCarreraProvider>(context).racetypes;
+    List<Racetype> listona = categoriaPrueba;
     List<String> listaprueba = <String>["BMX", "RUTA"];
     ScrollController controller =
         ScrollController(keepScrollOffset: true, initialScrollOffset: 0.0);
@@ -81,9 +92,14 @@ class _EventoModalState extends State<EventoModal> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Nuevo Evento',
-                    style: CustomLabels.h1
-                        .copyWith(color: Color.fromARGB(255, 58, 55, 55))),
+                if (widget.edit == false)
+                  Text('Nuevo evento',
+                      style: CustomLabels.h1
+                          .copyWith(color: Color.fromARGB(255, 58, 55, 55)))
+                else
+                  Text('Edicion de evento:${widget.evento!.id}',
+                      style: CustomLabels.h1
+                          .copyWith(color: Color.fromARGB(255, 58, 55, 55))),
                 IconButton(
                     icon: Icon(
                       Icons.close,
@@ -241,23 +257,7 @@ class _EventoModalState extends State<EventoModal> {
                   print(stateCountry);
                   print(raceType);
 
-                  if (id == null) {
-                    await eventoProvider.newEvento(
-                        phone,
-                        shortName,
-                        eventName,
-                        dateStart ?? DateTime.now(),
-                        dateFinish ?? DateTime.now(),
-                        eventHour,
-                        logo,
-                        organizer,
-                        email,
-                        website,
-                        country ?? '',
-                        stateCountry ?? '',
-                        raceType ?? '');
-                    print("si entra");
-                  } else {
+                  if (widget.edit == true) {
                     await eventoProvider.updateEvento(
                         id,
                         phone,
@@ -273,7 +273,23 @@ class _EventoModalState extends State<EventoModal> {
                         country ?? '',
                         stateCountry ?? '',
                         raceType ?? '');
-                    print("si entra actualizar");
+                    print("Actualizanding ... $id");
+                  } else {
+                    await eventoProvider.newEvento(
+                        phone,
+                        shortName,
+                        eventName,
+                        dateStart ?? DateTime.now(),
+                        dateFinish ?? DateTime.now(),
+                        eventHour,
+                        logo,
+                        organizer,
+                        email,
+                        website,
+                        country ?? '',
+                        stateCountry ?? '',
+                        raceType ?? '');
+                    print("Registranding");
                   }
                   Navigator.push(
                     context,

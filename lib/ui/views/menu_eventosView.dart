@@ -17,7 +17,6 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
   @override
   void initState() {
     super.initState();
-
     Provider.of<EventosProvider>(context, listen: false).getEventos();
   }
 
@@ -69,8 +68,9 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
                         elevation: size.height / 2,
                         isScrollControlled: false,
                         context: context,
-                        builder: (context) =>
-                            EventoModal(evento: null)); //evento: null
+                        builder: (context) => EventoModal(
+                              edit: false,
+                            )); //evento: null
                   },
                   text: 'Crear',
                   icon: Icons.add_outlined,

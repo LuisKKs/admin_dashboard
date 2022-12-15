@@ -68,7 +68,9 @@ class _Menu_CarrerasViewState extends State<Menu_CarrerasView> {
                     showModalBottomSheet(
                         backgroundColor: Colors.transparent,
                         context: context,
-                        builder: (_) => EventoModal());
+                        builder: (_) => EventoModal(
+                              edit: false,
+                            ));
                   },
                   text: 'Crear',
                   icon: Icons.add_outlined,

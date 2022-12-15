@@ -32,11 +32,11 @@ class EventosDatasource extends DataTableSource {
           IconButton(
               icon: Icon(Icons.edit_outlined),
               onPressed: () {
+                bool edit = true;
                 showModalBottomSheet(
-                    //elevation: size.height / 2,
-                    //isScrollControlled: false,
                     context: context,
-                    builder: (context) => EventoModal(evento: evento));
+                    builder: (context) => EventoModal(
+                        evento: evento, idEvento: evento.id, edit: edit));
               }),
           IconButton(
               icon: Icon(

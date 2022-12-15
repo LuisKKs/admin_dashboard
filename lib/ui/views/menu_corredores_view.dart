@@ -66,7 +66,9 @@ class _Menu_CorredoresViewState extends State<Menu_CorredoresView> {
                   showModalBottomSheet(
                       backgroundColor: Colors.transparent,
                       context: context,
-                      builder: (_) => EventoModal());
+                      builder: (_) => EventoModal(
+                            edit: false,
+                          ));
                 },
                 text: 'Crear',
                 icon: Icons.add_outlined,

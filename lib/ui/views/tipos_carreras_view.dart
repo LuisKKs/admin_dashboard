@@ -54,7 +54,9 @@ class _Tipos_CarrerasState extends State<Tipos_Carreras_View> {
                   showModalBottomSheet(
                       backgroundColor: Colors.transparent,
                       context: context,
-                      builder: (_) => EventoModal());
+                      builder: (_) => EventoModal(
+                            edit: false,
+                          ));
                 },
                 text: 'Crear',
                 icon: Icons.add_outlined,
