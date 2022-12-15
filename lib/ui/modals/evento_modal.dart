@@ -70,7 +70,6 @@ class _EventoModalState extends State<EventoModal> {
     final eventoProvider = Provider.of<EventosProvider>(context, listen: false);
     var categoriaPrueba = Provider.of<CatCarreraProvider>(context).racetypes;
     List<Racetype> listona = categoriaPrueba;
-    List<String> listaprueba = <String>["BMX", "RUTA"];
     ScrollController controller =
         ScrollController(keepScrollOffset: true, initialScrollOffset: 0.0);
     controller.createScrollPosition;

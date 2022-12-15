@@ -99,4 +99,32 @@ class EventosProvider extends ChangeNotifier {
       throw (e);
     }
   }
+
+  Future deleteEvento(
+    String id,
+    /* String phone,
+      String shortName,
+      String eventName,
+      DateTime dateStart,
+      DateTime dateFinish,
+      String eventHour,
+      String? logo,
+      String organizer,
+      String email,
+      String? website,
+      String country,
+      String? stateCountry,
+      String raceType*/
+  ) async {
+    try {
+      await EventosApi.delete('/evento/$id', {});
+
+      eventos.removeWhere((evento) => evento.id == id);
+
+      notifyListeners();
+    } catch (e) {
+      print('Error al actualizar evento');
+      throw (e);
+    }
+  }
 }

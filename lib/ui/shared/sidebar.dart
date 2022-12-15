@@ -87,11 +87,10 @@ class Sidebar extends StatelessWidget {
   }
 
   BoxDecoration buildBoxDecoration() => BoxDecoration(
-      image: DecorationImage(image: AssetImage('fondo1.png'), fit: BoxFit.cover)
-      /*gradient: LinearGradient(colors: [
-        Color(0xff092044),
-        Color(0xff092042),
-      ])*/
-      ,
+      //image: DecorationImage(image: AssetImage('fondo1.png'), fit: BoxFit.cover)
+      gradient: LinearGradient(colors: [
+        Color.fromARGB(255, 255, 0, 0),
+        Color.fromARGB(255, 219, 12, 12),
+      ]),
       boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)]);
 }

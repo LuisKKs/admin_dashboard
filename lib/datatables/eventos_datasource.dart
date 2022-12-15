@@ -1,5 +1,7 @@
 import 'package:admin_dashboard/models/evento.dart';
+import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../ui/modals/evento_modal.dart';
 
@@ -56,7 +58,10 @@ class EventosDatasource extends DataTableSource {
                     ),
                     TextButton(
                       child: Text('Si, borrar'),
-                      onPressed: () {
+                      onPressed: () async {
+                        await Provider.of<EventosProvider>(context,
+                                listen: false)
+                            .deleteEvento(evento.id);
                         Navigator.of(context).pop();
                       },
                     ),

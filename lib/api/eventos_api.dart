@@ -41,4 +41,14 @@ class EventosApi {
       throw ('Error en el put ');
     }
   }
+
+  static Future delete(String path, Map<String, dynamic> data) async {
+    final formData = FormData.fromMap(data);
+    try {
+      final resp = await _dio.delete(path, data: formData);
+      return resp.data;
+    } catch (e) {
+      throw ('Error en el delete ');
+    }
+  }
 }
