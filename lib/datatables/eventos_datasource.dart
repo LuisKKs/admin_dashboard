@@ -35,8 +35,8 @@ class EventosDatasource extends DataTableSource {
                 bool edit = true;
                 showModalBottomSheet(
                     context: context,
-                    builder: (context) => EventoModal(
-                        evento: evento, idEvento: evento.id, edit: edit));
+                    builder: (context) =>
+                        EventoModal(evento: evento, edit: edit));
               }),
           IconButton(
               icon: Icon(

@@ -3,7 +3,7 @@ import 'http/eventos_response.dart';
 
 class Evento {
   Evento({
-    this.id,
+    required this.id,
     required this.raceType,
     required this.shortName,
     required this.eventName,
@@ -19,7 +19,7 @@ class Evento {
     required this.stateCountry,
   });
 
-  String? id;
+  String id;
   RaceType raceType;
   String shortName;
   String eventName;

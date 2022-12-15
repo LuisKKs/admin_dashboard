@@ -12,17 +12,11 @@ import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 
 class EventoModal extends StatefulWidget {
   final Evento? evento;
-  final String? idEvento;
   final ScrollController? controller;
   final Racetype? tipo;
   final bool edit;
   const EventoModal(
-      {Key? key,
-      this.evento,
-      this.controller,
-      this.tipo,
-      required this.edit,
-      this.idEvento})
+      {Key? key, this.evento, this.controller, this.tipo, required this.edit})
       : super(key: key);
 
   @override
@@ -80,6 +74,13 @@ class _EventoModalState extends State<EventoModal> {
     ScrollController controller =
         ScrollController(keepScrollOffset: true, initialScrollOffset: 0.0);
     controller.createScrollPosition;
+    String textini;
+    if (widget.edit == false) {
+      textini = 'Registrar evento';
+    } else {
+      textini = 'Actualizar evento: ${widget.evento!.shortName}';
+    }
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -92,14 +93,9 @@ class _EventoModalState extends State<EventoModal> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (widget.edit == false)
-                  Text('Nuevo evento',
-                      style: CustomLabels.h1
-                          .copyWith(color: Color.fromARGB(255, 58, 55, 55)))
-                else
-                  Text('Edicion de evento:${widget.evento!.id}',
-                      style: CustomLabels.h1
-                          .copyWith(color: Color.fromARGB(255, 58, 55, 55))),
+                Text(textini,
+                    style: CustomLabels.h1
+                        .copyWith(color: Color.fromARGB(255, 58, 55, 55))),
                 IconButton(
                     icon: Icon(
                       Icons.close,
@@ -243,20 +239,6 @@ class _EventoModalState extends State<EventoModal> {
               alignment: Alignment.center,
               child: CustomOutlinedButton(
                 onPressed: () async {
-                  print(phone);
-                  print(shortName);
-                  print(dateStart);
-                  print(dateFinish);
-                  print(raceType);
-                  print(eventHour);
-                  print(logo);
-                  print(organizer);
-                  print(email);
-                  print(website);
-                  print(country);
-                  print(stateCountry);
-                  print(raceType);
-
                   if (widget.edit == true) {
                     await eventoProvider.updateEvento(
                         id,
@@ -297,7 +279,7 @@ class _EventoModalState extends State<EventoModal> {
                   );
                   //Navigator.pop(context);
                 },
-                text: 'Crear',
+                text: textini,
                 color: Colors.black,
               ),
             )
