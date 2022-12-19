@@ -1,4 +1,6 @@
+import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:admin_dashboard/ui/views/menu_eventosView.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:date_field/date_field.dart';
@@ -38,6 +40,17 @@ class _EventoModalState extends State<EventoModal> {
   String? country = '';
   String? stateCountry = '';
   String? raceType = '';
+
+  String? validateMobile(String? value) {
+    String? patttern = r'(^[0-9]*$)';
+    RegExp regExp = new RegExp(patttern);
+    if (value?.length == 0) {
+      return "El telefono es necesario";
+    } else if (value?.length != 10) {
+      return "El numero debe tener 10 digitos";
+    }
+    return null;
+  }
 
   @override
   void initState() {
@@ -104,10 +117,16 @@ class _EventoModalState extends State<EventoModal> {
               ],
             ),
             TextFormField(
+              /* validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Escribe el código de barras';
+                }
+                  return null;
+                },*/
               initialValue: widget.evento?.eventName ?? eventName,
               onChanged: (value) => eventName = value,
               decoration: CustomInputs.loginInputDecoration(
-                hint: eventName ?? 'Nombre del evento',
+                hint: eventName ?? 'Ingrese el nombre completo del evento',
                 label: 'Evento',
                 icon: Icons.new_releases_outlined,
               ),
@@ -116,8 +135,9 @@ class _EventoModalState extends State<EventoModal> {
               initialValue: widget.evento?.shortName ?? shortName,
               onChanged: (value) => shortName = value,
               decoration: CustomInputs.loginInputDecoration(
-                hint: shortName ?? 'Nombre Corto del Evento',
-                label: 'Siglas',
+                hint:
+                    shortName ?? 'Ingrese el nombre corto o siglas del evento',
+                label: 'Nombre Corto',
                 icon: Icons.new_releases_outlined,
               ),
             ),
@@ -189,6 +209,12 @@ class _EventoModalState extends State<EventoModal> {
               ),
             ),
             TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (!EmailValidator.validate(value ?? ''))
+                  return 'Email no valido';
+                return null;
+              },
               initialValue: widget.evento?.email ?? email,
               onChanged: (value) => email = value,
               decoration: CustomInputs.loginInputDecoration(
@@ -198,11 +224,13 @@ class _EventoModalState extends State<EventoModal> {
               ),
             ),
             TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: validateMobile,
               initialValue: widget.evento?.phone ?? phone,
               onChanged: (value) => phone = value,
               decoration: CustomInputs.loginInputDecoration(
                 hint: phone ?? 'Numero de Telefono',
-                label: 'Ingrese su numero de telefono',
+                label: 'Telefono',
                 icon: Icons.new_releases_outlined,
               ),
             ),
@@ -211,25 +239,27 @@ class _EventoModalState extends State<EventoModal> {
               onChanged: (value) => website = value,
               decoration: CustomInputs.loginInputDecoration(
                 hint: website ?? 'Sitio Web',
-                label: 'Ingrese si tiene sitio web',
+                label: ' Ingrese sitio web (en caso de haber)',
                 icon: Icons.new_releases_outlined,
               ),
             ),
             TextFormField(
+              textCapitalization: TextCapitalization.words,
               initialValue: widget.evento?.country ?? country,
               onChanged: (value) => country = value,
               decoration: CustomInputs.loginInputDecoration(
                 hint: country ?? 'Pais',
-                label: 'Ingrese su Pais',
+                label: 'Pais',
                 icon: Icons.new_releases_outlined,
               ),
             ),
             TextFormField(
+              textCapitalization: TextCapitalization.words,
               initialValue: widget.evento?.stateCountry ?? stateCountry,
               onChanged: (value) => stateCountry = value,
               decoration: CustomInputs.loginInputDecoration(
                 hint: stateCountry ?? 'Estado',
-                label: 'Ingrese su estado',
+                label: 'Estado',
                 icon: Icons.new_releases_outlined,
               ),
             ),
@@ -238,39 +268,49 @@ class _EventoModalState extends State<EventoModal> {
               alignment: Alignment.center,
               child: CustomOutlinedButton(
                 onPressed: () async {
-                  if (widget.edit == true) {
-                    await eventoProvider.updateEvento(
-                        id,
-                        phone,
-                        shortName,
-                        eventName,
-                        dateStart ?? DateTime.now(),
-                        dateFinish ?? DateTime.now(),
-                        eventHour,
-                        logo,
-                        organizer,
-                        email,
-                        website,
-                        country ?? '',
-                        stateCountry ?? '',
-                        raceType ?? '');
-                    print("Actualizanding ... $id");
-                  } else {
-                    await eventoProvider.newEvento(
-                        phone,
-                        shortName,
-                        eventName,
-                        dateStart ?? DateTime.now(),
-                        dateFinish ?? DateTime.now(),
-                        eventHour,
-                        logo,
-                        organizer,
-                        email,
-                        website,
-                        country ?? '',
-                        stateCountry ?? '',
-                        raceType ?? '');
-                    print("Registranding");
+                  try {
+                    if (widget.edit == true) {
+                      await eventoProvider.updateEvento(
+                          id,
+                          phone,
+                          shortName,
+                          eventName,
+                          dateStart ?? DateTime.now(),
+                          dateFinish ?? DateTime.now(),
+                          eventHour,
+                          logo,
+                          organizer,
+                          email,
+                          website,
+                          country ?? '',
+                          stateCountry ?? '',
+                          raceType ?? '');
+
+                      NotificationsService.showSnackbar(
+                          '$eventName Actualizado!');
+                      print("Actualizanding ... $id");
+                    } else {
+                      await eventoProvider.newEvento(
+                          phone,
+                          shortName,
+                          eventName,
+                          dateStart ?? DateTime.now(),
+                          dateFinish ?? DateTime.now(),
+                          eventHour,
+                          logo,
+                          organizer,
+                          email,
+                          website,
+                          country ?? '',
+                          stateCountry ?? '',
+                          raceType ?? '');
+                      NotificationsService.showSnackbar('$eventName Creado!');
+
+                      print("Registranding");
+                    }
+                  } catch (e) {
+                    NotificationsService.showSnackbarError(
+                        'No se pudo guardar el evento');
                   }
                   Navigator.push(
                     context,

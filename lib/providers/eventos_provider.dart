@@ -50,8 +50,7 @@ class EventosProvider extends ChangeNotifier {
       eventos.add(newEvento);
       notifyListeners();
     } catch (e) {
-      print(e);
-      print('Error al crear evento');
+      throw 'Error al crear la categoria';
     }
   }
 
@@ -95,8 +94,7 @@ class EventosProvider extends ChangeNotifier {
       }).toList();
       notifyListeners();
     } catch (e) {
-      print('Error al actualizar evento');
-      throw (e);
+      throw 'Error al actualizar la categoria';
     }
   }
 

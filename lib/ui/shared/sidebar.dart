@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 class Sidebar extends StatelessWidget {
   void navigateTo(String routeName) {
     NavigationService.navigateTo(routeName);
+    //NavigationService.replaceTo(routeName);
     SidemenuProvider.closeMenu();
   }
 
@@ -80,6 +81,7 @@ class Sidebar extends StatelessWidget {
               isActive: false,
               onPressed: () {
                 Provider.of<AuthProvider>(context, listen: false).logout();
+                Navigator.of(context);
               }),
         ],
       ),
