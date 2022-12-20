@@ -1,4 +1,41 @@
-import 'package:flutter/cupertino.dart';
+import 'package:admin_dashboard/api/eventos_api.dart';
+import 'package:admin_dashboard/models/http/usuarios_response.dart';
+import 'package:flutter/material.dart';
+
+import '../models/usuarios.dart';
+
+class UsuariosProvider extends ChangeNotifier {
+  List<Usuario> usuarios = [];
+  bool isLoading = true;
+
+  UsuariosProvider() {
+    this.getUsuarios();
+  }
+
+  getUsuarios() async {
+    final resp = await EventosApi.httpGet('/usuarios?limite=100&desde=0');
+    final usersResp = UsuariosResponse.fromMap(resp);
+
+    print(usersResp);
+    this.usuarios = [...usersResp.usuarios];
+
+    isLoading = false;
+
+    notifyListeners();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/*import 'package:flutter/cupertino.dart';
 
 import '../api/eventos_api.dart';
 import '../models/http/usuarios_response.dart';
@@ -41,3 +78,4 @@ class UsuariosProvider extends ChangeNotifier {
     }
   }
 }
+*/

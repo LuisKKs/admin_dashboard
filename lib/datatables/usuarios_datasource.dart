@@ -1,59 +1,25 @@
 import 'package:flutter/material.dart';
+
 import '../models/usuarios.dart';
 
 class UsuariosDatasource extends DataTableSource {
   final List<Usuario> usuarios;
-  final BuildContext context;
-  UsuariosDatasource(this.usuarios, this.context);
+
+  UsuariosDatasource(this.usuarios);
 
   @override
   DataRow getRow(int index) {
-    final usuario = this.usuarios[index];
+    final Usuario user = usuarios[index];
+
+    final image =
+        Image(image: AssetImage('no-image.jpg'), width: 35, height: 35);
 
     return DataRow.byIndex(index: index, cells: [
-      DataCell(Text(usuario.name)),
-      DataCell(Text(usuario.lastname)),
-      DataCell(Text(usuario.email)),
-      DataCell(Text(usuario.status.toString())),
-      DataCell(Text(usuario.phonenumber.toString())),
-      DataCell(Text(usuario.role.toString())),
-      DataCell(Row(
-        verticalDirection: VerticalDirection.up,
-        children: [
-          IconButton(
-              icon: Icon(Icons.edit_outlined),
-              onPressed: () {
-                print('editando: $usuario');
-              }),
-          IconButton(
-              icon: Icon(
-                Icons.delete_outlined,
-                color: Colors.red.withOpacity(0.8),
-              ),
-              onPressed: () {
-                final dialog = AlertDialog(
-                  title: Text('¿Esta seguro de borrarlo?'),
-                  content: Text('Borrar definitivamente ${usuario.name}?'),
-                  actions: [
-                    TextButton(
-                      child: Text('No'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    TextButton(
-                      child: Text('Si, borrar'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                );
-
-                showDialog(context: context, builder: (_) => dialog);
-              }),
-        ],
-      )),
+      DataCell(Text(image.toString())),
+      DataCell(Text(user.name)),
+      DataCell(Text(user.lastname)),
+      DataCell(Text(user.email)),
+      DataCell(Text('cell #$index')),
     ]);
   }
 
