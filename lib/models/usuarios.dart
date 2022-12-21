@@ -10,7 +10,7 @@ class Usuario {
     required this.status,
     required this.google,
     required this.uid,
-    //this.img,
+    this.img,
   });
 
   String name;
@@ -21,7 +21,7 @@ class Usuario {
   bool status;
   bool google;
   String uid;
-  //String? img;
+  String? img;
 
   factory Usuario.fromJson(String str) => Usuario.fromMap(json.decode(str));
 

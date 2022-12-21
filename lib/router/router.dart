@@ -18,7 +18,9 @@ class Flurorouter {
   static String Tipos_CarrerasRoute = '/dasboard/Tipo De Carreras';
   static String Menu_EventosRoute = '/dasboard/Menu De Eventos';
   static String Menu_CarrerasRoute = '/dasboard/Menu De Carreras';
+
   static String Admin_UsuariosRoute = '/dasboard/Administracion De Usuarios';
+  static String UsuarioRoute = '/dasboard/Administracion De Usuarios/:uid';
 
   static void configureRoutes() {
     //Auth Routes
@@ -38,6 +40,7 @@ class Flurorouter {
     router.define(Menu_CarrerasRoute, handler: DashboardHandlers.Menu_Carreras);
     router.define(Admin_UsuariosRoute,
         handler: DashboardHandlers.Admin_Usuarios);
+    router.define(UsuarioRoute, handler: DashboardHandlers.usuario);
 
     //404
     router.notFoundHandler = NoPageFoundHandlers.noPageFound;

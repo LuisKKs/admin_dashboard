@@ -37,8 +37,8 @@ class EventosApi {
     try {
       final resp = await _dio.put(path, data: formData);
       return resp.data;
-    } catch (e) {
-      throw ('Error en el put ');
+    } on DioError catch (e) {
+      throw ('Error en el put $e');
     }
   }
 

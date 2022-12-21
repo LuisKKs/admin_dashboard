@@ -1,3 +1,4 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/models/http/auth_reponse.dart';
@@ -83,4 +84,6 @@ class AuthProvider extends ChangeNotifier {
     authStatus = AuthStatus.notAuthenticated;
     notifyListeners();
   }
+
+  setCurrentPageUrl(FluroRouter fluroRouter) {}
 }

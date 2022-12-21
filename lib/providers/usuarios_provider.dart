@@ -6,6 +6,8 @@ import '../models/usuarios.dart';
 class UsuariosProvider extends ChangeNotifier {
   List<Usuario> usuarios = [];
   bool isLoading = true;
+  bool ascending = true;
+  int? sortColIndex;
 
   UsuariosProvider() {
     this.getUsuarios();
@@ -17,6 +19,32 @@ class UsuariosProvider extends ChangeNotifier {
     this.usuarios = [...usersResp.usuarios];
     isLoading = false;
     notifyListeners();
+  }
+
+  void sort<T>(Comparable<T> Function(Usuario usuario) getField) {
+    usuarios.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+
+      return ascending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
+    });
+
+    ascending = !ascending;
+
+    notifyListeners();
+  }
+
+  Future<Usuario> getUsuarioById(String uid) async {
+    try {
+      final resp = await EventosApi.httpGet('/usuarios/$uid');
+      final user = Usuario.fromMap(resp);
+      return user;
+    } catch (e) {
+      print(e);
+      throw e;
+    }
   }
 }
 

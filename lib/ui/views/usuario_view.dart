@@ -1,0 +1,247 @@
+import 'package:admin_dashboard/models/usuarios.dart';
+import 'package:admin_dashboard/providers/user_form_provider.dart';
+import 'package:admin_dashboard/providers/usuarios_provider.dart';
+import 'package:admin_dashboard/services/notifications_service.dart';
+import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
+import 'package:admin_dashboard/ui/labels/custom_labels.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../cards/white_card.dart';
+
+class UsuarioView extends StatefulWidget {
+  final String uid;
+
+  const UsuarioView({Key? key, required this.uid}) : super(key: key);
+
+  @override
+  State<UsuarioView> createState() => _UsuarioViewState();
+}
+
+class _UsuarioViewState extends State<UsuarioView> {
+  Usuario? user;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final usersProvider = Provider.of<UsuariosProvider>(context, listen: false);
+    final userFromProvider =
+        Provider.of<UserFormProvider>(context, listen: false);
+
+    usersProvider.getUsuarioById(widget.uid).then((userDB) {
+      userFromProvider.user = userDB;
+
+      setState(() {
+        this.user = userDB;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: ListView(
+          physics: ClampingScrollPhysics(),
+          children: [
+            Text('User view', style: CustomLabels.h1),
+            SizedBox(height: 10),
+            if (user == null)
+              WhiteCard(
+                  child: Container(
+                alignment: Alignment.center,
+                height: 300,
+                child: CircularProgressIndicator(),
+              )),
+            if (user != null) _UserViewBody()
+          ],
+        ));
+  }
+}
+
+class _UserViewBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Table(
+        columnWidths: {0: FixedColumnWidth(250)},
+        children: [
+          TableRow(children: [
+            _AvatarContainer(), //avatr
+            _UserViewForm(), //form
+          ])
+        ],
+      ),
+    );
+  }
+}
+
+class _UserViewForm extends StatelessWidget {
+  const _UserViewForm({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final userFormProvider = Provider.of<UserFormProvider>(context);
+    final user = userFormProvider.user;
+
+    return WhiteCard(
+      title: 'info general',
+      child: Form(
+        key: userFormProvider.formKey,
+        autovalidateMode: AutovalidateMode.always,
+        child: Column(
+          children: [
+            TextFormField(
+                initialValue: user!.name,
+                decoration: CustomInputs.formInputDecoration(
+                    hint: 'Nombre del Usuario',
+                    label: 'Nombre',
+                    icon: Icons.person_outline_outlined),
+                onChanged: (value) =>
+                    userFormProvider.copyUserWith(name: value),
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Ingrese su nombre.';
+                  if (value.length < 3)
+                    return 'El nombre debe de ser de tres letras como minimo.';
+                  return null;
+                }),
+            SizedBox(height: 20),
+            TextFormField(
+              initialValue: user.lastname,
+              decoration: CustomInputs.formInputDecoration(
+                  hint: 'Apellidos del usuario',
+                  label: 'Apellidos',
+                  icon: Icons.supervised_user_circle_outlined),
+              onChanged: (value) => user.lastname = value,
+              validator: ((value) {
+                if (value == null || value.isEmpty)
+                  return 'Ingrese su Apellidos.';
+                if (value.length < 3)
+                  return 'El apellido debe de ser de tres letras como minimo.';
+              }),
+            ),
+            SizedBox(height: 20),
+            TextFormField(
+              initialValue: user.email,
+              decoration: CustomInputs.formInputDecoration(
+                  hint: 'Correo del usuario',
+                  label: 'Correo',
+                  icon: Icons.email_outlined),
+              onChanged: (value) => user.email = value,
+              validator: ((value) {
+                if (!EmailValidator.validate(value ?? ''))
+                  return 'Email no valido';
+                return null;
+              }),
+            ),
+            SizedBox(height: 20),
+            TextFormField(
+              initialValue: user.phonenumber,
+              decoration: CustomInputs.formInputDecoration(
+                  hint: 'Telefono del usuario',
+                  label: 'Telefono',
+                  icon: Icons.phone_android_outlined),
+              onChanged: (value) => user.phonenumber = value,
+              validator: ((value) {
+                if (value == null || value.isEmpty)
+                  return 'Ingrese su telefono.';
+                if (value.length > 10 || value.length < 10)
+                  return 'El numero debe contener 10 digitos.';
+              }),
+            ),
+            SizedBox(height: 20),
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 115),
+              child: ElevatedButton(
+                  onPressed: () async {
+                    //act usuario
+                    final saved = await userFormProvider.upDateUser();
+                    if (saved) {
+                      NotificationsService.showSnackbar('Usuario actualizado');
+                      Provider.of<UsuariosProvider>(context, listen: false)
+                          .getUsuarios();
+                    } else {
+                      NotificationsService.showSnackbar('No se pudo guardar');
+                    }
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                    shadowColor: MaterialStateProperty.all(Colors.transparent),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.save_alt_outlined,
+                        size: 25,
+                      ),
+                      Text(' Guardar')
+                    ],
+                  )),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AvatarContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final userFormProvider = Provider.of<UserFormProvider>(context);
+    final user = userFormProvider.user;
+
+    return WhiteCard(
+      child: Container(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('perfil', style: CustomLabels.h2),
+            SizedBox(height: 20),
+            Container(
+              width: 160,
+              height: 160,
+              child: Stack(
+                children: [
+                  ClipOval(child: Image(image: AssetImage('no-image.jpg'))),
+                  Positioned(
+                    bottom: 5,
+                    right: 5,
+                    child: Container(
+                      width: 45,
+                      height: 45,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          border: Border.all(color: Colors.white, width: 5)),
+                      child: FloatingActionButton(
+                        backgroundColor: Colors.indigo,
+                        elevation: 0,
+                        child: Icon(Icons.camera_alt_outlined, size: 20),
+                        onPressed: () {
+                          //todo selec img
+                        },
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              user!.name,
+              style: TextStyle(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

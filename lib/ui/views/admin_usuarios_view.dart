@@ -21,13 +21,46 @@ class Admin_UsuariosView extends StatelessWidget {
             style: CustomLabels.h1,
           ),
           SizedBox(height: 10),
-          PaginatedDataTable(columns: [
-            DataColumn(label: Text('Avatar')),
-            DataColumn(label: Text('Nombre')),
-            DataColumn(label: Text('Apellido')),
-            DataColumn(label: Text('Email')),
-            DataColumn(label: Text('Opciones')),
-          ], source: userDataSource)
+          PaginatedDataTable(
+            sortAscending: usersProvider.ascending,
+            sortColumnIndex: usersProvider.sortColIndex,
+            columns: [
+              DataColumn(label: Text('Avatar')),
+              DataColumn(
+                label: Text('Nombre'),
+                onSort: (colIndex, _) {
+                  usersProvider.sortColIndex = colIndex;
+                  usersProvider.sort<String>((usuario) => usuario.name);
+                },
+              ),
+              DataColumn(
+                label: Text('Apellido'),
+                onSort: (colIndex, _) {
+                  usersProvider.sortColIndex = colIndex;
+                  usersProvider.sort<String>((usuario) => usuario.lastname);
+                },
+              ),
+              DataColumn(
+                label: Text('Email'),
+                onSort: (colIndex, _) {
+                  usersProvider.sortColIndex = colIndex;
+                  usersProvider.sort<String>((usuario) => usuario.email);
+                },
+              ),
+              DataColumn(
+                label: Text('Telefono'),
+                onSort: (colIndex, _) {
+                  usersProvider.sortColIndex = colIndex;
+                  usersProvider.sort<String>((usuario) => usuario.phonenumber);
+                },
+              ),
+              DataColumn(label: Text('Opciones')),
+            ],
+            source: userDataSource,
+            onPageChanged: (page) {
+              print('page: $page');
+            },
+          )
         ],
       ),
     );
