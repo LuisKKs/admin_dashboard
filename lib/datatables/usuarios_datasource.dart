@@ -1,11 +1,14 @@
-import 'package:admin_dashboard/services/navigation_service.dart';
+import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:admin_dashboard/services/navigation_service.dart';
 import '../models/usuarios.dart';
+import '../ui/modals/user_modal.dart';
 
 class UsuariosDatasource extends DataTableSource {
   final List<Usuario> usuarios;
-
-  UsuariosDatasource(this.usuarios);
+  final BuildContext context;
+  UsuariosDatasource(this.usuarios, this.context);
 
   @override
   DataRow getRow(int index) {
@@ -22,8 +25,12 @@ class UsuariosDatasource extends DataTableSource {
       DataCell(IconButton(
         icon: Icon(Icons.edit_outlined),
         onPressed: (() {
-          NavigationService.replaceTo(
-              '/dasboard/Administracion De Usuarios/${user.uid}');
+          showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (context) => UsuarioView(uid: '${user.uid}'));
+          //NavigationService.replaceTo(
+          //  '/dasboard/Administracion De Usuarios/${user.uid}');
         }),
       )),
     ]);

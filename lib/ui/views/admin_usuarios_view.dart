@@ -1,6 +1,7 @@
 import 'package:admin_dashboard/datatables/usuarios_datasource.dart';
 import 'package:admin_dashboard/providers/usuarios_provider.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +10,7 @@ class Admin_UsuariosView extends StatelessWidget {
   Widget build(BuildContext context) {
     final usersProvider = Provider.of<UsuariosProvider>(context);
 
-    final userDataSource = UsuariosDatasource(usersProvider.usuarios);
+    final userDataSource = UsuariosDatasource(usersProvider.usuarios, context);
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
