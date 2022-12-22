@@ -21,6 +21,17 @@ class UsuariosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<Usuario> getUserById(String uid) async {
+    try {
+      final resp = await EventosApi.httpGet('/usuarios/$uid');
+      final user = Usuario.fromMap(resp);
+      return user;
+    } catch (e) {
+      print(e);
+      throw e;
+    }
+  }
+
   void sort<T>(Comparable<T> Function(Usuario usuario) getField) {
     usuarios.sort((a, b) {
       final aValue = getField(a);
@@ -36,15 +47,15 @@ class UsuariosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Usuario> getUsuarioById(String uid) async {
-    try {
-      final resp = await EventosApi.httpGet('/usuarios/$uid');
-      final user = Usuario.fromMap(resp);
+  void refreshUser(Usuario newUser) {
+    this.usuarios = this.usuarios.map((user) {
+      if (user.uid == newUser.uid) {
+        user = newUser;
+      }
       return user;
-    } catch (e) {
-      print(e);
-      throw e;
-    }
+    }).toList();
+
+    notifyListeners();
   }
 }
 

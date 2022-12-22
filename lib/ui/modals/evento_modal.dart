@@ -111,7 +111,7 @@ class _EventoModalState extends State<EventoModal> {
                 IconButton(
                     icon: Icon(
                       Icons.close,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     onPressed: () => Navigator.of(context).pop())
               ],

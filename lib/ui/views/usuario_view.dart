@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../cards/white_card.dart';
+import 'admin_usuarios_view.dart';
 
 class UsuarioView extends StatefulWidget {
   final String uid;
@@ -30,7 +31,7 @@ class _UsuarioViewState extends State<UsuarioView> {
     final userFromProvider =
         Provider.of<UserFormProvider>(context, listen: false);
 
-    usersProvider.getUsuarioById(widget.uid).then((userDB) {
+    usersProvider.getUserById(widget.uid).then((userDB) {
       userFromProvider.user = userDB;
 
       setState(() {
@@ -180,16 +181,18 @@ class _UserViewForm extends StatelessWidget {
               onChanged: (value) => user.role = value as String,
             ),
             SizedBox(height: 20),
-            ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 115),
-              child: ElevatedButton(
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
                   onPressed: () async {
                     //act usuario
                     final saved = await userFormProvider.upDateUser();
                     if (saved) {
                       NotificationsService.showSnackbar('Usuario actualizado');
                       Provider.of<UsuariosProvider>(context, listen: false)
-                          .getUsuarios();
+                          .refreshUser(user);
                     } else {
                       NotificationsService.showSnackbar('No se pudo guardar');
                     }
@@ -198,16 +201,36 @@ class _UserViewForm extends StatelessWidget {
                     backgroundColor: MaterialStateProperty.all(Colors.indigo),
                     shadowColor: MaterialStateProperty.all(Colors.transparent),
                   ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.save_alt_outlined,
-                        size: 25,
-                      ),
-                      Text(' Guardar')
-                    ],
-                  )),
-            )
+                  child: Row(children: [
+                    Icon(
+                      Icons.save_alt_outlined,
+                      size: 25,
+                    ),
+                    Text(' Guardar')
+                  ]),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Admin_UsuariosView()),
+                    );
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                    shadowColor: MaterialStateProperty.all(Colors.transparent),
+                  ),
+                  child: Row(children: [
+                    Icon(
+                      Icons.exit_to_app_outlined,
+                      size: 25,
+                    ),
+                    Text(' regresar')
+                  ]),
+                ),
+              ],
+            ),
           ],
         ),
       ),
