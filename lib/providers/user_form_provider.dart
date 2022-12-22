@@ -51,6 +51,7 @@ class UserFormProvider extends ChangeNotifier {
       'lastname': user!.lastname,
       'email': user!.email,
       'phonenumber': user!.phonenumber,
+      'role': user!.role,
     };
     try {
       final resp = await EventosApi.put('/usuarios/${user!.uid}', data);

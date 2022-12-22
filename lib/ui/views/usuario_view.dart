@@ -88,8 +88,20 @@ class _UserViewForm extends StatelessWidget {
     final userFormProvider = Provider.of<UserFormProvider>(context);
     final user = userFormProvider.user;
 
+    var listona = [
+      'Administrador',
+      'Manager evento',
+      'Manager carrera',
+      'Usuario'
+    ];
+    var listonaVAL = [
+      'ADMIN_ROLE',
+      'EMANAGER_ROLE',
+      'CMANAGER_ROLE',
+      'USER_ROLE'
+    ];
     return WhiteCard(
-      title: 'info general',
+      title: 'Info general',
       child: Form(
         key: userFormProvider.formKey,
         autovalidateMode: AutovalidateMode.always,
@@ -153,6 +165,19 @@ class _UserViewForm extends StatelessWidget {
                 if (value.length > 10 || value.length < 10)
                   return 'El numero debe contener 10 digitos.';
               }),
+            ),
+            SizedBox(height: 20),
+            DropdownButtonFormField(
+              decoration: CustomInputs.formInputDecoration(
+                  hint: user.role ?? "Seleccione El Tipo De Carrera",
+                  label: 'Rol de usuario',
+                  icon: Icons.supervised_user_circle_outlined),
+              items: listona.map((acon) {
+                return DropdownMenuItem(
+                    value: listonaVAL.elementAt(listona.indexOf(acon)),
+                    child: Text('${acon}'));
+              }).toList(),
+              onChanged: (value) => user.role = value as String,
             ),
             SizedBox(height: 20),
             ConstrainedBox(
