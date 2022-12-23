@@ -13,6 +13,32 @@ class CatCarreraProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future updateTipCarr(
+    String id,
+    String typeName,
+    String description,
+    String user,
+  ) async {
+    final data = {
+      'id': id,
+      'typeName': typeName,
+      'description': description,
+      'user': user,
+    };
+
+    try {
+      await EventosApi.put('/catcarrera/$id', data);
+      this.racetypes = this.racetypes.map((racetype) {
+        if (racetype.id != id) return racetype;
+        racetype.typeName = typeName;
+        return racetype;
+      }).toList();
+      notifyListeners();
+    } catch (e) {
+      throw 'Error al actualizar el Tipo de carrera';
+    }
+  }
+
   Future newTipoCerrera(String typeName, String description, String id) async {
     final data = {"typeName": typeName, "description": description, "id": id};
 
@@ -23,6 +49,21 @@ class CatCarreraProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       print('Error al crear evento');
+    }
+  }
+
+  Future deleteEvento(
+    String id,
+  ) async {
+    try {
+      await EventosApi.delete('/catcarrera/$id', {});
+
+      racetypes.removeWhere((evento) => evento.id == id);
+
+      notifyListeners();
+    } catch (e) {
+      print('Error al actualizar evento');
+      throw (e);
     }
   }
 }

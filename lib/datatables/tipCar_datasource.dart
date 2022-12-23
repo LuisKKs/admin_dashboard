@@ -1,6 +1,9 @@
+import 'package:admin_dashboard/providers/tipo_carrera_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/carrera.dart';
+import '../ui/modals/tipo_carreras_modal.dart';
 
 class TipCarDatasource extends DataTableSource {
   final List<Racetype> racetypes;
@@ -22,7 +25,11 @@ class TipCarDatasource extends DataTableSource {
           IconButton(
               icon: Icon(Icons.edit_outlined),
               onPressed: () {
-                print('editando: $tipo');
+                bool edit = true;
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) =>
+                        TipoCarrerasModal(tipcar: tipo, edit: edit));
               }),
           IconButton(
               icon: Icon(
@@ -32,7 +39,7 @@ class TipCarDatasource extends DataTableSource {
               onPressed: () {
                 final dialog = AlertDialog(
                   title: Text('¿Esta seguro de borrarlo?'),
-                  content: Text('Borrar definitivamente ${tipo.user.id}?'),
+                  content: Text('Borrar definitivamente ${tipo.typeName}?'),
                   actions: [
                     TextButton(
                       child: Text('No'),
@@ -42,7 +49,10 @@ class TipCarDatasource extends DataTableSource {
                     ),
                     TextButton(
                       child: Text('Si, borrar'),
-                      onPressed: () {
+                      onPressed: () async {
+                        await Provider.of<CatCarreraProvider>(context,
+                                listen: false)
+                            .deleteEvento(tipo.id);
                         Navigator.of(context).pop();
                       },
                     ),

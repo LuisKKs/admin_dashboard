@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../datatables/tipCar_datasource.dart';
+import '../modals/tipo_carreras_modal.dart';
 
 class Tipos_Carreras_View extends StatefulWidget {
   @override
@@ -54,7 +55,7 @@ class _Tipos_CarrerasState extends State<Tipos_Carreras_View> {
                   showModalBottomSheet(
                       backgroundColor: Colors.transparent,
                       context: context,
-                      builder: (_) => EventoModal(
+                      builder: (_) => TipoCarrerasModal(
                             edit: false,
                           ));
                 },
