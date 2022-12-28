@@ -25,7 +25,7 @@ class TipoCarrerasModal extends StatefulWidget {
 class _TipoCarrerasModal extends State<TipoCarrerasModal> {
   String typeName = '';
   String description = '';
-  String user = '';
+  //String user = '';
   String id = '';
 
   @override
@@ -34,7 +34,7 @@ class _TipoCarrerasModal extends State<TipoCarrerasModal> {
     typeName = widget.tipcar?.typeName ?? '';
     description = widget.tipcar?.description ?? '';
     id = widget.tipcar?.id ?? '';
-    user = widget.tipcar?.user.name ?? '';
+    //user = widget.tipcar?.user.name ?? '';
   }
 
   @override
@@ -116,7 +116,7 @@ class _TipoCarrerasModal extends State<TipoCarrerasModal> {
                   try {
                     if (widget.edit == true) {
                       await tipCarrProvider.updateTipCarr(
-                          id, typeName, description, user);
+                          id, typeName, description);
 
                       NotificationsService.showSnackbar(
                           '$typeName Actualizado');

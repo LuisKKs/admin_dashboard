@@ -1,7 +1,6 @@
 import 'package:admin_dashboard/providers/tipo_carrera_provider.dart';
 import 'package:admin_dashboard/ui/buttons/custom_icon_button.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
-import 'package:admin_dashboard/ui/modals/evento_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +36,7 @@ class _Tipos_CarrerasState extends State<Tipos_Carreras_View> {
           PaginatedDataTable(
             columns: [
               DataColumn(label: Text('Nombre')),
-              DataColumn(label: Text('Registró')),
+              //DataColumn(label: Text('Registró')),
               DataColumn(label: Text('Descripcion')),
               DataColumn(label: Text('Acciones')),
             ],

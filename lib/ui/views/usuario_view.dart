@@ -8,8 +8,8 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/navigation_service.dart';
 import '../cards/white_card.dart';
-import 'admin_usuarios_view.dart';
 
 class UsuarioView extends StatefulWidget {
   final String uid;
@@ -211,11 +211,13 @@ class _UserViewForm extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
+                    NavigationService.replaceTo(
+                        '/dasboard/Administracion De Usuarios');
+                    /*Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => Admin_UsuariosView()),
-                    );
+                    );*/
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.indigo),

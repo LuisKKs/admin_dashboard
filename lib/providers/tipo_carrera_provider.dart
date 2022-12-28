@@ -17,13 +17,11 @@ class CatCarreraProvider extends ChangeNotifier {
     String id,
     String typeName,
     String description,
-    String user,
   ) async {
     final data = {
       'id': id,
       'typeName': typeName,
       'description': description,
-      'user': user,
     };
 
     try {

@@ -17,7 +17,7 @@ class TipCarDatasource extends DataTableSource {
     // String end = evento.dateFinish.toString();
     return DataRow.byIndex(index: index, cells: [
       DataCell(Text(tipo.typeName)),
-      DataCell(Text(tipo.user.name)),
+      //DataCell(Text(tipo.user.name)),
       DataCell(Text(tipo.description)),
       DataCell(Row(
         verticalDirection: VerticalDirection.up,
