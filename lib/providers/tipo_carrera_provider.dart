@@ -46,7 +46,7 @@ class CatCarreraProvider extends ChangeNotifier {
       racetypes.add(newCatCarr);
       notifyListeners();
     } catch (e) {
-      print('Error al crear evento');
+      print('Error al crear el tipo de carrera');
     }
   }
 
@@ -60,7 +60,7 @@ class CatCarreraProvider extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      print('Error al actualizar evento');
+      print('Error al actualizar el tipo de carrera');
       throw (e);
     }
   }
