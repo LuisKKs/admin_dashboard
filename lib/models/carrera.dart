@@ -4,13 +4,11 @@ class Racetype {
   Racetype({
     required this.typeName,
     required this.description,
-    required this.user,
     required this.id,
   });
 
   String typeName;
   String description;
-  User user;
   String id;
 
   factory Racetype.fromJson(String str) => Racetype.fromMap(json.decode(str));
@@ -20,14 +18,12 @@ class Racetype {
   factory Racetype.fromMap(Map<String, dynamic> json) => Racetype(
         typeName: json["typeName"],
         description: json["description"],
-        user: User.fromMap(json["user"]),
         id: json["_id"],
       );
 
   Map<String, dynamic> toMap() => {
         "typeName": typeName,
         "description": description,
-        "user": user.toMap(),
         "id": id,
       };
 }
