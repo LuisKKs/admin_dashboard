@@ -1,4 +1,7 @@
+import 'package:admin_dashboard/providers/carreras_provider.dart';
+import 'package:admin_dashboard/ui/modals/carreras_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/carrerasprin.dart';
 
@@ -32,7 +35,11 @@ class CarrerasDatasource extends DataTableSource {
           IconButton(
               icon: Icon(Icons.edit_outlined),
               onPressed: () {
-                print('editando: $carrera');
+                bool edit = true;
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) =>
+                        CarrerasModal(carrera: carrera, edit: edit));
               }),
           IconButton(
               icon: Icon(
@@ -52,7 +59,10 @@ class CarrerasDatasource extends DataTableSource {
                     ),
                     TextButton(
                       child: Text('Si, borrar'),
-                      onPressed: () {
+                      onPressed: () async {
+                        await Provider.of<CarrerasProvider>(context,
+                                listen: false)
+                            .deleteCarrera(carrera.id);
                         Navigator.of(context).pop();
                       },
                     ),

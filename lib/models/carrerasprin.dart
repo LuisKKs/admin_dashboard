@@ -2,6 +2,7 @@ import 'dart:convert';
 
 class Carrera {
   Carrera({
+    required this.id,
     required this.event,
     required this.shortName,
     required this.longName,
@@ -18,6 +19,7 @@ class Carrera {
     required this.raceLink,
   });
 
+  String id;
   Event event;
   String shortName;
   String longName;
@@ -38,6 +40,7 @@ class Carrera {
   String toJson() => json.encode(toMap());
 
   factory Carrera.fromMap(Map<String, dynamic> json) => Carrera(
+        id: json["_id"],
         event: Event.fromMap(json["event"]),
         shortName: json["shortName"],
         longName: json["longName"],
@@ -55,6 +58,7 @@ class Carrera {
       );
 
   Map<String, dynamic> toMap() => {
+        "_id": id,
         "event": event.toMap(),
         "shortName": shortName,
         "longName": longName,

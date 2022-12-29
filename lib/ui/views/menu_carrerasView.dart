@@ -1,10 +1,10 @@
+import 'package:admin_dashboard/ui/modals/carreras_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:admin_dashboard/providers/carreras_provider.dart';
 import '../../datatables/carreras_datasource.dart';
 import '../buttons/custom_icon_button.dart';
 import '../labels/custom_labels.dart';
-import '../modals/evento_modal.dart';
 
 class Menu_CarrerasView extends StatefulWidget {
   @override
@@ -24,6 +24,7 @@ class _Menu_CarrerasViewState extends State<Menu_CarrerasView> {
   @override
   Widget build(BuildContext context) {
     final carreras = Provider.of<CarrerasProvider>(context).carreras;
+    final size = MediaQuery.of(context).size;
     ScrollController controller =
         ScrollController(keepScrollOffset: true, initialScrollOffset: 0.0);
     controller.createScrollPosition;
@@ -31,7 +32,7 @@ class _Menu_CarrerasViewState extends State<Menu_CarrerasView> {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: ListView(
         children: [
-          Text('Menu De Corredores view', style: CustomLabels.h1),
+          Text('Menu De Carreras view', style: CustomLabels.h1),
           SizedBox(height: 10),
           SingleChildScrollView(
             controller: controller,
@@ -65,9 +66,11 @@ class _Menu_CarrerasViewState extends State<Menu_CarrerasView> {
                 CustomIconButton(
                   onPressed: () {
                     showModalBottomSheet(
-                        backgroundColor: Colors.transparent,
+                        elevation: size.height / 2,
+                        isScrollControlled: false,
+                        backgroundColor: Colors.white,
                         context: context,
-                        builder: (_) => EventoModal(
+                        builder: (_) => CarrerasModal(
                               edit: false,
                             ));
                   },
