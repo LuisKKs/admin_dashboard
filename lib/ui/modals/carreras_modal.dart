@@ -207,7 +207,7 @@ class _CarrerasState extends State<CarrerasModal> {
                   return 'Email no valido';
                 return null;
               },
-              initialValue: widget.evento?.email ?? email,
+              initialValue: widget.carrera?.email ?? email,
               onChanged: (value) => email = value,
               decoration: CustomInputs.loginInputDecoration(
                 hint: email ?? 'Correo Electronico',
@@ -218,7 +218,7 @@ class _CarrerasState extends State<CarrerasModal> {
             TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: validateMobile,
-              initialValue: widget.carrera?.contactNumber,
+              initialValue: widget.carrera?.contactNumber ?? contactNumber,
               onChanged: (value) => contactNumber = value,
               decoration: CustomInputs.loginInputDecoration(
                 hint: contactNumber ?? 'Numero de Telefono',

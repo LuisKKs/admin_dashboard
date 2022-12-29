@@ -119,7 +119,7 @@ class CarrerasProvider extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      print('Error al actualizar evento');
+      print('Error al borrar carrera');
       throw (e);
     }
   }
