@@ -82,7 +82,7 @@ class _CarrerasState extends State<CarrerasModal> {
 
   @override
   void didChangeDependencies() {
-    Provider.of<CarrerasProvider>(context, listen: false).getCarreras();
+    Provider.of<EventosProvider>(context, listen: false).getEventos();
     super.didChangeDependencies();
   }
 
@@ -351,7 +351,7 @@ class _CarrerasState extends State<CarrerasModal> {
                     NotificationsService.showSnackbarError(
                         'No se pudo guardar el evento');
                   }
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (context) => Menu_CarrerasView()),

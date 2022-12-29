@@ -51,7 +51,7 @@ class CarrerasProvider extends ChangeNotifier {
     };
 
     try {
-      final json = await EventosApi.post('/corredor', data);
+      final json = await EventosApi.post('/carrera', data);
       final newCarrera = Carrera.fromMap(json);
 
       carreras.add(newCarrera);

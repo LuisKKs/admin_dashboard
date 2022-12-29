@@ -1,10 +1,10 @@
-import 'package:admin_dashboard/ui/modals/carreras_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:admin_dashboard/providers/carreras_provider.dart';
 import '../../datatables/carreras_datasource.dart';
+import 'package:admin_dashboard/providers/carreras_provider.dart';
 import '../buttons/custom_icon_button.dart';
 import '../labels/custom_labels.dart';
+import 'package:admin_dashboard/ui/modals/carreras_modal.dart';
 
 class Menu_CarrerasView extends StatefulWidget {
   @override
