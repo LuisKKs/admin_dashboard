@@ -1,8 +1,11 @@
+import 'dart:html';
+
 import 'package:admin_dashboard/providers/tipo_carrera_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/carrera.dart';
+import '../services/navigation_service.dart';
 import '../ui/modals/tipo_carreras_modal.dart';
 
 class TipCarDatasource extends DataTableSource {
@@ -19,6 +22,18 @@ class TipCarDatasource extends DataTableSource {
       DataCell(Text(tipo.typeName)),
       //DataCell(Text(tipo.user.name)),
       DataCell(Text(tipo.description)),
+      DataCell(TextButton(
+        child: Row(children: [
+          Text(
+            'Categorias ',
+          ),
+          Icon(Icons.category_outlined)
+        ]),
+        onPressed: (() {
+          NavigationService.replaceTo(
+              '/dasboard/Tipo De Carreras/categorias_carrera/${tipo.id}');
+        }),
+      )),
       DataCell(Row(
         verticalDirection: VerticalDirection.up,
         children: [

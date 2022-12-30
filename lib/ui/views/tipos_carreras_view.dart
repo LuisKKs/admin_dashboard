@@ -39,9 +39,10 @@ class _Tipos_CarrerasState extends State<Tipos_Carreras_View> {
               //DataColumn(label: Text('Registró')),
               DataColumn(label: Text('Descripcion')),
               DataColumn(label: Text('Acciones')),
+              DataColumn(label: Text('Categorias'))
             ],
             source: TipCarDatasource(tipos, context),
-            header: Text('Eventos Disponibles', maxLines: 2),
+            header: Text('Tipo de carreras', maxLines: 2),
             onRowsPerPageChanged: (value) {
               setState(() {
                 _rowsPerPage = value ?? 10;

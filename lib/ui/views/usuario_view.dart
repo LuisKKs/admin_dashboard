@@ -170,7 +170,7 @@ class _UserViewForm extends StatelessWidget {
             SizedBox(height: 20),
             DropdownButtonFormField(
               decoration: CustomInputs.formInputDecoration(
-                  hint: user.role ?? "Seleccione El Tipo De Carrera",
+                  hint: user.role,
                   label: 'Rol de usuario',
                   icon: Icons.supervised_user_circle_outlined),
               items: listona.map((acon) {
