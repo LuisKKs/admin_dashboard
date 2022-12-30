@@ -1,11 +1,11 @@
 import 'package:admin_dashboard/datatables/corredores_datasource.dart';
 import 'package:admin_dashboard/providers/corredores_provider.dart';
+import 'package:admin_dashboard/ui/modals/corredores_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../buttons/custom_icon_button.dart';
 import '../labels/custom_labels.dart';
-import '../modals/evento_modal.dart';
 
 class Menu_CorredoresView extends StatefulWidget {
   @override
@@ -41,6 +41,7 @@ class _Menu_CorredoresViewState extends State<Menu_CorredoresView> {
               DataColumn(label: Text('Numero de Corredor')),
               DataColumn(label: Text('Correo')),
               DataColumn(label: Text('Pais')),
+              DataColumn(label: Text('Estado')),
               DataColumn(label: Text('Nombre de Emergencia')),
               DataColumn(label: Text('Numero de Emergencia')),
               DataColumn(label: Text('Licencia')),
@@ -66,7 +67,7 @@ class _Menu_CorredoresViewState extends State<Menu_CorredoresView> {
                   showModalBottomSheet(
                       backgroundColor: Colors.transparent,
                       context: context,
-                      builder: (_) => EventoModal(
+                      builder: (_) => CorredoresModal(
                             edit: false,
                           ));
                 },

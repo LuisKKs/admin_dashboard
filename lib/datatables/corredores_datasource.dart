@@ -1,5 +1,8 @@
 import 'package:admin_dashboard/models/corredor.dart';
+import 'package:admin_dashboard/providers/corredores_provider.dart';
+import 'package:admin_dashboard/ui/modals/corredores_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CorredoresDatasource extends DataTableSource {
   final List<Corredore> corredores;
@@ -14,9 +17,10 @@ class CorredoresDatasource extends DataTableSource {
       DataCell(Text(corredor.name)),
       DataCell(Text(corredor.lastname)),
       DataCell(Text(corredor.lastname2)),
-      DataCell(Text(corredor.runnerNumber.toString())),
+      DataCell(Text(corredor.runnerNumber)),
       DataCell(Text(corredor.email)),
       DataCell(Text(corredor.country)),
+      DataCell(Text(corredor.state)),
       DataCell(Text(corredor.emergencyName)),
       DataCell(Text(corredor.emergencyNumber)),
       DataCell(Text(corredor.licence)),
@@ -32,7 +36,11 @@ class CorredoresDatasource extends DataTableSource {
           IconButton(
               icon: Icon(Icons.edit_outlined),
               onPressed: () {
-                print('editando: $corredor');
+                bool edit = true;
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) =>
+                        CorredoresModal(corredore: corredor, edit: edit));
               }),
           IconButton(
               icon: Icon(
@@ -52,7 +60,10 @@ class CorredoresDatasource extends DataTableSource {
                     ),
                     TextButton(
                       child: Text('Si, borrar'),
-                      onPressed: () {
+                      onPressed: () async {
+                        await Provider.of<CorredoresProvider>(context,
+                                listen: false)
+                            .deleteCorredor(corredor.id);
                         Navigator.of(context).pop();
                       },
                     ),

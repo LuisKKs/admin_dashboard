@@ -62,7 +62,7 @@ class _TipoCarrerasModal extends State<TipoCarrerasModal> {
       body: Container(
         decoration: buildBoxDecoration(),
         child: ListView(
-          itemExtent: 70,
+          itemExtent: 90,
           controller: controller,
           padding: EdgeInsets.all(10),
           children: [
