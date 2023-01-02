@@ -36,6 +36,7 @@ class CorredoresProvider extends ChangeNotifier {
       String team) async {
     final data = {
       'name': name,
+      'password': '',
       'lastname': lastname,
       'lastname2': lastname2,
       'runnerNumber': runnerNumber,

@@ -1,10 +1,9 @@
-import 'package:admin_dashboard/providers/tipo_carrera_provider.dart';
-import 'package:admin_dashboard/ui/buttons/custom_icon_button.dart';
-import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:admin_dashboard/providers/tipo_carrera_provider.dart';
 import '../../datatables/tipCar_datasource.dart';
+import 'package:admin_dashboard/ui/buttons/custom_icon_button.dart';
+import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import '../modals/tipo_carreras_modal.dart';
 
 class Tipos_Carreras_View extends StatefulWidget {

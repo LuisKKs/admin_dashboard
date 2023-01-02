@@ -63,16 +63,18 @@ class _CorredoresModal extends State<CorredoresModal> {
     sex = widget.corredore?.sex ?? '';
     team = widget.corredore?.team ?? '';
   }
-
+  /*
   @override
+  
   void didChangeDependencies() {
-    Provider.of<CorredoresProvider>(context, listen: false).getCorredores();
+    //Provider.of<CorredoresProvider>(context, listen: false).getCorredores();
     super.didChangeDependencies();
   }
-
+  */
   @override
   Widget build(BuildContext context) {
     List<String> lista = <String>["MASCULINO", "FEMENINO"];
+    List<String> listona = <String>["Honvre", "Muger"];
     final corredoresProvider =
         Provider.of<CorredoresProvider>(context, listen: false);
     ScrollController controller =
@@ -135,7 +137,7 @@ class _CorredoresModal extends State<CorredoresModal> {
             ),
             TextFormField(
               initialValue: widget.corredore?.runnerNumber ?? runnerNumber,
-              onChanged: (value) => runnerNumber.toString() == value,
+              onChanged: (value) => runnerNumber = value,
               decoration: CustomInputs.loginInputDecoration(
                   hint: runnerNumber ?? 'Ingrese su numero',
                   label: 'Numero',
@@ -194,8 +196,8 @@ class _CorredoresModal extends State<CorredoresModal> {
               initialValue: widget.corredore?.licence ?? licence,
               onChanged: (value) => licence = value,
               decoration: CustomInputs.loginInputDecoration(
-                  hint: licence ?? 'Ingrese su lisencia',
-                  label: 'Lisencia',
+                  hint: licence ?? 'Ingrese su licencia',
+                  label: 'Licencia',
                   icon: Icons.new_releases_outlined),
             ),
             TextFormField(
@@ -222,7 +224,7 @@ class _CorredoresModal extends State<CorredoresModal> {
                 suffixIcon: Icon(Icons.event_note),
                 labelText: 'Fecha de nacimiento',
               ),
-              mode: DateTimeFieldPickerMode.dateAndTime,
+              mode: DateTimeFieldPickerMode.date,
               autovalidateMode: AutovalidateMode.always,
               validator: (e) =>
                   (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
@@ -239,10 +241,12 @@ class _CorredoresModal extends State<CorredoresModal> {
                       width: 1, color: Colors.black.withOpacity(0.6)),
                 ),
               ),
-              items: lista.map((acon) {
-                return DropdownMenuItem(value: acon, child: Text(acon));
+              items: listona.map((acon) {
+                return DropdownMenuItem(
+                  value: lista.elementAt(listona.indexOf(acon)), 
+                  child: Text(acon));
               }).toList(),
-              onChanged: (value) => sex == value,
+              onChanged: (value) => sex = value!,
               hint: Text("Seleccione su sexo"),
             ),
             TextFormField(
@@ -268,8 +272,8 @@ class _CorredoresModal extends State<CorredoresModal> {
                         lastname,
                         lastname2,
                         sex,
-                        birthDate = DateTime.now(),
-                        licence = '',
+                        birthDate ?? DateTime.now(),
+                        licence ?? '',
                         team,
                         country,
                         state,
@@ -279,23 +283,6 @@ class _CorredoresModal extends State<CorredoresModal> {
                         emergencyNumber,
                         emergencyName,
                       );
-                      print(email);
-                      print(phoneNumber);
-                      print(name);
-                      print(lastname);
-                      print(lastname2);
-                      print(sex);
-                      print(birthDate);
-                      print(licence);
-                      print(team);
-                      print(country);
-                      print(state);
-                      print(municipality);
-                      print(runnerNumber);
-                      print(picture);
-                      print(emergencyNumber);
-                      print(emergencyName);
-
                       NotificationsService.showSnackbar('$name Actualizado');
                     } else {
                       await corredoresProvider.newCorredor(
@@ -311,7 +298,7 @@ class _CorredoresModal extends State<CorredoresModal> {
                           licence,
                           municipality,
                           phoneNumber,
-                          birthDate = DateTime.now(),
+                          birthDate ?? DateTime.now(),
                           picture,
                           sex,
                           team);

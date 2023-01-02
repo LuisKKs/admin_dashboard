@@ -92,20 +92,16 @@ class DashboardHandlers {
       }
     }
   });
-  static Handler categoriasCarrera = Handler(handlerFunc: (context, params) {
+  static Handler categoriasRoute = Handler(handlerFunc: (context, params) {
     final authProvider = Provider.of<AuthProvider>(context!);
 
     Provider.of<SidemenuProvider>(context, listen: false)
-        .setCurrentPageUrl(Flurorouter.categoriasCarrera);
+        .setCurrentPageUrl(Flurorouter.categoriasRoute);
 
     if (authProvider.authStatus == AuthStatus.notAuthenticated) {
       return DashboardView();
     } else {
-      if (params['id']?.first != null) {
-        return CategoriasView(id: params['id']!.first);
-      } else {
-        return CategoriasView(id: '$params');
-      }
+      return CategoriasView();  
     }
   });
 }

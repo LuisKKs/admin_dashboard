@@ -61,6 +61,13 @@ class Sidebar extends StatelessWidget {
                   Flurorouter.Tipos_CarrerasRoute),
           SizedBox(height: 10),
           CustomMenuItem(
+              text: 'Categorias',
+              icon: Icons.category_outlined,
+              onPressed: () => navigateTo(Flurorouter.categoriasRoute),
+              isActive: sideMenuProvider.currentPage ==
+                  Flurorouter.categoriasRoute),
+          SizedBox(height: 10),
+          CustomMenuItem(
               isActive: sideMenuProvider.currentPage ==
                   Flurorouter.Menu_CorredoresRoute,
               text: 'Menu De Corredores',

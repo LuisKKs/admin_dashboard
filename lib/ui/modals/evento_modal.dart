@@ -117,12 +117,6 @@ class _EventoModalState extends State<EventoModal> {
               ],
             ),
             TextFormField(
-              /* validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Escribe el código de barras';
-                }
-                  return null;
-                },*/
               initialValue: widget.evento?.eventName ?? eventName,
               onChanged: (value) => eventName = value,
               decoration: CustomInputs.loginInputDecoration(
