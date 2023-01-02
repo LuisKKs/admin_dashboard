@@ -63,6 +63,7 @@ class _CorredoresModal extends State<CorredoresModal> {
     sex = widget.corredore?.sex ?? '';
     team = widget.corredore?.team ?? '';
   }
+
   /*
   @override
   
@@ -73,8 +74,7 @@ class _CorredoresModal extends State<CorredoresModal> {
   */
   @override
   Widget build(BuildContext context) {
-    List<String> lista = <String>["MASCULINO", "FEMENINO"];
-    List<String> listona = <String>["Honvre", "Muger"];
+    List<String> lista = <String>["Masculino", "Femenino"];
     final corredoresProvider =
         Provider.of<CorredoresProvider>(context, listen: false);
     ScrollController controller =
@@ -116,7 +116,7 @@ class _CorredoresModal extends State<CorredoresModal> {
               onChanged: (value) => name = value,
               decoration: CustomInputs.loginInputDecoration(
                   hint: name ?? 'Ingrese el nombre del corredor',
-                  label: 'Corredor',
+                  label: 'Ingrese su nombre',
                   icon: Icons.new_releases_outlined),
             ),
             TextFormField(
@@ -124,7 +124,7 @@ class _CorredoresModal extends State<CorredoresModal> {
               onChanged: (value) => lastname = value,
               decoration: CustomInputs.loginInputDecoration(
                   hint: lastname ?? 'Ingrese su Apellido paterno',
-                  label: 'Apellido paterno',
+                  label: 'Ingrese su pellido paterno',
                   icon: Icons.new_releases_outlined),
             ),
             TextFormField(
@@ -132,7 +132,7 @@ class _CorredoresModal extends State<CorredoresModal> {
               onChanged: (value) => lastname2 = value,
               decoration: CustomInputs.loginInputDecoration(
                   hint: lastname2 ?? 'Ingrese su Apellido materno',
-                  label: 'Apellido materno',
+                  label: 'Ingrese su apellido materno',
                   icon: Icons.new_releases_outlined),
             ),
             TextFormField(
@@ -140,7 +140,7 @@ class _CorredoresModal extends State<CorredoresModal> {
               onChanged: (value) => runnerNumber = value,
               decoration: CustomInputs.loginInputDecoration(
                   hint: runnerNumber ?? 'Ingrese su numero',
-                  label: 'Numero',
+                  label: 'Ingrese el numero del corredor',
                   icon: Icons.new_releases_outlined),
             ),
             TextFormField(
@@ -213,7 +213,7 @@ class _CorredoresModal extends State<CorredoresModal> {
               onChanged: (value) => phoneNumber = value,
               decoration: CustomInputs.loginInputDecoration(
                   hint: phoneNumber ?? 'Ingrese su telefono',
-                  label: 'Numero',
+                  label: 'Ingrese su numero telefonico',
                   icon: Icons.new_releases_outlined),
             ),
             DateTimeFormField(
@@ -222,7 +222,7 @@ class _CorredoresModal extends State<CorredoresModal> {
                 errorStyle: TextStyle(color: Colors.redAccent),
                 border: OutlineInputBorder(),
                 suffixIcon: Icon(Icons.event_note),
-                labelText: 'Fecha de nacimiento',
+                labelText: 'Seleccione su fecha de nacimiento',
               ),
               mode: DateTimeFieldPickerMode.date,
               autovalidateMode: AutovalidateMode.always,
@@ -241,10 +241,10 @@ class _CorredoresModal extends State<CorredoresModal> {
                       width: 1, color: Colors.black.withOpacity(0.6)),
                 ),
               ),
-              items: listona.map((acon) {
+              items: lista.map((acon) {
                 return DropdownMenuItem(
-                  value: lista.elementAt(listona.indexOf(acon)), 
-                  child: Text(acon));
+                    value: lista.elementAt(lista.indexOf(acon)),
+                    child: Text(acon));
               }).toList(),
               onChanged: (value) => sex = value!,
               hint: Text("Seleccione su sexo"),
