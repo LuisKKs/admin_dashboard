@@ -25,7 +25,6 @@ class TipoCarrerasModal extends StatefulWidget {
 class _TipoCarrerasModal extends State<TipoCarrerasModal> {
   String typeName = '';
   String description = '';
-  //String user = '';
   String id = '';
 
   @override
@@ -34,7 +33,6 @@ class _TipoCarrerasModal extends State<TipoCarrerasModal> {
     typeName = widget.tipcar?.typeName ?? '';
     description = widget.tipcar?.description ?? '';
     id = widget.tipcar?.id ?? '';
-    //user = widget.tipcar?.user.name ?? '';
   }
 
   @override
@@ -81,7 +79,6 @@ class _TipoCarrerasModal extends State<TipoCarrerasModal> {
                 ),
               ],
             ),
-
             TextFormField(
               initialValue: widget.tipcar?.typeName ?? typeName,
               onChanged: (value) => typeName = value,
@@ -90,15 +87,6 @@ class _TipoCarrerasModal extends State<TipoCarrerasModal> {
                   label: 'Tipo de Carrera',
                   icon: Icons.new_releases_outlined),
             ),
-            //SizedBox(height:10 ),
-            /* TextFormField(
-              initialValue: widget.tipcar?.user.name ?? user,
-              onChanged:(value) => user = value,
-              decoration: CustomInputs.loginInputDecoration(
-                hint: user ?? 'Ingrese el nombre del Usuario',
-                label: 'Tipo de Carrera',
-                icon: Icons.new_releases_outlined),
-            ),*/
             TextFormField(
               initialValue: widget.tipcar?.description ?? description,
               onChanged: (value) => description = value,
@@ -107,7 +95,6 @@ class _TipoCarrerasModal extends State<TipoCarrerasModal> {
                   label: 'Descripcion',
                   icon: Icons.new_releases_outlined),
             ),
-
             Container(
               margin: EdgeInsets.only(top: 30),
               alignment: Alignment.center,

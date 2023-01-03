@@ -13,8 +13,7 @@ import '../buttons/custom_outlined_button.dart';
 class CategoriaModal extends StatefulWidget {
   final Categorias? categoria;
   final bool edit;
-  const CategoriaModal(
-      {Key? key, required this.edit, this.categoria})
+  const CategoriaModal({Key? key, required this.edit, this.categoria})
       : super(key: key);
 
   @override
@@ -22,11 +21,11 @@ class CategoriaModal extends StatefulWidget {
 }
 
 class _CategoriaModalState extends State<CategoriaModal> {
-    late String id;
-    late String raceType;
-    late String categoryName;
-    late String branch;
-    late String description;
+  late String id;
+  late String raceType;
+  late String categoryName;
+  late String branch;
+  late String description;
 
   @override
   void initState() {
@@ -37,7 +36,6 @@ class _CategoriaModalState extends State<CategoriaModal> {
     description = widget.categoria?.description ?? '';
 
     super.initState();
-
   }
 
   @override
@@ -100,12 +98,6 @@ class _CategoriaModalState extends State<CategoriaModal> {
               hint: Text("Seleccione el tipo de carrera"),
             ),
             TextFormField(
-              /* validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Escribe el código de barras';
-                }
-                  return null;
-                },*/
               initialValue: widget.categoria?.categoryName ?? categoryName,
               onChanged: (value) => categoryName = value,
               decoration: CustomInputs.loginInputDecoration(
@@ -140,23 +132,24 @@ class _CategoriaModalState extends State<CategoriaModal> {
                   try {
                     if (widget.edit == true) {
                       await catProv.updateCategoria(
-                          id,
-                          raceType,
-                          categoryName,
-                          branch,
-                          description,
-                          );
+                        id,
+                        raceType,
+                        categoryName,
+                        branch,
+                        description,
+                      );
                       NotificationsService.showSnackbar(
                           '$categoryName Actualizado!');
                     } else {
                       await catProv.newCategoria(
-                          //id ,
-                          raceType,
-                          categoryName,
-                          branch,
-                          description,
+                        //id ,
+                        raceType,
+                        categoryName,
+                        branch,
+                        description,
                       );
-                      NotificationsService.showSnackbar('$categoryName Creado!');
+                      NotificationsService.showSnackbar(
+                          '$categoryName Creado!');
                     }
                   } catch (e) {
                     NotificationsService.showSnackbarError(
@@ -164,10 +157,8 @@ class _CategoriaModalState extends State<CategoriaModal> {
                   }
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => CategoriasView()),
+                    MaterialPageRoute(builder: (context) => CategoriasView()),
                   );
-                  //Navigator.pop(context);
                 },
                 text: textini,
                 color: Colors.black,

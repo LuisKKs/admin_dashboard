@@ -64,14 +64,6 @@ class _CorredoresModal extends State<CorredoresModal> {
     team = widget.corredore?.team ?? '';
   }
 
-  /*
-  @override
-  
-  void didChangeDependencies() {
-    //Provider.of<CorredoresProvider>(context, listen: false).getCorredores();
-    super.didChangeDependencies();
-  }
-  */
   @override
   Widget build(BuildContext context) {
     List<String> lista = <String>["Masculino", "Femenino"];
@@ -302,23 +294,6 @@ class _CorredoresModal extends State<CorredoresModal> {
                           picture,
                           sex,
                           team);
-
-                      print(email);
-                      print(phoneNumber);
-                      print(name);
-                      print(lastname);
-                      print(lastname2);
-                      print(sex);
-                      print(birthDate);
-                      print(licence);
-                      print(team);
-                      print(country);
-                      print(state);
-                      print(municipality);
-                      print(runnerNumber);
-                      print(picture);
-                      print(emergencyNumber);
-                      print(emergencyName);
 
                       NotificationsService.showSnackbar('$name Creado!');
                     }

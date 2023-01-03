@@ -126,12 +126,6 @@ class _CarrerasState extends State<CarrerasModal> {
               ],
             ),
             TextFormField(
-              /* validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Escribe el código de barras';
-                }
-                  return null;
-                },*/
               initialValue: widget.carrera?.longName ?? longName,
               onChanged: (value) => longName = value,
               decoration: CustomInputs.loginInputDecoration(
@@ -158,7 +152,7 @@ class _CarrerasState extends State<CarrerasModal> {
                 suffixIcon: Icon(Icons.event_note),
                 labelText: 'Fecha de carrera',
               ),
-              mode: DateTimeFieldPickerMode.dateAndTime,
+              mode: DateTimeFieldPickerMode.date,
               autovalidateMode: AutovalidateMode.always,
               validator: (e) =>
                   (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
@@ -311,10 +305,8 @@ class _CarrerasState extends State<CarrerasModal> {
 
                       NotificationsService.showSnackbar(
                           '$longName Actualizado!');
-                      print("Actualizanding ... $id");
                     } else {
                       await carreraProvider.newCarrera(
-                          //id ,
                           event ?? '',
                           shortName,
                           longName ?? '',
@@ -330,33 +322,16 @@ class _CarrerasState extends State<CarrerasModal> {
                           altitude,
                           raceLink);
                       NotificationsService.showSnackbar('$longName Creado!');
-
-                      print("Registranding");
-                      print(event);
-                      print(shortName);
-                      print(longName);
-                      print(raceDate);
-                      print(raceHour);
-                      print(responsable);
-                      print(email);
-                      print(contactNumber);
-                      print(state);
-                      print(municipality);
-                      print(location);
-                      print(latitude);
-                      print(altitude);
-                      print(raceLink);
                     }
                   } catch (e) {
                     NotificationsService.showSnackbarError(
-                        'No se pudo guardar el evento');
+                        'No se pudo guardar la carrera');
                   }
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (context) => Menu_CarrerasView()),
                   );
-                  //Navigator.pop(context);
                 },
                 text: textini,
                 color: Colors.black,

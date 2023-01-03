@@ -136,6 +136,7 @@ class _EventoModalState extends State<EventoModal> {
               ),
             ),
             DateTimeFormField(
+              //DateTimeFieldPickerMode.date,
               decoration: const InputDecoration(
                 hintStyle: TextStyle(color: Colors.black),
                 errorStyle: TextStyle(color: Colors.redAccent),
