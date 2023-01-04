@@ -18,7 +18,8 @@ class Flurorouter {
   static String Tipos_CarrerasRoute = '/dasboard/Tipo De Carreras';
   static String Menu_EventosRoute = '/dasboard/Menu De Eventos';
   static String Menu_CarrerasRoute = '/dasboard/Menu De Carreras';
-  static String categoriasRoute = '/dasboard/Tipo De Carreras/categorias_carrera/:id';
+  static String carreraCorredoresRoute = '/dasboard/menu_de_carreras/corredores/:id';
+  static String categoriasRoute = '/dasboard/categorias_carrera/';
 
   static String Admin_UsuariosRoute = '/dasboard/Administracion De Usuarios';
   static String UsuarioRoute = '/dasboard/Administracion De Usuarios/:uid';
@@ -39,6 +40,7 @@ class Flurorouter {
     router.define(categoriasRoute, handler: DashboardHandlers.categoriasRoute);
     router.define(Menu_EventosRoute, handler: DashboardHandlers.Menu_Eventos);
     router.define(Menu_CarrerasRoute, handler: DashboardHandlers.Menu_Carreras);
+    router.define(carreraCorredoresRoute, handler: DashboardHandlers.carreraCorredores);
     router.define(Admin_UsuariosRoute, handler: DashboardHandlers.Admin_Usuarios);
     router.define(UsuarioRoute, handler: DashboardHandlers.usuario);
 

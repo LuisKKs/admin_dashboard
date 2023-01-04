@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/providers/carrera_corredores_provider.dart';
 import 'package:admin_dashboard/providers/categorias_provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,8 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CorredoresProvider()),
         ChangeNotifierProvider(create: (_) => CarrerasProvider()),
         ChangeNotifierProvider(create: (_) => UsuariosProvider()),
-        ChangeNotifierProvider(create: (_) => UserFormProvider())
+        ChangeNotifierProvider(create: (_) => UserFormProvider()),
+        ChangeNotifierProvider(create: (_) => CarreraCorredoresProvider())
       ],
       child: MyApp(),
     );

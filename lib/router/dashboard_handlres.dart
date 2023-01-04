@@ -1,18 +1,19 @@
+import 'package:fluro/fluro.dart';
+import 'package:provider/provider.dart';
+import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/providers/sidemenu_provider.dart';
-import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/ui/views/Menu_EventosView.dart';
 import 'package:admin_dashboard/ui/views/admin_usuarios_view.dart';
+import 'package:admin_dashboard/ui/views/carrera_corredores_view.dart';
 import 'package:admin_dashboard/ui/views/tipos_carreras_view.dart';
 import 'package:admin_dashboard/ui/views/dashboard_view.dart';
 import 'package:admin_dashboard/ui/views/menu_corredores_view.dart';
 import 'package:admin_dashboard/ui/views/login_view.dart';
 import 'package:admin_dashboard/ui/views/menu_carrerasview.dart';
-import 'package:fluro/fluro.dart';
-import 'package:provider/provider.dart';
-
 import '../ui/views/categorias_view.dart';
 import '../ui/views/usuario_view.dart';
+
 
 class DashboardHandlers {
   static Handler dashboard = Handler(handlerFunc: (context, params) {
@@ -65,7 +66,20 @@ class DashboardHandlers {
     else
       return Menu_CarrerasView();
   });
-
+  static Handler carreraCorredores = Handler(handlerFunc: (context, params) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SidemenuProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.carreraCorredoresRoute);
+    if (authProvider.authStatus == AuthStatus.notAuthenticated) {
+      return DashboardView();
+    } else {
+      if (params['uid']?.first != null) {
+        return CarreraCorredoresView(id: params['id']!.first);
+      } else {
+        return CarreraCorredoresView(id: '$params');
+      }
+    }
+  });
   static Handler Admin_Usuarios = Handler(handlerFunc: (context, params) {
     final authProvider = Provider.of<AuthProvider>(context!);
     Provider.of<SidemenuProvider>(context, listen: false)

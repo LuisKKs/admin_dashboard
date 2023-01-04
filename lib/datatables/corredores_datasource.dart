@@ -1,8 +1,11 @@
 import 'package:admin_dashboard/models/corredor.dart';
 import 'package:admin_dashboard/providers/corredores_provider.dart';
+import 'package:admin_dashboard/ui/modals/corredor_carrera_modal.dart';
 import 'package:admin_dashboard/ui/modals/corredores_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../services/navigation_service.dart';
 
 class CorredoresDatasource extends DataTableSource {
   final List<Corredore> corredores;
@@ -30,6 +33,16 @@ class CorredoresDatasource extends DataTableSource {
       DataCell(Text(corredor.picture)),
       DataCell(Text(corredor.sex)),
       DataCell(Text(corredor.team)),
+      DataCell(IconButton(
+        icon: Icon(Icons.assignment_ind_outlined),
+        onPressed: () {
+          bool edit = false;
+          showModalBottomSheet(
+              context: context,
+              builder: (context) =>
+                  CorredorCarreraModal(corredore: corredor, edit: edit));
+        }
+      )),
       DataCell(Row(
         verticalDirection: VerticalDirection.up,
         children: [

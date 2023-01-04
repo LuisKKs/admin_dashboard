@@ -118,6 +118,21 @@ class CorredoresProvider extends ChangeNotifier {
       throw 'Error al actualizar el corredor';
     }
   }
+  Future corredorCarrera(
+    String idco,
+    String idca,
+  ) async {
+    final data = {
+      'runner': idco,
+      'race': idca,
+    };
+    try {
+      await EventosApi.post('/carrera-corredor/', data);
+      notifyListeners();
+    } catch (e) {
+      throw 'Error al asignar carrera';
+    }
+  }
 
   Future deleteCorredor(
     String id,

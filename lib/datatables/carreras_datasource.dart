@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/carrerasprin.dart';
+import '../services/navigation_service.dart';
 
 class CarrerasDatasource extends DataTableSource {
   final List<Carrera> carreras;
@@ -29,6 +30,18 @@ class CarrerasDatasource extends DataTableSource {
       DataCell(Text(carrera.latitude)),
       DataCell(Text(carrera.municipality)),
       DataCell(Text(carrera.state)),
+      DataCell(TextButton(
+        child: Row(children: [
+          Text(
+            'Corredores',
+          ),
+          Icon(Icons.flag_outlined)
+        ]),
+        onPressed: (() {
+          NavigationService.replaceTo(
+              '/dasboard/menu_de_carreras/corredores/:id${carrera.id}');
+        }),
+      )),
       DataCell(Row(
         verticalDirection: VerticalDirection.up,
         children: [

@@ -51,6 +51,7 @@ class _Menu_CorredoresViewState extends State<Menu_CorredoresView> {
               DataColumn(label: Text('Foto')),
               DataColumn(label: Text('Sexo')),
               DataColumn(label: Text('Equipo')),
+              DataColumn(label: Text('Asignación de carrera')),
               DataColumn(label: Text('Acciones')),
             ],
             source: CorredoresDatasource(corredores, context),
