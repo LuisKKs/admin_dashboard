@@ -18,7 +18,7 @@ class Flurorouter {
   static String Tipos_CarrerasRoute = '/dasboard/Tipo De Carreras';
   static String Menu_EventosRoute = '/dasboard/Menu De Eventos';
   static String Menu_CarrerasRoute = '/dasboard/Menu De Carreras';
-  static String carreraCorredoresRoute = '/dasboard/menu_de_carreras/corredores/:id';
+  static String carreraCorredoresRoute = '/dasboard/menu_de_carreras/carrera-corredor/:id';
   static String categoriasRoute = '/dasboard/categorias_carrera/';
 
   static String Admin_UsuariosRoute = '/dasboard/Administracion De Usuarios';

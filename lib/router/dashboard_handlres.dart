@@ -11,6 +11,7 @@ import 'package:admin_dashboard/ui/views/dashboard_view.dart';
 import 'package:admin_dashboard/ui/views/menu_corredores_view.dart';
 import 'package:admin_dashboard/ui/views/login_view.dart';
 import 'package:admin_dashboard/ui/views/menu_carrerasview.dart';
+import '../providers/carrera_corredores_provider.dart';
 import '../ui/views/categorias_view.dart';
 import '../ui/views/usuario_view.dart';
 
@@ -73,7 +74,7 @@ class DashboardHandlers {
     if (authProvider.authStatus == AuthStatus.notAuthenticated) {
       return DashboardView();
     } else {
-      if (params['uid']?.first != null) {
+      if (params['id']?.first != null) {
         return CarreraCorredoresView(id: params['id']!.first);
       } else {
         return CarreraCorredoresView(id: '$params');

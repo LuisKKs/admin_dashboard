@@ -17,7 +17,6 @@ class _Menu_CarrerasViewState extends State<Menu_CarrerasView> {
   @override
   void initState() {
     super.initState();
-
     Provider.of<CarrerasProvider>(context, listen: false).getCarreras();
   }
 

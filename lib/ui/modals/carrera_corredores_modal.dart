@@ -1,54 +1,61 @@
+import 'package:admin_dashboard/models/corredor.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../services/notifications_service.dart';
+import '../../providers/carrera_corredores_provider.dart';
 import '../../providers/carreras_provider.dart';
+import '../../services/notifications_service.dart';
 import 'package:admin_dashboard/providers/corredores_provider.dart';
+import 'package:admin_dashboard/models/http/corredores_carrera_id_response.dart';
 import 'package:admin_dashboard/models/carrerasprin.dart';
-import 'package:admin_dashboard/models/corredor.dart';
-import 'package:admin_dashboard/ui/views/menu_corredores_view.dart';
 import '../labels/custom_labels.dart';
 import '../buttons/custom_outlined_button.dart';
+import 'package:admin_dashboard/ui/views/menu_corredores_view.dart';
 
-class CorredorCarreraModal extends StatefulWidget {
-  final Corredore? corredore;
+class CarreraCorredoresModal extends StatefulWidget {
+  final Result? carrera;
   final ScrollController? controller;
   final bool edit;
-  const CorredorCarreraModal(
-      {Key? key, this.corredore, this.controller, required this.edit})
+  const CarreraCorredoresModal(
+      {Key? key, this.controller, required this.edit, this.carrera})
       : super(key: key);
 
   @override
-  State<CorredorCarreraModal> createState() => _CorredorCarreraModal();
+  State<CarreraCorredoresModal> createState() => _CarreraCorredoresModal();
 }
 
-class _CorredorCarreraModal extends State<CorredorCarreraModal> {
+class _CarreraCorredoresModal extends State<CarreraCorredoresModal> {
   String idca = '';
-  String idco = '';
+  String race = '';
+  String runner = '';
   
 
   @override
   void initState() {
     super.initState();
-    idco = widget.corredore!.id;
+    idca = widget.carrera!.id;
+    race = widget.carrera!.race.longName;
+    runner = widget.carrera!.runner.name;
     
   }
   @override
   void didChangeDependencies() {
     Provider.of<CarrerasProvider>(context).getCarreras();
+    Provider.of<CorredoresProvider>(context).getCorredores();
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     List<String> lista = <String>[];
-    final corredorCarreraProvider =
-        Provider.of<CorredoresProvider>(context, listen: false);
-    var carrera = Provider.of<CarrerasProvider>(context).carreras;
-    List<Carrera> listona = carrera;
+    final corredorCarreraProvider = Provider.of<CarreraCorredoresProvider>(context, listen: false);
+    var carreras = Provider.of<CarrerasProvider>(context).carreras;
+    var corredores = Provider.of<CorredoresProvider>(context).corredores;
+    List<Carrera> listona = carreras;
+    List<Corredore> listonaMK2 = corredores;
     ScrollController controller =
         ScrollController(keepScrollOffset: true, initialScrollOffset: 0.0);
     controller.createScrollPosition;
-    String textini  = 'Asignar carrera';
+    String textini  = 'Editar Corredor de la carrera: ${widget.carrera!.race.longName}';
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -83,11 +90,27 @@ class _CorredorCarreraModal extends State<CorredorCarreraModal> {
               ),
               items: listona.map((acon) {
                 return DropdownMenuItem(
-                    value: acon.id,
-                    child: Text(acon.longName));
+                    value: acon.longName,
+                    child: Text('${acon.longName} ${acon.shortName}'));
               }).toList(),
-              onChanged: (value) => idca = value!,
+              onChanged: (value) => race = value!,
               hint: Text("Seleccion de carrera"),
+            ),
+            DropdownButtonFormField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                      width: 1, color: Colors.black.withOpacity(0.6)),
+                ),
+              ),
+              items: listonaMK2.map((acon) {
+                return DropdownMenuItem(
+                    value: acon.name,
+                    child: Text('${acon.name} ${acon.lastname} ${acon.lastname2}'));
+              }).toList(),
+              onChanged: (value) => runner = value!,
+              hint: Text("Seleccion de corredor"),
             ),
             Container(
               margin: EdgeInsets.only(top: 30),
@@ -96,15 +119,16 @@ class _CorredorCarreraModal extends State<CorredorCarreraModal> {
                 onPressed: () async {
                   try {
                     if (widget.edit == false) {
-                      await corredorCarreraProvider.corredorCarrera(
-                        idco,
-                        idca
+                      await corredorCarreraProvider.updateCarrCorr(
+                        idca,
+                        race,
+                        runner
                       );
-                      NotificationsService.showSnackbar('Carrera asignada');
+                      NotificationsService.showSnackbar('Carrera editada');
                     }
                   } catch (e) {
                     NotificationsService.showSnackbar(
-                        'Asignacion rechazada');
+                        'Edicion rechazada');
                   }
                   Navigator.pop(
                     context,

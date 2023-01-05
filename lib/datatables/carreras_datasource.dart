@@ -38,8 +38,8 @@ class CarrerasDatasource extends DataTableSource {
           Icon(Icons.flag_outlined)
         ]),
         onPressed: (() {
-          NavigationService.replaceTo(
-              '/dasboard/menu_de_carreras/corredores/:id${carrera.id}');
+          NavigationService.navigateTo(
+              '/dasboard/menu_de_carreras/carrera-corredor/${carrera.id}');
         }),
       )),
       DataCell(Row(

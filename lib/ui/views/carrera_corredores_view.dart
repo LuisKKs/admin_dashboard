@@ -1,14 +1,13 @@
+import 'package:admin_dashboard/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:admin_dashboard/providers/carrera_corredores_provider.dart';
 import 'package:admin_dashboard/datatables/corredores_carrera_datasource.dart';
-import 'package:admin_dashboard/ui/modals/carreras_modal.dart';
 import '../buttons/custom_icon_button.dart';
 import '../labels/custom_labels.dart';
 
 class CarreraCorredoresView extends StatefulWidget {
   final String id;
-
   const CarreraCorredoresView({super.key, required this.id});
   @override
   State<CarreraCorredoresView> createState() => _CarreraCorredoresViewState();
@@ -20,13 +19,15 @@ class _CarreraCorredoresViewState extends State<CarreraCorredoresView> {
   @override
   void initState() {
     super.initState();
-
-    Provider.of<CarreraCorredoresProvider>(context, listen: false).getCarreras();
   }
-
+  @override
+  void didChangeDependencies() {
+    Provider.of<CarreraCorredoresProvider>(context).getCarrerasId(widget.id);
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
-    final carreras = Provider.of<CarreraCorredoresProvider>(context).corredores;
+    final corredores = Provider.of<CarreraCorredoresProvider>(context).cocar;
     final size = MediaQuery.of(context).size;
     ScrollController controller =
         ScrollController(keepScrollOffset: true, initialScrollOffset: 0.0);
@@ -45,7 +46,7 @@ class _CarreraCorredoresViewState extends State<CarreraCorredoresView> {
                 DataColumn(label: Text('ID')),
                 DataColumn(label: Text('Acciones')),
               ],
-              source: CorredoresCarreraDatasource(widget.id, carreras, context),
+              source: CorredoresCarreraDatasource(corredores.single, context),
               header: Text('Corredores Disponibles', maxLines: 2),
               onRowsPerPageChanged: (value) {
                 setState(() {
@@ -56,17 +57,10 @@ class _CarreraCorredoresViewState extends State<CarreraCorredoresView> {
               actions: [
                 CustomIconButton(
                   onPressed: () {
-                    showModalBottomSheet(
-                        elevation: size.height / 2,
-                        isScrollControlled: false,
-                        backgroundColor: Colors.white,
-                        context: context,
-                        builder: (_) => CarrerasModal(
-                              edit: false,
-                            ));
+                    Navigator.popAndPushNamed(context, Flurorouter.Menu_CarrerasRoute);
                   },
-                  text: 'Crear',
-                  icon: Icons.add_outlined,
+                  text: 'Retroceder',
+                  icon: Icons.arrow_back_outlined,
                 )
               ],
             ),
