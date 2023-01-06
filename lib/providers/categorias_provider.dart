@@ -5,6 +5,8 @@ import '../models/http/categoria_response.dart';
 
 class CategoriasProvider extends ChangeNotifier {
   List<Categorias> categorias = [];
+  bool ascending = true;
+  int? sortColIndex;
 
   getCategorias() async {
     final resp = await EventosApi.httpGet('/categorias');
@@ -21,11 +23,11 @@ class CategoriasProvider extends ChangeNotifier {
     String description,
   ) async {
     final data = {
-      'id':id,
-      'raceType':raceType,
-      'categoryName':categoryName,
-      'branch':branch,
-      'description':description,
+      'id': id,
+      'raceType': raceType,
+      'categoryName': categoryName,
+      'branch': branch,
+      'description': description,
     };
 
     try {
@@ -42,7 +44,7 @@ class CategoriasProvider extends ChangeNotifier {
   }
 
   Future newCategoria(
-   //String id,
+    //String id,
     String raceType,
     String categoryName,
     String branch,
@@ -50,10 +52,10 @@ class CategoriasProvider extends ChangeNotifier {
   ) async {
     final data = {
       //'id':id,
-      'raceType':raceType,
-      'categoryName':categoryName,
-      'branch':branch,
-      'description':description,
+      'raceType': raceType,
+      'categoryName': categoryName,
+      'branch': branch,
+      'description': description,
     };
 
     try {
@@ -79,5 +81,20 @@ class CategoriasProvider extends ChangeNotifier {
       print('Error al actualizar la categoria de la carrera');
       throw (e);
     }
+  }
+
+  void sort<T>(Comparable<T> Function(Categorias categoria) getField) {
+    categorias.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+
+      return ascending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
+    });
+
+    ascending = !ascending;
+
+    notifyListeners();
   }
 }

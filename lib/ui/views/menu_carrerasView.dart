@@ -22,6 +22,8 @@ class _Menu_CarrerasViewState extends State<Menu_CarrerasView> {
 
   @override
   Widget build(BuildContext context) {
+    final carreraProvider = Provider.of<CarrerasProvider>(context);
+
     final carreras = Provider.of<CarrerasProvider>(context).carreras;
     final size = MediaQuery.of(context).size;
     ScrollController controller =
@@ -36,21 +38,70 @@ class _Menu_CarrerasViewState extends State<Menu_CarrerasView> {
           SingleChildScrollView(
             controller: controller,
             child: PaginatedDataTable(
+              sortAscending: carreraProvider.ascending,
+              sortColumnIndex: carreraProvider.sortColIndex,
               columns: [
-                DataColumn(label: Text('Nombre')),
-                DataColumn(label: Text('Siglas')),
-                DataColumn(label: Text('Fecha')),
+                DataColumn(
+                  label: Text('Nombre'),
+                  onSort: (colIndex, _) {
+                    carreraProvider.sortColIndex = colIndex;
+                    carreraProvider.sort<String>((carrera) => carrera.longName);
+                  },
+                ),
+                DataColumn(
+                  label: Text('Siglas'),
+                  onSort: (colIndex, _) {
+                    carreraProvider.sortColIndex = colIndex;
+                    carreraProvider
+                        .sort<String>((carrera) => carrera.shortName);
+                  },
+                ),
+                DataColumn(
+                  label: Text('Fecha'),
+                  onSort: (colIndex, _) {
+                    carreraProvider.sortColIndex = colIndex;
+                    carreraProvider
+                        .sort<String>((carrera) => carrera.raceDate.toString());
+                  },
+                ),
                 DataColumn(label: Text('Hora')),
-                DataColumn(label: Text('Responsable')),
+                DataColumn(
+                  label: Text('Responsable'),
+                  onSort: (colIndex, _) {
+                    carreraProvider.sortColIndex = colIndex;
+                    carreraProvider
+                        .sort<String>((carrera) => carrera.responsable);
+                  },
+                ),
                 DataColumn(label: Text('Numero de Contacto')),
-                DataColumn(label: Text('Evento')),
+                DataColumn(
+                  label: Text('Evento'),
+                  onSort: (colIndex, _) {
+                    carreraProvider.sortColIndex = colIndex;
+                    carreraProvider
+                        .sort<String>((carrera) => carrera.event.eventName);
+                  },
+                ),
                 DataColumn(label: Text('Link')),
                 DataColumn(label: Text('email')),
                 DataColumn(label: Text('Localizacion')),
                 DataColumn(label: Text('Altitud')),
                 DataColumn(label: Text('Latitud')),
-                DataColumn(label: Text('Municipio')),
-                DataColumn(label: Text('Estado')),
+                DataColumn(
+                  label: Text('Municipio'),
+                  onSort: (colIndex, _) {
+                    carreraProvider.sortColIndex = colIndex;
+                    carreraProvider
+                        .sort<String>((carrera) => carrera.municipality);
+                  },
+                ),
+                DataColumn(
+                  label: Text('Estado'),
+                  onSort: (colIndex, _) {
+                    carreraProvider.sortColIndex = colIndex;
+                    carreraProvider.sort<String>((carrera) => carrera.state);
+                  },
+                ),
                 DataColumn(label: Text('Corredores')),
                 DataColumn(label: Text('Acciones')),
               ],

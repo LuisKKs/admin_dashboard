@@ -38,7 +38,7 @@ class CarrerasDatasource extends DataTableSource {
           Icon(Icons.flag_outlined)
         ]),
         onPressed: (() {
-          NavigationService.navigateTo(
+          NavigationService.replaceTo(
               '/dasboard/menu_de_carreras/carrera-corredor/${carrera.id}');
         }),
       )),

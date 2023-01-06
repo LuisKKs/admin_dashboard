@@ -23,6 +23,8 @@ class _Tipos_CarrerasState extends State<Tipos_Carreras_View> {
 
   @override
   Widget build(BuildContext context) {
+    final tiposProvider = Provider.of<CatCarreraProvider>(context);
+
     final tipos = Provider.of<CatCarreraProvider>(context).racetypes;
 
     return Container(
@@ -33,12 +35,18 @@ class _Tipos_CarrerasState extends State<Tipos_Carreras_View> {
           Text('Tipos de carreras view', style: CustomLabels.h1),
           SizedBox(height: 10),
           PaginatedDataTable(
+            sortAscending: tiposProvider.ascending,
+            sortColumnIndex: tiposProvider.sortColIndex,
             columns: [
-              DataColumn(label: Text('Nombre')),
-              //DataColumn(label: Text('Registró')),
+              DataColumn(
+                label: Text('Nombre'),
+                onSort: (colIndex, _) {
+                  tiposProvider.sortColIndex = colIndex;
+                  tiposProvider.sort<String>((tipo) => tipo.typeName);
+                },
+              ),
               DataColumn(label: Text('Descripcion')),
               DataColumn(label: Text('Acciones')),
-              DataColumn(label: Text('Categorias'))
             ],
             source: TipCarDatasource(tipos, context),
             header: Text('Tipo de carreras', maxLines: 2),

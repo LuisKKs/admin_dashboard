@@ -6,14 +6,13 @@ import 'package:admin_dashboard/ui/modals/categorias_modal.dart';
 import '../labels/custom_labels.dart';
 import '../buttons/custom_icon_button.dart';
 
-
 class CategoriasView extends StatefulWidget {
   @override
   State<CategoriasView> createState() => _CategoriasViewState();
 }
 
 class _CategoriasViewState extends State<CategoriasView> {
-    int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   @override
   void initState() {
     super.initState();
@@ -22,6 +21,8 @@ class _CategoriasViewState extends State<CategoriasView> {
 
   @override
   Widget build(BuildContext context) {
+    final cateProvider = Provider.of<CategoriasProvider>(context);
+
     final categorias = Provider.of<CategoriasProvider>(context).categorias;
     final size = MediaQuery.of(context).size;
     return Container(
@@ -32,10 +33,32 @@ class _CategoriasViewState extends State<CategoriasView> {
           Text('Tipos de carreras view', style: CustomLabels.h1),
           SizedBox(height: 10),
           PaginatedDataTable(
+            sortAscending: cateProvider.ascending,
+            sortColumnIndex: cateProvider.sortColIndex,
             columns: [
-              DataColumn(label: Text('Categoria')),
-              DataColumn(label: Text('Tipo de carrera')),
-              DataColumn(label: Text('Rama')),
+              DataColumn(
+                label: Text('Categoria'),
+                onSort: (colIndex, _) {
+                  cateProvider.sortColIndex = colIndex;
+                  cateProvider
+                      .sort<String>((categorias) => categorias.categoryName);
+                },
+              ),
+              DataColumn(
+                label: Text('Tipo de carrera'),
+                onSort: (colIndex, _) {
+                  cateProvider.sortColIndex = colIndex;
+                  cateProvider.sort<String>(
+                      (categorias) => categorias.raceType.typeName);
+                },
+              ),
+              DataColumn(
+                label: Text('Rama'),
+                onSort: (colIndex, _) {
+                  cateProvider.sortColIndex = colIndex;
+                  cateProvider.sort<String>((categorias) => categorias.branch);
+                },
+              ),
               DataColumn(label: Text('Descripción')),
               DataColumn(label: Text('Acciones'))
             ],

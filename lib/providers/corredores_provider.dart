@@ -6,6 +6,8 @@ import '../models/http/corredor_response.dart';
 
 class CorredoresProvider extends ChangeNotifier {
   List<Corredore> corredores = [];
+  bool ascending = true;
+  int? sortColIndex;
 
   getCorredores() async {
     final resp = await EventosApi.httpGet('/corredor');
@@ -118,6 +120,7 @@ class CorredoresProvider extends ChangeNotifier {
       throw 'Error al actualizar el corredor';
     }
   }
+
   Future corredorCarrera(
     String idco,
     String idca,
@@ -147,5 +150,20 @@ class CorredoresProvider extends ChangeNotifier {
       print('Error al eliminar corredor');
       throw (e);
     }
+  }
+
+  void sort<T>(Comparable<T> Function(Corredore corredore) getField) {
+    corredores.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+
+      return ascending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
+    });
+
+    ascending = !ascending;
+
+    notifyListeners();
   }
 }

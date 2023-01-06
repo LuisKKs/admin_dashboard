@@ -22,7 +22,10 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
 
   @override
   Widget build(BuildContext context) {
+    final eventosProvider = Provider.of<EventosProvider>(context);
+
     final eventos = Provider.of<EventosProvider>(context).eventos;
+
     final size = MediaQuery.of(context).size;
     final ScrollController controller =
         ScrollController(keepScrollOffset: true, initialScrollOffset: 0.0);
@@ -37,20 +40,77 @@ class _Menu_EventosViewState extends State<Menu_EventosView> {
           SingleChildScrollView(
             controller: controller,
             child: PaginatedDataTable(
+              sortAscending: eventosProvider.ascending,
+              sortColumnIndex: eventosProvider.sortColIndex,
               columns: [
-                DataColumn(label: Text('Nombre')),
-                DataColumn(label: Text('Nombre Del Evento')),
-                DataColumn(label: Text('Fecha Inicio')),
-                DataColumn(label: Text('Fehca Final')),
+                DataColumn(
+                  label: Text('Nombre'),
+                  onSort: (colIndex, _) {
+                    eventosProvider.sortColIndex = colIndex;
+                    eventosProvider
+                        .sort<String>((eventos) => eventos.shortName);
+                  },
+                ),
+                DataColumn(
+                  label: Text('Nombre Del Evento'),
+                  onSort: (colIndex, _) {
+                    eventosProvider.sortColIndex = colIndex;
+                    eventosProvider
+                        .sort<String>((eventos) => eventos.eventName);
+                  },
+                ),
+                DataColumn(
+                  label: Text('Fecha Inicio'),
+                  onSort: (colIndex, _) {
+                    eventosProvider.sortColIndex = colIndex;
+                    eventosProvider.sort<String>(
+                        (eventos) => eventos.dateStart.toString());
+                  },
+                ),
+                DataColumn(
+                  label: Text('Fehca Final'),
+                  onSort: (colIndex, _) {
+                    eventosProvider.sortColIndex = colIndex;
+                    eventosProvider.sort<String>(
+                        (eventos) => eventos.dateFinish.toString());
+                  },
+                ),
                 DataColumn(label: Text('Hora Del Evento')),
                 DataColumn(label: Text('Logotipo')),
-                DataColumn(label: Text('Organizadores')),
+                DataColumn(
+                  label: Text('Organizadores'),
+                  onSort: (colIndex, _) {
+                    eventosProvider.sortColIndex = colIndex;
+                    eventosProvider
+                        .sort<String>((eventos) => eventos.organizer);
+                  },
+                ),
                 DataColumn(label: Text('Correo')),
                 DataColumn(label: Text('Telefono')),
                 DataColumn(label: Text('Pagina')),
-                DataColumn(label: Text('Pais')),
-                DataColumn(label: Text('Estado')),
-                DataColumn(label: Text('Tipo de Carrera')),
+                DataColumn(
+                  label: Text('Pais'),
+                  onSort: (colIndex, _) {
+                    eventosProvider.sortColIndex = colIndex;
+                    eventosProvider.sort<String>((eventos) => eventos.country);
+                  },
+                ),
+                DataColumn(
+                  label: Text('Estado'),
+                  onSort: (colIndex, _) {
+                    eventosProvider.sortColIndex = colIndex;
+                    eventosProvider
+                        .sort<String>((eventos) => eventos.stateCountry);
+                  },
+                ),
+                DataColumn(
+                  label: Text('Tipo de Carrera'),
+                  onSort: (colIndex, _) {
+                    eventosProvider.sortColIndex = colIndex;
+                    eventosProvider
+                        .sort<String>((eventos) => eventos.raceType.typeName);
+                  },
+                ),
                 DataColumn(label: Text('Acciones')),
               ],
               source: EventosDatasource(eventos, context),

@@ -1,9 +1,12 @@
 import 'package:admin_dashboard/models/http/corredores_carrera_id_response.dart';
+import 'package:admin_dashboard/providers/corredores_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:admin_dashboard/providers/carrera_corredores_provider.dart';
 import 'package:admin_dashboard/datatables/corredores_carrera_datasource.dart';
+import '../../providers/carreras_provider.dart';
+import '../../services/navigation_service.dart';
 import '../buttons/custom_icon_button.dart';
 import '../labels/custom_labels.dart';
 
@@ -21,13 +24,21 @@ class _CarreraCorredoresViewState extends State<CarreraCorredoresView> {
   void initState() {
     super.initState();
   }
+
   @override
   void didChangeDependencies() {
-    Provider.of<CarreraCorredoresProvider>(context, listen: false).getCarrerasId(widget.id);
+    Provider.of<CarreraCorredoresProvider>(context, listen: false)
+        .getCarrerasId(widget.id);
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
+    final carrera_corredoresProvider =
+        Provider.of<CarreraCorredoresProvider>(context);
+
+    final corredoresProvider = Provider.of<CorredoresProvider>(context);
+
     corredores = Provider.of<CarreraCorredoresProvider>(context).cocar;
     final size = MediaQuery.of(context).size;
     ScrollController controller =
@@ -42,17 +53,43 @@ class _CarreraCorredoresViewState extends State<CarreraCorredoresView> {
           SingleChildScrollView(
             controller: controller,
             child: PaginatedDataTable(
+              sortAscending: carrera_corredoresProvider.ascending,
+              sortColumnIndex: carrera_corredoresProvider.sortColIndex,
               columns: [
                 DataColumn(label: Text('Teléfono')),
-                DataColumn(label: Text('Nombre')),
-                DataColumn(label: Text('Apellido paterno')),
+                DataColumn(
+                  label: Text('Nombre'),
+                  onSort: (colIndex, _) {
+                    carrera_corredoresProvider.sortColIndex = colIndex;
+                    carrera_corredoresProvider
+                        .sort<String>((corredor) => corredor.runner.name);
+                    //corredoresProvider.sort<String>((carrera) => );
+                  },
+                ),
+                DataColumn(
+                  label: Text('Apellido paterno'),
+                  //onSort: (colIndex, _) {
+                  //carrera_corredoresProvider.sortColIndex = colIndex;
+                  //carrera_corredoresProvider.sort<String>((corredores) => corredores);
+                  //},
+                ),
                 DataColumn(label: Text('Apellido materno')),
-                DataColumn(label: Text('Carrera')),
-                DataColumn(label: Text('Status')),
+                DataColumn(
+                  label: Text('Carrera'),
+                ),
+                DataColumn(
+                  label: Text('Status'),
+                  onSort: (colIndex, _) {
+                    carrera_corredoresProvider.sortColIndex = colIndex;
+                    carrera_corredoresProvider.sort<String>(
+                        (corredores) => corredores.raceStatus.toString());
+                  },
+                ),
                 DataColumn(label: Text('Registrar')),
                 DataColumn(label: Text('Acciones')),
               ],
-              source: CorredoresCarreraDatasource(corredores: corredores.single, context: context),
+              source: CorredoresCarreraDatasource(
+                  corredores: corredores.single, context: context),
               header: Text('Corredores Disponibles', maxLines: 2),
               onRowsPerPageChanged: (value) {
                 setState(() {
@@ -63,7 +100,10 @@ class _CarreraCorredoresViewState extends State<CarreraCorredoresView> {
               actions: [
                 CustomIconButton(
                   onPressed: () {
-                    Navigator.popAndPushNamed(context, Flurorouter.Menu_CarrerasRoute);
+                    NavigationService.replaceTo('/dasboard/Menu De Carreras');
+
+                    //Navigator.pushReplacementNamed(
+                    //  context, Flurorouter.Menu_CarrerasRoute);
                   },
                   text: 'Retroceder',
                   icon: Icons.arrow_back_outlined,

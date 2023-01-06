@@ -1,13 +1,15 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import '../api/eventos_api.dart';
 import '../models/http/corredores_carrera_id_response.dart';
 import '../models/http/corredores_carrera_response.dart';
 
-
 class CarreraCorredoresProvider extends ChangeNotifier {
   List<CorredoresCarrera> corredores = [];
-  List<List<Result>> cocar= [];
-  CarreraCorredoresProvider(){
+  List<List<Result>> cocar = [];
+  bool ascending = true;
+  int? sortColIndex;
+
+  CarreraCorredoresProvider() {
     getCarreras();
   }
   getCarreras() async {
@@ -15,8 +17,8 @@ class CarreraCorredoresProvider extends ChangeNotifier {
     final coResp = CorredoresCarreraResponse.fromMap(resp);
     this.corredores = [...coResp.corredoresCarrera];
     notifyListeners();
-    
   }
+
   getCarrerasId(String id) async {
     try {
       final resp = await EventosApi.httpGet('/carrera-corredor/$id');
@@ -27,15 +29,10 @@ class CarreraCorredoresProvider extends ChangeNotifier {
       throw e;
     }
   }
-  Future updateCarrCorr({
-    required String id,
-    String? race,
-    String? status}
-  ) async {
-    final data = {
-      'race': race,
-      'preRegistration': status
-    };
+
+  Future updateCarrCorr(
+      {required String id, String? race, String? status}) async {
+    final data = {'race': race, 'preRegistration': status};
     try {
       await EventosApi.put('/carrera-corredor/$id', data);
       this.cocar = this.cocar.map((racetype) {
@@ -48,7 +45,8 @@ class CarreraCorredoresProvider extends ChangeNotifier {
       throw 'Error al actualizar la carrera del corredor';
     }
   }
-  deleteCarreraCorredor(id)async {
+
+  deleteCarreraCorredor(id) async {
     try {
       await EventosApi.delete('/carrera-corredor/$id', {});
       cocar.removeWhere((carrera) => carrera.single.id == id);
@@ -57,5 +55,21 @@ class CarreraCorredoresProvider extends ChangeNotifier {
       print('Error al borrar carrera');
       throw (e);
     }
+  }
+
+  void sort<T>(
+      Comparable<T> Function(CorredoresCarrera corredoresCarrera) getField) {
+    corredores.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+
+      return ascending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
+    });
+
+    ascending = !ascending;
+
+    notifyListeners();
   }
 }

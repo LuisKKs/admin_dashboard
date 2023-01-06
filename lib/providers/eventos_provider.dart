@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 class EventosProvider extends ChangeNotifier {
   List<Evento> eventos = [];
+  bool ascending = true;
+  int? sortColIndex;
   getEventos() async {
     final resp = await EventosApi.httpGet('/evento');
     final eventosResp = EventosResponse.fromMap(resp);
@@ -100,19 +102,6 @@ class EventosProvider extends ChangeNotifier {
 
   Future deleteEvento(
     String id,
-    /* String phone,
-      String shortName,
-      String eventName,
-      DateTime dateStart,
-      DateTime dateFinish,
-      String eventHour,
-      String? logo,
-      String organizer,
-      String email,
-      String? website,
-      String country,
-      String? stateCountry,
-      String raceType*/
   ) async {
     try {
       await EventosApi.delete('/evento/$id', {});
@@ -124,5 +113,20 @@ class EventosProvider extends ChangeNotifier {
       print('Error al actualizar evento');
       throw (e);
     }
+  }
+
+  void sort<T>(Comparable<T> Function(Evento evento) getField) {
+    eventos.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+
+      return ascending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
+    });
+
+    ascending = !ascending;
+
+    notifyListeners();
   }
 }

@@ -6,6 +6,8 @@ import '../models/http/carreras_response.dart';
 
 class CarrerasProvider extends ChangeNotifier {
   List<Carrera> carreras = [];
+  bool ascending = true;
+  int? sortColIndex;
 
   getCarreras() async {
     final resp = await EventosApi.httpGet('/carrera');
@@ -123,5 +125,20 @@ class CarrerasProvider extends ChangeNotifier {
       print('Error al borrar carrera');
       throw (e);
     }
+  }
+
+  void sort<T>(Comparable<T> Function(Carrera carrera) getField) {
+    carreras.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+
+      return ascending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
+    });
+
+    ascending = !ascending;
+
+    notifyListeners();
   }
 }

@@ -5,6 +5,8 @@ import '../models/http/tipo_carrera_response.dart';
 
 class CatCarreraProvider extends ChangeNotifier {
   List<Racetype> racetypes = [];
+  bool ascending = true;
+  int? sortColIndex;
 
   getCatCarrera() async {
     final resp = await EventosApi.httpGet('/catcarrera');
@@ -63,5 +65,20 @@ class CatCarreraProvider extends ChangeNotifier {
       print('Error al actualizar el tipo de carrera');
       throw (e);
     }
+  }
+
+  void sort<T>(Comparable<T> Function(Racetype racetype) getField) {
+    racetypes.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+
+      return ascending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
+    });
+
+    ascending = !ascending;
+
+    notifyListeners();
   }
 }

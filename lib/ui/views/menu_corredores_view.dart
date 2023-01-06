@@ -24,6 +24,8 @@ class _Menu_CorredoresViewState extends State<Menu_CorredoresView> {
 
   @override
   Widget build(BuildContext context) {
+    final correProvider = Provider.of<CorredoresProvider>(context);
+
     final corredores = Provider.of<CorredoresProvider>(context).corredores;
 
     return Container(
@@ -34,23 +36,82 @@ class _Menu_CorredoresViewState extends State<Menu_CorredoresView> {
           Text('Menu De Corredores view', style: CustomLabels.h1),
           SizedBox(height: 10),
           PaginatedDataTable(
+            sortAscending: correProvider.ascending,
+            sortColumnIndex: correProvider.sortColIndex,
             columns: [
-              DataColumn(label: Text('Nombre')),
-              DataColumn(label: Text('Apellido paterno')),
-              DataColumn(label: Text('Apellido materno')),
-              DataColumn(label: Text('Numero de Corredor')),
+              DataColumn(
+                label: Text('Nombre'),
+                onSort: (colIndex, _) {
+                  correProvider.sortColIndex = colIndex;
+                  correProvider.sort<String>((corredor) => corredor.name);
+                },
+              ),
+              DataColumn(
+                label: Text('Apellido paterno'),
+                onSort: (colIndex, _) {
+                  correProvider.sortColIndex = colIndex;
+                  correProvider.sort<String>((corredor) => corredor.lastname);
+                },
+              ),
+              DataColumn(
+                label: Text('Apellido materno'),
+                onSort: (colIndex, _) {
+                  correProvider.sortColIndex = colIndex;
+                  correProvider.sort<String>((corredor) => corredor.lastname2);
+                },
+              ),
+              DataColumn(
+                label: Text('Numero de Corredor'),
+                onSort: (colIndex, _) {
+                  correProvider.sortColIndex = colIndex;
+                  correProvider
+                      .sort<String>((corredor) => corredor.runnerNumber);
+                },
+              ),
               DataColumn(label: Text('Correo')),
-              DataColumn(label: Text('Pais')),
-              DataColumn(label: Text('Estado')),
+              DataColumn(
+                label: Text('Pais'),
+                onSort: (colIndex, _) {
+                  correProvider.sortColIndex = colIndex;
+                  correProvider.sort<String>((corredor) => corredor.country);
+                },
+              ),
+              DataColumn(
+                label: Text('Estado'),
+                onSort: (colIndex, _) {
+                  correProvider.sortColIndex = colIndex;
+                  correProvider.sort<String>((corredor) => corredor.state);
+                },
+              ),
               DataColumn(label: Text('Nombre de Emergencia')),
               DataColumn(label: Text('Numero de Emergencia')),
               DataColumn(label: Text('Licencia')),
-              DataColumn(label: Text('Municipio')),
+              DataColumn(
+                label: Text('Municipio'),
+                onSort: (colIndex, _) {
+                  correProvider.sortColIndex = colIndex;
+                  correProvider
+                      .sort<String>((corredor) => corredor.municipality);
+                },
+              ),
               DataColumn(label: Text('Telefono')),
-              DataColumn(label: Text('Fecha de Nacimiento')),
+              DataColumn(
+                label: Text('Fecha de Nacimiento'),
+                onSort: (colIndex, _) {
+                  correProvider.sortColIndex = colIndex;
+                  correProvider.sort<String>(
+                      (corredor) => corredor.birthDate.toString());
+                },
+              ),
               DataColumn(label: Text('Foto')),
               DataColumn(label: Text('Sexo')),
-              DataColumn(label: Text('Equipo')),
+              DataColumn(
+                label: Text('Equipo'),
+                onSort: (colIndex, _) {
+                  correProvider.sortColIndex = colIndex;
+                  correProvider.sort<String>((corredor) => corredor.team);
+                },
+              ),
               DataColumn(label: Text('Asignación de carrera')),
               DataColumn(label: Text('Acciones')),
             ],
