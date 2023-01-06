@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/models/http/corredores_carrera_id_response.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,19 +16,19 @@ class CarreraCorredoresView extends StatefulWidget {
 
 class _CarreraCorredoresViewState extends State<CarreraCorredoresView> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
-
+  late List<List<Result>> corredores;
   @override
   void initState() {
     super.initState();
   }
   @override
   void didChangeDependencies() {
-    Provider.of<CarreraCorredoresProvider>(context).getCarrerasId(widget.id);
+    Provider.of<CarreraCorredoresProvider>(context, listen: false).getCarrerasId(widget.id);
     super.didChangeDependencies();
   }
   @override
   Widget build(BuildContext context) {
-    final corredores = Provider.of<CarreraCorredoresProvider>(context).cocar;
+    corredores = Provider.of<CarreraCorredoresProvider>(context).cocar;
     final size = MediaQuery.of(context).size;
     ScrollController controller =
         ScrollController(keepScrollOffset: true, initialScrollOffset: 0.0);
@@ -42,11 +43,16 @@ class _CarreraCorredoresViewState extends State<CarreraCorredoresView> {
             controller: controller,
             child: PaginatedDataTable(
               columns: [
+                DataColumn(label: Text('Teléfono')),
                 DataColumn(label: Text('Nombre')),
-                DataColumn(label: Text('ID')),
+                DataColumn(label: Text('Apellido paterno')),
+                DataColumn(label: Text('Apellido materno')),
+                DataColumn(label: Text('Carrera')),
+                DataColumn(label: Text('Status')),
+                DataColumn(label: Text('Registrar')),
                 DataColumn(label: Text('Acciones')),
               ],
-              source: CorredoresCarreraDatasource(corredores.single, context),
+              source: CorredoresCarreraDatasource(corredores: corredores.single, context: context),
               header: Text('Corredores Disponibles', maxLines: 2),
               onRowsPerPageChanged: (value) {
                 setState(() {

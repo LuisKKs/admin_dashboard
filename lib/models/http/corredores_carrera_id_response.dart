@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-class CorredoresCarreraId {
-    CorredoresCarreraId({
+class CorredoresCarreraIdResponse {
+    CorredoresCarreraIdResponse({
         required this.results,
     });
 
     List<List<Result>> results;
 
-    factory CorredoresCarreraId.fromJson(String str) => CorredoresCarreraId.fromMap(json.decode(str));
+    factory CorredoresCarreraIdResponse.fromJson(String str) => CorredoresCarreraIdResponse.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory CorredoresCarreraId.fromMap(Map<String, dynamic> json) => CorredoresCarreraId(
+    factory CorredoresCarreraIdResponse.fromMap(Map<String, dynamic> json) => CorredoresCarreraIdResponse(
         results: List<List<Result>>.from(json["results"].map((x) => List<Result>.from(x.map((x) => Result.fromMap(x))))),
     );
 
@@ -26,12 +26,14 @@ class Result {
         required this.race,
         required this.runner,
         required this.raceStatus,
+        required this.preRegistration,
     });
 
     String id;
     Race race;
     Runner runner;
     bool raceStatus;
+    String preRegistration;
 
     factory Result.fromJson(String str) => Result.fromMap(json.decode(str));
 
@@ -42,6 +44,7 @@ class Result {
         race: Race.fromMap(json["race"]),
         runner: Runner.fromMap(json["runner"]),
         raceStatus: json["raceStatus"],
+        preRegistration: json["preRegistration"],
     );
 
     Map<String, dynamic> toMap() => {
@@ -49,6 +52,7 @@ class Result {
         "race": race.toMap(),
         "runner": runner.toMap(),
         "raceStatus": raceStatus,
+        "preRegistration": preRegistration,
     };
 }
 
@@ -79,11 +83,17 @@ class Race {
 class Runner {
     Runner({
         required this.id,
+        required this.phoneNumber,
         required this.name,
+        required this.lastname,
+        required this.lastname2,
     });
 
     String id;
+    String phoneNumber;
     String name;
+    String lastname;
+    String lastname2;
 
     factory Runner.fromJson(String str) => Runner.fromMap(json.decode(str));
 
@@ -91,12 +101,18 @@ class Runner {
 
     factory Runner.fromMap(Map<String, dynamic> json) => Runner(
         id: json["_id"],
+        phoneNumber: json["phoneNumber"],
         name: json["name"],
+        lastname: json["lastname"],
+        lastname2: json["lastname2"],
     );
 
     Map<String, dynamic> toMap() => {
         "_id": id,
+        "phoneNumber": phoneNumber,
         "name": name,
+        "lastname": lastname,
+        "lastname2": lastname2,
     };
 }
 

@@ -26,32 +26,23 @@ class CarreraCorredoresModal extends StatefulWidget {
 class _CarreraCorredoresModal extends State<CarreraCorredoresModal> {
   String idca = '';
   String race = '';
-  String runner = '';
-  
-
   @override
   void initState() {
     super.initState();
     idca = widget.carrera!.id;
     race = widget.carrera!.race.longName;
-    runner = widget.carrera!.runner.name;
-    
   }
   @override
   void didChangeDependencies() {
     Provider.of<CarrerasProvider>(context).getCarreras();
-    Provider.of<CorredoresProvider>(context).getCorredores();
     super.didChangeDependencies();
   }
-
   @override
   Widget build(BuildContext context) {
     List<String> lista = <String>[];
     final corredorCarreraProvider = Provider.of<CarreraCorredoresProvider>(context, listen: false);
     var carreras = Provider.of<CarrerasProvider>(context).carreras;
-    var corredores = Provider.of<CorredoresProvider>(context).corredores;
     List<Carrera> listona = carreras;
-    List<Corredore> listonaMK2 = corredores;
     ScrollController controller =
         ScrollController(keepScrollOffset: true, initialScrollOffset: 0.0);
     controller.createScrollPosition;
@@ -96,22 +87,6 @@ class _CarreraCorredoresModal extends State<CarreraCorredoresModal> {
               onChanged: (value) => race = value!,
               hint: Text("Seleccion de carrera"),
             ),
-            DropdownButtonFormField(
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(
-                      width: 1, color: Colors.black.withOpacity(0.6)),
-                ),
-              ),
-              items: listonaMK2.map((acon) {
-                return DropdownMenuItem(
-                    value: acon.name,
-                    child: Text('${acon.name} ${acon.lastname} ${acon.lastname2}'));
-              }).toList(),
-              onChanged: (value) => runner = value!,
-              hint: Text("Seleccion de corredor"),
-            ),
             Container(
               margin: EdgeInsets.only(top: 30),
               alignment: Alignment.center,
@@ -119,11 +94,7 @@ class _CarreraCorredoresModal extends State<CarreraCorredoresModal> {
                 onPressed: () async {
                   try {
                     if (widget.edit == false) {
-                      await corredorCarreraProvider.updateCarrCorr(
-                        idca,
-                        race,
-                        runner
-                      );
+                      await corredorCarreraProvider.updateCarrCorr(id: idca, race: race);
                       NotificationsService.showSnackbar('Carrera editada');
                     }
                   } catch (e) {

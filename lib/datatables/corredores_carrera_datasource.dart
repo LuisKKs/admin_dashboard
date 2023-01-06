@@ -1,22 +1,45 @@
-import 'package:admin_dashboard/router/router.dart';
-import 'package:admin_dashboard/services/navigation_service.dart';
-import 'package:admin_dashboard/ui/modals/carrera_corredores_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:admin_dashboard/services/notifications_service.dart';
+import 'package:admin_dashboard/ui/modals/carrera_corredores_modal.dart';
 import '../models/http/corredores_carrera_id_response.dart';
 import '../providers/carrera_corredores_provider.dart';
 
 class CorredoresCarreraDatasource extends DataTableSource {
   final List<Result> corredores;
   final BuildContext context;
-  CorredoresCarreraDatasource(this.corredores, this.context);
+  CorredoresCarreraDatasource({ required this.corredores, required this.context});
   @override
   
   DataRow getRow(int index) {
     var corredor = corredores[index];
+
     return DataRow.byIndex(index: index, cells: [
+      DataCell(Text(corredor.runner.phoneNumber)),
       DataCell(Text(corredor.runner.name)),
+      DataCell(Text(corredor.runner.lastname)),
+      DataCell(Text(corredor.runner.lastname2)),
       DataCell(Text(corredor.race.longName)),
+      DataCell(Text(corredor.preRegistration)),
+      DataCell(Container(
+        child: TextButton(
+          child: Row(
+            children: [
+              if(corredor.preRegistration.compareTo('Registrado').isEven) Text('Registro aprovado'),
+              if(corredor.preRegistration.compareTo('Pre-registrado').isEven) Text('Aprovar registro'),
+              Icon(Icons.approval_outlined)
+            ],
+          ),
+          onPressed: () async {
+            if (corredor.preRegistration.compareTo('Pre-registrado').isEven) {
+              await Provider.of<CarreraCorredoresProvider>(context, listen: false).updateCarrCorr(id: corredor.id, status: 'Registrado');
+              Navigator.popAndPushNamed(context, '/dasboard/menu_de_carreras/carrera-corredor/${corredor.id}');
+            } else {
+              NotificationsService.showSnackbar('Este corredor ya ha sido aprovado');
+            }
+          },
+        ),
+      )),
       DataCell(Row(
         verticalDirection: VerticalDirection.up,
         children: [
@@ -52,7 +75,7 @@ class CorredoresCarreraDatasource extends DataTableSource {
                         await Provider.of<CarreraCorredoresProvider>(context,
                                 listen: false)
                             .deleteCarreraCorredor(corredor.id);
-                        NavigationService.replaceTo(Flurorouter.Menu_CarrerasRoute);
+                        Navigator.popAndPushNamed(context, '/dasboard/menu_de_carreras/carrera-corredor/${corredor.id}');
                       },
                     ),
                   ],
