@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/ui/views/carrera_corredores_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';
@@ -8,9 +9,10 @@ import '../providers/carrera_corredores_provider.dart';
 class CorredoresCarreraDatasource extends DataTableSource {
   final List<Result> corredores;
   final BuildContext context;
-  CorredoresCarreraDatasource({ required this.corredores, required this.context});
+
+  CorredoresCarreraDatasource(
+      {required this.corredores, required this.context});
   @override
-  
   DataRow getRow(int index) {
     var corredor = corredores[index];
 
@@ -25,17 +27,38 @@ class CorredoresCarreraDatasource extends DataTableSource {
         child: TextButton(
           child: Row(
             children: [
-              if(corredor.preRegistration.compareTo('Registrado').isEven) Text('Registro aprobado'),
-              if(corredor.preRegistration.compareTo('Pre-registrado').isEven) Text('Aprobar registro'),
+              if (corredor.preRegistration.compareTo('Registrado').isEven)
+                Text('Registro aprobado'),
+              if (corredor.preRegistration.compareTo('Pre-registrado').isEven)
+                Text('Aprobar registro'),
               Icon(Icons.approval_outlined)
             ],
           ),
           onPressed: () async {
             if (corredor.preRegistration.compareTo('Pre-registrado').isEven) {
-              await Provider.of<CarreraCorredoresProvider>(context, listen: false).updateCarrCorr(id: corredor.id, status: 'Registrado');
-              Navigator.popAndPushNamed(context, '/dasboard/menu_de_carreras/carrera-corredor/${corredor.id}');
+              await Provider.of<CarreraCorredoresProvider>(context,
+                      listen: false)
+                  .updateCarrCorr(id: corredor.id, status: 'Registrado');
+              print("si entra");
+              /*Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          CarreraCorredoresView(id: corredor.id)));
+               */
+              /*Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CarreraCorredoresView(
+                          id: corredor.id,
+                        )),
+              );*/
+              Navigator.popAndPushNamed(context,
+                  '/dasboard/menu_de_carreras/carrera-corredor/${corredor.id}');
+              NotificationsService.showSnackbar('Corredor Registrado!');
             } else {
-              NotificationsService.showSnackbar('Este corredor ya ha sido aprobado');
+              NotificationsService.showSnackbar(
+                  'Este corredor ya ha sido aprobado');
             }
           },
         ),
@@ -50,7 +73,10 @@ class CorredoresCarreraDatasource extends DataTableSource {
                 showModalBottomSheet(
                     context: context,
                     builder: (context) {
-                      return CarreraCorredoresModal(edit: true, carrera: corredor,);//TipoCarrerasModal(tipcar: tipo, edit: edit);
+                      return CarreraCorredoresModal(
+                        edit: true,
+                        carrera: corredor,
+                      ); //TipoCarrerasModal(tipcar: tipo, edit: edit);
                     });
               }),
           IconButton(
@@ -75,7 +101,8 @@ class CorredoresCarreraDatasource extends DataTableSource {
                         await Provider.of<CarreraCorredoresProvider>(context,
                                 listen: false)
                             .deleteCarreraCorredor(corredor.id);
-                        Navigator.popAndPushNamed(context, '/dasboard/menu_de_carreras/carrera-corredor/${corredor.id}');
+                        Navigator.popAndPushNamed(context,
+                            '/dasboard/menu_de_carreras/carrera-corredor/${corredor.id}');
                       },
                     ),
                   ],

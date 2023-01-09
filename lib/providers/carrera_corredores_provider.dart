@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../api/eventos_api.dart';
 import '../models/http/corredores_carrera_id_response.dart';
 import '../models/http/corredores_carrera_response.dart';
+import '../ui/views/carrera_corredores_view.dart';
 
 class CarreraCorredoresProvider extends ChangeNotifier {
   List<CorredoresCarrera> corredores = [];
@@ -42,6 +43,7 @@ class CarreraCorredoresProvider extends ChangeNotifier {
       }).toList();
       notifyListeners();
     } catch (e) {
+      return CarreraCorredoresView(id: id);
       throw 'Error al actualizar la carrera del corredor';
     }
   }

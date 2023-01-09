@@ -1,11 +1,9 @@
 import 'package:admin_dashboard/models/http/corredores_carrera_id_response.dart';
 import 'package:admin_dashboard/providers/corredores_provider.dart';
-import 'package:admin_dashboard/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:admin_dashboard/providers/carrera_corredores_provider.dart';
 import 'package:admin_dashboard/datatables/corredores_carrera_datasource.dart';
-import '../../providers/carreras_provider.dart';
 import '../../services/navigation_service.dart';
 import '../buttons/custom_icon_button.dart';
 import '../labels/custom_labels.dart';
