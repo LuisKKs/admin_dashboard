@@ -25,8 +25,8 @@ class CorredoresCarreraDatasource extends DataTableSource {
         child: TextButton(
           child: Row(
             children: [
-              if(corredor.preRegistration.compareTo('Registrado').isEven) Text('Registro aprovado'),
-              if(corredor.preRegistration.compareTo('Pre-registrado').isEven) Text('Aprovar registro'),
+              if(corredor.preRegistration.compareTo('Registrado').isEven) Text('Registro aprobado'),
+              if(corredor.preRegistration.compareTo('Pre-registrado').isEven) Text('Aprobar registro'),
               Icon(Icons.approval_outlined)
             ],
           ),
@@ -35,7 +35,7 @@ class CorredoresCarreraDatasource extends DataTableSource {
               await Provider.of<CarreraCorredoresProvider>(context, listen: false).updateCarrCorr(id: corredor.id, status: 'Registrado');
               Navigator.popAndPushNamed(context, '/dasboard/menu_de_carreras/carrera-corredor/${corredor.id}');
             } else {
-              NotificationsService.showSnackbar('Este corredor ya ha sido aprovado');
+              NotificationsService.showSnackbar('Este corredor ya ha sido aprobado');
             }
           },
         ),
