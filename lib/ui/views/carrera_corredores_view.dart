@@ -23,14 +23,16 @@ class _CarreraCorredoresViewState extends State<CarreraCorredoresView> {
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
     Provider.of<CarreraCorredoresProvider>(context, listen: false)
         .getCarrerasId(widget.id);
-    super.didChangeDependencies();
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   Provider.of<CarreraCorredoresProvider>(context, listen: false)
+  //       .getCarrerasId(widget.id);
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
