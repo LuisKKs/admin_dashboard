@@ -68,7 +68,7 @@ class _UserViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Table(
-        columnWidths: {0: FixedColumnWidth(150)},
+        columnWidths: {0: FixedColumnWidth(250)},
         children: [
           TableRow(children: [
             _AvatarContainer(), //avatr
