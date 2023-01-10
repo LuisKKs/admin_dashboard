@@ -1,0 +1,10 @@
+export 'package:admin_dashboard/providers/auth_provider.dart';
+export 'package:admin_dashboard/providers/carreras_provider.dart';
+export 'package:admin_dashboard/providers/corredores_provider.dart';
+export 'package:admin_dashboard/providers/eventos_provider.dart';
+export 'package:admin_dashboard/providers/sidemenu_provider.dart';
+export 'package:admin_dashboard/providers/tipo_carrera_provider.dart';
+export 'package:admin_dashboard/providers/usuarios_provider.dart';
+export 'package:admin_dashboard/providers/user_form_provider.dart';
+export 'package:admin_dashboard/providers/carrera_corredores_provider.dart';
+export 'package:admin_dashboard/providers/categorias_provider.dart';

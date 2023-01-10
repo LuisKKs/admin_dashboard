@@ -1,6 +1,7 @@
 import 'package:admin_dashboard/api/eventos_api.dart';
 import 'package:admin_dashboard/models/usuarios.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class UserFormProvider extends ChangeNotifier {
@@ -60,6 +61,18 @@ class UserFormProvider extends ChangeNotifier {
     } catch (e) {
       print('error en updateUser: $e');
       return false;
+    }
+  }
+
+  Future<Usuario> uploadImage(String path, Uint8List bytes) async {
+    try {
+      final resp = await EventosApi.uploadFile(path, bytes);
+      user = Usuario.fromMap(resp);
+      notifyListeners();
+      return user!;
+    } catch (e) {
+      print(e);
+      throw 'Error en user from provider';
     }
   }
 }

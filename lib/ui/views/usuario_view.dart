@@ -5,6 +5,7 @@ import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -67,7 +68,7 @@ class _UserViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Table(
-        columnWidths: {0: FixedColumnWidth(250)},
+        columnWidths: {0: FixedColumnWidth(150)},
         children: [
           TableRow(children: [
             _AvatarContainer(), //avatr
@@ -246,7 +247,12 @@ class _AvatarContainer extends StatelessWidget {
     final userFormProvider = Provider.of<UserFormProvider>(context);
     final user = userFormProvider.user;
 
+    final image = (user?.img == null)
+        ? Image(image: AssetImage('no-image.jpg'))
+        : FadeInImage.assetNetwork(placeholder: 'loader.gif', image: user!.img);
+
     return WhiteCard(
+      widht: 250,
       child: Container(
         width: double.infinity,
         child: Column(
@@ -256,11 +262,11 @@ class _AvatarContainer extends StatelessWidget {
             Text('perfil', style: CustomLabels.h2),
             SizedBox(height: 20),
             Container(
-              width: 160,
-              height: 160,
+              width: 260,
+              height: 260,
               child: Stack(
                 children: [
-                  ClipOval(child: Image(image: AssetImage('no-image.jpg'))),
+                  ClipOval(child: image),
                   Positioned(
                     bottom: 5,
                     right: 5,
@@ -268,14 +274,34 @@ class _AvatarContainer extends StatelessWidget {
                       width: 45,
                       height: 45,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(150),
                           border: Border.all(color: Colors.white, width: 5)),
                       child: FloatingActionButton(
                         backgroundColor: Colors.indigo,
                         elevation: 0,
                         child: Icon(Icons.camera_alt_outlined, size: 20),
-                        onPressed: () {
-                          //todo selec img
+                        onPressed: () async {
+                          FilePickerResult? result = await FilePicker.platform
+                              .pickFiles(
+                                  type: FileType.custom,
+                                  allowedExtensions: ['jpg', 'jpeg', 'png'],
+                                  allowMultiple: false);
+
+                          if (result != null) {
+                            //PlatformFile file = result.files.first;
+                            NotificationsService.showBusyIndicator(context);
+                            final resp = await userFormProvider.uploadImage(
+                                '/uploads/usuarios/${user?.uid}',
+                                result.files.first.bytes!);
+
+                            Provider.of<UsuariosProvider>(context,
+                                    listen: false)
+                                .refreshUser(resp);
+
+                            Navigator.of(context).pop();
+                          } else {
+                            print('no hay imagen');
+                          }
                         },
                       ),
                     ),

@@ -1,18 +1,11 @@
-import 'package:admin_dashboard/providers/carrera_corredores_provider.dart';
-import 'package:admin_dashboard/providers/categorias_provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/api/eventos_api.dart';
-import 'package:admin_dashboard/providers/auth_provider.dart';
-import 'package:admin_dashboard/providers/carreras_provider.dart';
-import 'package:admin_dashboard/providers/corredores_provider.dart';
-import 'package:admin_dashboard/providers/eventos_provider.dart';
-import 'package:admin_dashboard/providers/sidemenu_provider.dart';
-import 'package:admin_dashboard/providers/tipo_carrera_provider.dart';
-import 'package:admin_dashboard/providers/usuarios_provider.dart';
-import 'package:admin_dashboard/providers/user_form_provider.dart';
+
+import 'package:admin_dashboard/providers/providers.dart';
+
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';

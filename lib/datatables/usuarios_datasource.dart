@@ -11,8 +11,14 @@ class UsuariosDatasource extends DataTableSource {
   DataRow getRow(int index) {
     final Usuario user = usuarios[index];
 
-    final image =
-        Image(image: AssetImage('no-image.jpg'), width: 35, height: 35);
+    final image = (user.img == null)
+        ? Image(
+            image: AssetImage('no-image.jpg'),
+            width: 40,
+            height: 40,
+          )
+        : FadeInImage.assetNetwork(placeholder: 'loader.gif', image: user.img);
+
     return DataRow.byIndex(index: index, cells: [
       DataCell(ClipOval(child: image)),
       DataCell(Text(user.name)),

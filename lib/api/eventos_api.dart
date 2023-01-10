@@ -1,5 +1,6 @@
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 class EventosApi {
   static Dio _dio = new Dio();
@@ -49,6 +50,17 @@ class EventosApi {
       return resp.data;
     } catch (e) {
       throw ('Error en el delete ');
+    }
+  }
+
+  static Future uploadFile(String path, Uint8List bytes) async {
+    final formData =
+        FormData.fromMap({'archivo': MultipartFile.fromBytes(bytes)});
+    try {
+      final resp = await _dio.put(path, data: formData);
+      return resp.data;
+    } on DioError catch (e) {
+      throw ('Error en el put $e');
     }
   }
 }
