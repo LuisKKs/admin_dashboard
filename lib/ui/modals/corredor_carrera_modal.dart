@@ -30,13 +30,13 @@ class _CorredorCarreraModal extends State<CorredorCarreraModal> {
   void initState() {
     super.initState();
     idco = widget.corredore!.id;
+    Provider.of<CarrerasProvider>(context, listen: false).getCarreras();
     
   }
-  @override
-  void didChangeDependencies() {
-    Provider.of<CarrerasProvider>(context).getCarreras();
-    super.didChangeDependencies();
-  }
+  //@override
+  //void didChangeDependencies() {
+  //  super.didChangeDependencies();
+  //}
 
   @override
   Widget build(BuildContext context) {

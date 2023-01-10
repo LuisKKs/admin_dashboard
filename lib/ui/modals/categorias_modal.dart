@@ -29,20 +29,20 @@ class _CategoriaModalState extends State<CategoriaModal> {
 
   @override
   void initState() {
+    super.initState();
     id = widget.categoria?.id ?? '';
     raceType = widget.categoria?.raceType.typeName ?? '';
     categoryName = widget.categoria?.categoryName ?? '';
     branch = widget.categoria?.branch ?? '';
     description = widget.categoria?.description ?? '';
-
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
     Provider.of<CatCarreraProvider>(context, listen: false).getCatCarrera();
-    super.didChangeDependencies();
   }
+
+  //@override
+ //void didChangeDependencies() {
+ //  Provider.of<CatCarreraProvider>(context, listen: false).getCatCarrera();
+ //  super.didChangeDependencies();
+ //}
 
   @override
   Widget build(BuildContext context) {

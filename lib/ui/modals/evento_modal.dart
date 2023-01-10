@@ -70,13 +70,13 @@ class _EventoModalState extends State<EventoModal> {
     stateCountry = widget.evento?.stateCountry;
     //raceType = widget.evento?.raceType.id;
     raceType = widget.tipo?.id;
+    Provider.of<CatCarreraProvider>(context, listen: false).getCatCarrera();
   }
 
-  @override
-  void didChangeDependencies() {
-    Provider.of<CatCarreraProvider>(context, listen: false).getCatCarrera();
-    super.didChangeDependencies();
-  }
+  //@override
+  //void didChangeDependencies() {
+  //  super.didChangeDependencies();
+  //}
 
   @override
   Widget build(BuildContext context) {

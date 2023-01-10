@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../providers/carrera_corredores_provider.dart';
 import '../../providers/carreras_provider.dart';
 import '../../services/notifications_service.dart';
-import 'package:admin_dashboard/providers/corredores_provider.dart';
 import 'package:admin_dashboard/models/http/corredores_carrera_id_response.dart';
 import 'package:admin_dashboard/models/carrerasprin.dart';
 import '../labels/custom_labels.dart';
@@ -31,11 +30,7 @@ class _CarreraCorredoresModal extends State<CarreraCorredoresModal> {
     super.initState();
     idca = widget.carrera!.id;
     race = widget.carrera!.race.longName;
-  }
-  @override
-  void didChangeDependencies() {
     Provider.of<CarrerasProvider>(context).getCarreras();
-    super.didChangeDependencies();
   }
   @override
   Widget build(BuildContext context) {

@@ -33,13 +33,13 @@ class _TipoCarrerasModal extends State<TipoCarrerasModal> {
     typeName = widget.tipcar?.typeName ?? '';
     description = widget.tipcar?.description ?? '';
     id = widget.tipcar?.id ?? '';
+    Provider.of<CatCarreraProvider>(context, listen: false).getCatCarrera();
   }
 
-  @override
-  void didChangeDependencies() {
-    Provider.of<CatCarreraProvider>(context, listen: false).getCatCarrera();
-    super.didChangeDependencies();
-  }
+  //@override
+  //void didChangeDependencies() {
+  //  super.didChangeDependencies();
+  //}
 
   @override
   Widget build(BuildContext context) {

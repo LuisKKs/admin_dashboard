@@ -62,7 +62,7 @@ class _CarrerasState extends State<CarrerasModal> {
   @override
   void initState() {
     super.initState();
-
+    Provider.of<EventosProvider>(context, listen: false).getEventos();
     id = widget.carrera?.id ?? '';
     event = widget.evento?.id;
     shortName = widget.carrera?.shortName ?? '';
@@ -80,11 +80,11 @@ class _CarrerasState extends State<CarrerasModal> {
     raceLink = widget.carrera?.raceLink ?? '';
   }
 
-  @override
-  void didChangeDependencies() {
-    Provider.of<EventosProvider>(context, listen: false).getEventos();
-    super.didChangeDependencies();
-  }
+  //@override
+  //void didChangeDependencies() {
+  //  Provider.of<EventosProvider>(context, listen: false).getEventos();
+  //  super.didChangeDependencies();
+  //}
 
   @override
   Widget build(BuildContext context) {
