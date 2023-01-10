@@ -89,7 +89,10 @@ class _CarreraCorredoresViewState extends State<CarreraCorredoresView> {
                 DataColumn(label: Text('Acciones')),
               ],
               source: CorredoresCarreraDatasource(
-                  corredores: corredores.single, context: context),
+                  corredores: corredores.single, 
+                  id: widget.id,
+                  context: context,
+                ),
               header: Text('Corredores Disponibles', maxLines: 2),
               onRowsPerPageChanged: (value) {
                 setState(() {

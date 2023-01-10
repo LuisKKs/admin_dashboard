@@ -1,4 +1,3 @@
-import 'package:admin_dashboard/ui/views/carrera_corredores_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';
@@ -9,13 +8,12 @@ import '../providers/carrera_corredores_provider.dart';
 class CorredoresCarreraDatasource extends DataTableSource {
   final List<Result> corredores;
   final BuildContext context;
-
-  CorredoresCarreraDatasource(
-      {required this.corredores, required this.context});
+  final String id;
+  CorredoresCarreraDatasource( 
+      {required this.id, required this.corredores, required this.context});
   @override
   DataRow getRow(int index) {
     var corredor = corredores[index];
-
     return DataRow.byIndex(index: index, cells: [
       DataCell(Text(corredor.runner.phoneNumber)),
       DataCell(Text(corredor.runner.name)),
@@ -39,22 +37,7 @@ class CorredoresCarreraDatasource extends DataTableSource {
               await Provider.of<CarreraCorredoresProvider>(context,
                       listen: false)
                   .updateCarrCorr(id: corredor.id, status: 'Registrado');
-              print("si entra");
-              /*Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          CarreraCorredoresView(id: corredor.id)));
-               */
-              /*Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => CarreraCorredoresView(
-                          id: corredor.id,
-                        )),
-              );*/
-              Navigator.popAndPushNamed(context,
-                  '/dasboard/menu_de_carreras/carrera-corredor/${corredor.id}');
+              Navigator.popAndPushNamed(context,'/dasboard/menu_de_carreras/carrera-corredor/${id}');
               NotificationsService.showSnackbar('Corredor Registrado!');
             } else {
               NotificationsService.showSnackbar(
