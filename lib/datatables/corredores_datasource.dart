@@ -30,19 +30,18 @@ class CorredoresDatasource extends DataTableSource {
       DataCell(Text(corredor.municipality)),
       DataCell(Text(corredor.phoneNumber)),
       DataCell(Text(corredor.birthDate.toString())),
-      DataCell(Text(corredor.picture)),
+      DataCell(Text(corredor.img)),
       DataCell(Text(corredor.sex)),
       DataCell(Text(corredor.team)),
       DataCell(IconButton(
-        icon: Icon(Icons.assignment_ind_outlined),
-        onPressed: () {
-          bool edit = false;
-          showModalBottomSheet(
-              context: context,
-              builder: (context) =>
-                  CorredorCarreraModal(corredore: corredor, edit: edit));
-        }
-      )),
+          icon: Icon(Icons.assignment_ind_outlined),
+          onPressed: () {
+            bool edit = false;
+            showModalBottomSheet(
+                context: context,
+                builder: (context) =>
+                    CorredorCarreraModal(corredore: corredor, edit: edit));
+          })),
       DataCell(Row(
         verticalDirection: VerticalDirection.up,
         children: [

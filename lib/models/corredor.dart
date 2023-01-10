@@ -16,7 +16,7 @@ class Corredore {
     required this.state,
     required this.municipality,
     required this.runnerNumber,
-    required this.picture,
+    required this.img,
     required this.emergencyNumber,
     required this.emergencyName,
   });
@@ -35,7 +35,7 @@ class Corredore {
   String state;
   String municipality;
   String runnerNumber;
-  String picture;
+  String img;
   String emergencyNumber;
   String emergencyName;
 
@@ -58,7 +58,7 @@ class Corredore {
         state: json["state"],
         municipality: json["municipality"],
         runnerNumber: json["runnerNumber"],
-        picture: json["picture"],
+        img: json["img"],
         emergencyNumber: json["emergencyNumber"],
         emergencyName: json["emergencyName"],
       );
@@ -78,7 +78,7 @@ class Corredore {
         "state": state,
         "municipality": municipality,
         "runnerNumber": runnerNumber,
-        "picture": picture,
+        "img": img,
         "emergencyNumber": emergencyNumber,
         "emergencyName": emergencyName,
       };
