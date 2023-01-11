@@ -1,9 +1,9 @@
-import 'package:admin_dashboard/models/evento.dart';
-import 'package:admin_dashboard/providers/eventos_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:admin_dashboard/models/evento.dart';
+import 'package:admin_dashboard/providers/eventos_provider.dart';
 import '../ui/modals/evento_modal.dart';
+
 
 class EventosDatasource extends DataTableSource {
   final List<Evento> eventos;
@@ -12,7 +12,7 @@ class EventosDatasource extends DataTableSource {
 
   @override
   DataRow getRow(int index) {
-    final evento = this.eventos[index];
+    final evento = eventos[index];
     String start = evento.dateStart.toString();
     String end = evento.dateFinish.toString();
     return DataRow.byIndex(index: index, cells: [
@@ -21,7 +21,21 @@ class EventosDatasource extends DataTableSource {
       DataCell(Text(start)),
       DataCell(Text(end)),
       DataCell(Text(evento.eventHour)),
-      DataCell(Text(evento.logo)),
+      //DataCell(Text(evento.img)),
+      DataCell(Container(
+        width: 100,
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:  [
+                if(evento.img.compareTo('No image given').isEven)
+                  Text(evento.img),
+                if(evento.img.compareTo('No image given').isOdd)
+                  ClipRect(child: FadeInImage.assetNetwork(placeholder: 'loader.gif', image: evento.img))
+              ],
+          ),
+        ),
+      )),
       DataCell(Text(evento.organizer)),
       DataCell(Text(evento.email)),
       DataCell(Text(evento.phone)),

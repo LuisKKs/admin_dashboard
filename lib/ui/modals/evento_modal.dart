@@ -61,7 +61,7 @@ class _EventoModalState extends State<EventoModal> {
     dateStart = widget.evento?.dateStart;
     dateFinish = widget.evento?.dateFinish;
     eventHour = widget.evento?.eventHour ?? '';
-    logo = widget.evento?.logo ?? '';
+    logo = widget.evento?.img ?? '';
     organizer = widget.evento?.organizer ?? '';
     email = widget.evento?.email ?? '';
     phone = widget.evento?.phone ?? '';
@@ -280,10 +280,8 @@ class _EventoModalState extends State<EventoModal> {
                           country ?? '',
                           stateCountry ?? '',
                           raceType ?? '');
-
                       NotificationsService.showSnackbar(
                           '$eventName Actualizado!');
-                      print("Actualizanding ... $id");
                     } else {
                       await eventoProvider.newEvento(
                           phone,
@@ -300,12 +298,10 @@ class _EventoModalState extends State<EventoModal> {
                           stateCountry ?? '',
                           raceType ?? '');
                       NotificationsService.showSnackbar('$eventName Creado!');
-
-                      print("Registranding");
                     }
                   } catch (e) {
-                    NotificationsService.showSnackbarError(
-                        'No se pudo guardar el evento');
+                    print(e);
+                    NotificationsService.showSnackbarError('No se pudo guardar el evento');
                   }
                   Navigator.push(
                     context,

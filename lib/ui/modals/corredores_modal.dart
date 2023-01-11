@@ -59,7 +59,7 @@ class _CorredoresModal extends State<CorredoresModal> {
     municipality = widget.corredore?.municipality ?? '';
     phoneNumber = widget.corredore?.phoneNumber ?? '';
     birthDate = widget.corredore?.birthDate;
-    picture = widget.corredore?.picture ?? '';
+    picture = widget.corredore?.img ?? '';
     sex = widget.corredore?.sex ?? '';
     team = widget.corredore?.team ?? '';
   }

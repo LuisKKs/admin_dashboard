@@ -22,28 +22,22 @@ class CorredoresCarreraDatasource extends DataTableSource {
       DataCell(Text(corredor.race.longName)),
       DataCell(Text(corredor.preRegistration)),
       DataCell(Container(
-        child: TextButton(
-          child: Row(
-            children: [
-              if (corredor.preRegistration.compareTo('Registrado').isEven)
-                Text('Registro aprobado'),
-              if (corredor.preRegistration.compareTo('Pre-registrado').isEven)
-                Text('Aprobar registro'),
-              Icon(Icons.approval_outlined)
-            ],
-          ),
-          onPressed: () async {
-            if (corredor.preRegistration.compareTo('Pre-registrado').isEven) {
-              await Provider.of<CarreraCorredoresProvider>(context,
-                      listen: false)
+        child: Row(
+          children: [
+            if (corredor.preRegistration.compareTo('Registrado').isEven)
+              Text('Registro aprobado'),
+            if (corredor.preRegistration.compareTo('Pre-registrado').isEven)
+              TextButton(
+                child: Text('Aprobar registro'),
+                onPressed: () async {
+                  await Provider.of<CarreraCorredoresProvider>(context,listen: false)
                   .updateCarrCorr(id: corredor.id, status: 'Registrado');
-              Navigator.popAndPushNamed(context,'/dasboard/menu_de_carreras/carrera-corredor/${id}');
-              NotificationsService.showSnackbar('Corredor Registrado!');
-            } else {
-              NotificationsService.showSnackbar(
-                  'Este corredor ya ha sido aprobado');
-            }
-          },
+                  Navigator.popAndPushNamed(context,'/dasboard/menu_de_carreras/carrera-corredor/${id}');
+                  NotificationsService.showSnackbar('Corredor Registrado!');
+                },
+              ),
+            Icon(Icons.approval_outlined)
+          ],
         ),
       )),
       DataCell(Row(

@@ -10,7 +10,7 @@ class Evento {
     required this.dateStart,
     required this.dateFinish,
     required this.eventHour,
-    required this.logo,
+    required this.img,
     required this.organizer,
     required this.email,
     required this.phone,
@@ -26,7 +26,7 @@ class Evento {
   DateTime dateStart;
   DateTime dateFinish;
   String eventHour;
-  String logo;
+  String img;
   String organizer;
   String email;
   String phone;
@@ -46,7 +46,7 @@ class Evento {
         dateStart: DateTime.parse(json["dateStart"]),
         dateFinish: DateTime.parse(json["dateFinish"]),
         eventHour: json["eventHour"],
-        logo: json["logo"],
+        img: json["img"],
         organizer: json["organizer"],
         email: json["email"],
         phone: json["phone"],
@@ -63,7 +63,7 @@ class Evento {
         "dateStart": dateStart.toIso8601String(),
         "dateFinish": dateFinish.toIso8601String(),
         "eventHour": eventHour,
-        "logo": logo,
+        "img": img,
         "organizer": organizer,
         "email": email,
         "phone": phone,

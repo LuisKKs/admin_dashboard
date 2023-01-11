@@ -12,10 +12,8 @@ class EventosProvider extends ChangeNotifier {
     final resp = await EventosApi.httpGet('/evento');
     final eventosResp = EventosResponse.fromMap(resp);
     this.eventos = [...eventosResp.eventos];
-    print(eventosResp);
     notifyListeners();
   }
-
   Future newEvento(
       String phone,
       String shortName,
@@ -48,11 +46,10 @@ class EventosProvider extends ChangeNotifier {
     try {
       final json = await EventosApi.post('/evento', data);
       final newEvento = Evento.fromMap(json);
-
       eventos.add(newEvento);
       notifyListeners();
     } catch (e) {
-      throw 'Error al crear la categoria';
+      print(e);
     }
   }
 
@@ -105,12 +102,9 @@ class EventosProvider extends ChangeNotifier {
   ) async {
     try {
       await EventosApi.delete('/evento/$id', {});
-
       eventos.removeWhere((evento) => evento.id == id);
-
       notifyListeners();
     } catch (e) {
-      print('Error al actualizar evento');
       throw (e);
     }
   }
@@ -119,7 +113,6 @@ class EventosProvider extends ChangeNotifier {
     eventos.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);
-
       return ascending
           ? Comparable.compare(aValue, bValue)
           : Comparable.compare(bValue, aValue);

@@ -1,11 +1,9 @@
-import 'package:admin_dashboard/models/corredor.dart';
-import 'package:admin_dashboard/providers/corredores_provider.dart';
-import 'package:admin_dashboard/ui/modals/corredor_carrera_modal.dart';
-import 'package:admin_dashboard/ui/modals/corredores_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../services/navigation_service.dart';
+import 'package:admin_dashboard/providers/corredores_provider.dart';
+import 'package:admin_dashboard/models/corredor.dart';
+import 'package:admin_dashboard/ui/modals/corredor_carrera_modal.dart';
+import 'package:admin_dashboard/ui/modals/corredores_modal.dart';
 
 class CorredoresDatasource extends DataTableSource {
   final List<Corredore> corredores;
@@ -15,6 +13,7 @@ class CorredoresDatasource extends DataTableSource {
   @override
   DataRow getRow(int index) {
     final corredor = this.corredores[index];
+    //final image; 
 
     return DataRow.byIndex(index: index, cells: [
       DataCell(Text(corredor.name)),
@@ -30,7 +29,14 @@ class CorredoresDatasource extends DataTableSource {
       DataCell(Text(corredor.municipality)),
       DataCell(Text(corredor.phoneNumber)),
       DataCell(Text(corredor.birthDate.toString())),
-      DataCell(Text(corredor.img)),
+      DataCell(Row(
+        children: [
+          if(corredor.img.compareTo('No image given').isEven)
+            Text(corredor.img),
+          if(corredor.img.compareTo('No image given').isOdd)
+            ClipRect(child: FadeInImage.assetNetwork(placeholder: 'loader.gif', image: corredor.img))
+        ],
+      )),
       DataCell(Text(corredor.sex)),
       DataCell(Text(corredor.team)),
       DataCell(IconButton(
